@@ -70,7 +70,11 @@
     <ClInclude Include="Object\Player\Archer.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Monster\BossMonster.h" />
-    <ClInclude Include="Scene\World.h" />
+    <ClInclude Include="Object\Monster\BossMonster.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\World.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
