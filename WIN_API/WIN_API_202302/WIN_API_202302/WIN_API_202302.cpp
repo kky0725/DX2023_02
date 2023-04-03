@@ -14,7 +14,7 @@
 // -> Device Context : 모든 출력을 관리하는 얘
 
 #define MAX_LOADSTRING 100
-const float Pi = 3.1415926535f;
+
 
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
@@ -132,75 +132,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 //
 
-HPEN bluePen;
-HPEN redPen;
-HPEN greenPen;
-struct Vector2
-{
-    Vector2() : x(0.0f), y(0.0f) {}
-    Vector2(float x, float y) : x(x), y(y) {}
-    ~Vector2() {}
+
+struct Vector2;
 
 
-    Vector2 operator-(const Vector2& other) const
-    {
-        Vector2 result;
-        result.x = this->x - other.x;
-        result.y = this->y - other.y;
-
-        return result;
-    }
-
-    float Dot(const Vector2& other) const
-    {
-        float result;
-        result = this->x * other.x + this->y * other.y;
-        return result;
-    }
-
-    float Cross(const Vector2& other) const
-    {
-        float result;
-        result = this->x * other.y - this->y * other.x;
-        return result;
-    }
-
-    float Scala() const
-    {
-        float result;
-        result = abs(sqrt(x * x + y * y));
-        return result;
-    }
-
-    float Distance(const Vector2& other) const
-    {
-        float result;
-        result = (*(this) - other).Scala();
-        return result;
-    }
-
-    float Radian(const Vector2& other) const
-    {
-        float result;
-        result = this->Dot(other) / this->Scala() / other.Scala();
-        result = acos(result);
-        return result;
-    }
-
-
-    float Theta(const Vector2& other) const
-    {
-        float result;
-        result = this->Dot(other) / this->Scala() / other.Scala();
-        result = acos(result) * 180.0f / Pi;
-        return result;
-    }
-
-    float x;
-    float y;
-};
-
-Vector2 mousePos;
+//Vector2 mousePos;
+shared_ptr<Program> program;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -208,10 +145,16 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
     case WM_CREATE:
     {
-        redPen = CreatePen(PS_SOLID,3, RGB(255, 0, 0));
-        greenPen = CreatePen(PS_SOLID,3, RGB(0, 255, 0));
-        bluePen = CreatePen(PS_SOLID,3, RGB(0, 0, 255));
+        program = make_shared<Program>();
+        SetTimer(hWnd, 1, 10, nullptr); //0.1초마다 WM_TIMER 메세지를 보낸다.
+        break;
+    }
 
+    case WM_TIMER:
+    {
+        //Update
+        program->Update();
+        InvalidateRect(hWnd, nullptr, true);
         break;
     }
 
@@ -235,10 +178,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
     case WM_MOUSEMOVE:
         {
-        mousePos.x = static_cast<float>(LOWORD(lParam));
-        mousePos.y = static_cast<float>(HIWORD(lParam));
-        InvalidateRect(hWnd, nullptr, true); // WM_PAINT 메세지를 보내주는 얘
-
+        //mousePos.x = static_cast<float>(LOWORD(lParam));
+        //mousePos.y = static_cast<float>(HIWORD(lParam));
+        //InvalidateRect(hWnd, nullptr, true); // WM_PAINT 메세지를 보내주는 얘
             break;
         }
     case WM_PAINT:
@@ -246,31 +188,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
             // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-
-            // 사각형 그리기
-            SelectObject(hdc, bluePen);
-            float left = mousePos.x - 50;
-            float top = mousePos.y - 50;
-            float right = mousePos.x + 50;
-            float bottom = mousePos.y + 50;
-            Rectangle(hdc, left, top, right, bottom);
-
-            // 원 그리기
-            SelectObject(hdc, greenPen);
-            Ellipse(hdc, 100, 100, 200, 200);
-            
-            // 선 그리기
-            SelectObject(hdc, redPen);
-            MoveToEx(hdc, 0, 0, nullptr); //시작점
-            LineTo(hdc, 200, 200);        //끝점
+            program->Render(hdc);
 
             EndPaint(hWnd, &ps);
         }
         break;
     case WM_DESTROY:
-        DeleteObject(redPen);
-        DeleteObject(greenPen);
-        DeleteObject(bluePen);
         PostQuitMessage(0);
         break;
     default:
