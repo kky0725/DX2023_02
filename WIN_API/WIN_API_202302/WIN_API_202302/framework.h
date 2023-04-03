@@ -26,6 +26,7 @@ using namespace std;
 // Math
 #include "Math/Vector2.h"
 #include "Math/CircleCollider.h"
+#include "Math/RectCollider.h"
 
 // Scene
 #include "Scenes/Scene.h"
