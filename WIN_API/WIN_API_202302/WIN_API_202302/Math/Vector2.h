@@ -1,5 +1,4 @@
 #pragma once
-const float Pi = 3.1415926535f;
 
 class Vector2
 {
@@ -41,7 +40,7 @@ public:
     {
         return (this->x * other.y - this->y * other.x);
     }
-    float Distance() const
+    float Length() const
     {
         return sqrtf(powf(x, 2) + powf(y, 2));
     }
@@ -54,14 +53,14 @@ public:
     }
     void Normallize()
     {
-        this->x /= Distance();
-        this->y /= Distance();
+        this->x /= Length();
+        this->y /= Length();
     }
     Vector2 NormalVector2() const
     {
         Vector2 result;
-        result.x = this->x / Distance();
-        result.y = this->y / Distance();
+        result.x = this->x / Length();
+        result.y = this->y / Length();
 
         return result;
     }

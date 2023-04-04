@@ -161,6 +161,7 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="Math\Vector2.h" />
     <ClInclude Include="WIN_API_202302.h" />
+    <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Math\CircleCollider.cpp" />

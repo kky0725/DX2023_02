@@ -4,7 +4,10 @@
 PaintScene::PaintScene()
 {
 	_circle = make_shared<CircleCollider>(Vector2(300.0f, 300.0f), 50.0f);
-	_rect = make_shared<RectCollider>(Vector2(300.0f, 300.0f), 50.0f, 50.0f);
+	//_circleMouse = make_shared<CircleCollider>(Vector2(0.0f, 0.0f), 70.0f);
+
+	_rect = make_shared<RectCollider>(Vector2(500.0f, 300.0f), Vector2(100.0f, 150.0f));
+	_rectMouse = make_shared<RectCollider>(Vector2(800.0f, 300.0f), Vector2(150.0f, 100.0f));
 }
 
 PaintScene::~PaintScene()
@@ -14,26 +17,26 @@ PaintScene::~PaintScene()
 
 void PaintScene::Update()
 {
-	if (GetAsyncKeyState('A'))
+	//Vector2 lerpResult = LERP(_circleMouse->GetCenter(), mousePos, 0.1f);
+	_rectMouse->SetCenter(mousePos);
+
+	if (_rect->IsCollision(_rectMouse))
 	{
-		//Vector2 movePos = _circle->GetCenter() - Vector2(1, 0);
-		//_circle->SetCenter(movePos);
-		_circle->MoveCenter(Vector2(-1, -1).NormalVector2() * _speed);
-		_rect->MoveCenter(Vector2(-1, -5).NormalVector2() * _speed);
+		_rect->SetRed();
 	}
-	if (GetAsyncKeyState('D'))
+	else
 	{
-		//Vector2 movePos = _circle->GetCenter() + Vector2(1, 0);
-		//_circle->SetCenter(movePos);
-		_circle->MoveCenter(Vector2(1, 1).NormalVector2() * _speed);
-		_rect->MoveCenter(Vector2(1, 5).NormalVector2() * _speed);
+		_rect->SetGreen();
 	}
 
 	_circle->Update();
+	_rect->Update();
 }
 
 void PaintScene::Render(HDC hdc)
 {
 	_circle->Render(hdc);
+	//_circleMouse->Render(hdc);
 	_rect->Render(hdc);
+	_rectMouse->Render(hdc);
 }
