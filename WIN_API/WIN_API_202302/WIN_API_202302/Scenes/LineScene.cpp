@@ -16,9 +16,15 @@ LineScene::~LineScene()
 void LineScene::Update()
 {
 	_lineMouse->_end = mousePos;
+	_lineShadow->_end.x = mousePos.x;
 
+	_lineFloor->SetBlack();
 	_lineFloor->Update();
+
+	_lineMouse->SetBlue();
 	_lineMouse->Update();
+
+	_lineShadow->SetRed();
 	_lineShadow->Update();
 }
 
