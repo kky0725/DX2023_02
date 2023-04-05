@@ -7,7 +7,7 @@ PaintScene::PaintScene()
 	_circleMouse = make_shared<CircleCollider>(Vector2(0.0f, 0.0f), 70.0f);
 
 	_rect = make_shared<RectCollider>(Vector2(500.0f, 300.0f), Vector2(100.0f, 150.0f));
-	//_rectMouse = make_shared<RectCollider>(Vector2(800.0f, 300.0f), Vector2(150.0f, 100.0f));
+	//_rectMouse = make_shared<RectCollider>(Vector2(0.0f, 0.0f), Vector2(150.0f, 100.0f));
 }
 
 PaintScene::~PaintScene()
@@ -17,6 +17,7 @@ PaintScene::~PaintScene()
 
 void PaintScene::Update()
 {
+	Vector2 lerpResult = LERP(_circleMouse->GetCenter(), mousePos, 0.01f);
 	_circleMouse->SetCenter(mousePos);
 	//_rectMouse->SetCenter(mousePos);
 
