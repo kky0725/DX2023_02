@@ -58,7 +58,24 @@ bool RectCollider::IsCollision(Vector2 pos)
 
 bool RectCollider::IsCollision(shared_ptr<CircleCollider> other)
 {
-
+	if (other->GetCenter().x > Left() && other->GetCenter().x < Right())
+	{
+		if (other->GetCenter().y > Top() - other->GetRadius() && other->GetCenter().y < Bottom() + other->GetRadius())
+			return true;
+	}
+	else if (other->GetCenter().y > Top() && other->GetCenter().y < Bottom())
+	{
+		if (other->GetCenter().x > Left() - other->GetRadius() && other->GetCenter().x < Right() + other->GetRadius())
+			return true;
+	}
+	else if((other->GetCenter() - Vector2(Left(), Top())).Length() < other->GetRadius())
+		return true;
+	else if ((other->GetCenter() - Vector2(Right(), Top())).Length() < other->GetRadius())
+		return true;
+	else if ((other->GetCenter() - Vector2(Left(), Bottom())).Length() < other->GetRadius())
+		return true;
+	else if ((other->GetCenter() - Vector2(Right(), Bottom())).Length() < other->GetRadius())
+		return true;
 	return false;
 }
 
@@ -68,6 +85,6 @@ bool RectCollider::IsCollision(shared_ptr<RectCollider> other)
 	float sumHeight = _halfSize.y + other->GetSize().y * 0.5f;
 	float disWidth = abs(_center.x - other->GetCenter().x);
 	float disHeight = abs(_center.y - other->GetCenter().y);
-	return (sumWidth > disWidth) && (sumHeight < disHeight);
+	return (sumWidth > disWidth) && (sumHeight > disHeight);
 }
 
