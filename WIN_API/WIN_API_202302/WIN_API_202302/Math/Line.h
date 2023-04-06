@@ -1,5 +1,5 @@
 #pragma once
-class Line 
+class Line : public enable_shared_from_this<Line>
 {
 public:
 	Line(Vector2 start, Vector2 end);
@@ -12,6 +12,8 @@ public:
 	void SetRed() { _curPenIndex = 1; }
 	void SetBlue() { _curPenIndex = 2; }
 	void SetBlack() { _curPenIndex = 3; }
+
+	float Slope(shared_ptr<Line> line);
 
 	Vector2 GetVector() { return _end - _start; }
 

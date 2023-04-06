@@ -32,6 +32,11 @@ void Line::Render(HDC hdc)
 	LineTo(hdc, _end.x, _end.y);
 }
 
+float Line::Slope(shared_ptr<Line> line)
+{
+	return (line->_end.y - line->_start.y)/(line->_end.x - line->_start.x);
+}
+
 ColResult_Line Line::IsCollision(shared_ptr<Line> other)
 {
 	ColResult_Line result;
@@ -40,7 +45,7 @@ ColResult_Line Line::IsCollision(shared_ptr<Line> other)
 
 	Vector2 a = this->GetVector();
 	Vector2 a1 = other->_start - this->_start;
-	Vector2 a2 = other->_end - this->_end;
+	Vector2 a2 = other->_end - this->_start;
 
 	Vector2 b = other->GetVector();
 	Vector2 b1 = this->_start - other->_start;
@@ -49,10 +54,14 @@ ColResult_Line Line::IsCollision(shared_ptr<Line> other)
 	if (a.IsBetween(a1, a2) && b.IsBetween(b1, b2))
 	{
 		result.isCollision = true;
-		float pointX;
-		float pointY;
-		pointY = (this->_start.x - this->_end.x) / (this->_start.y - this->_end.y);
-		result.contact = { pointX, pointY };
+		//result.contact.y = Slope(other) * (result.contact.x - other->_start.x) + other->_start.y;//a(x-b)+c
+		//result.contact.y = Slope(shared_from_this()) * (result.contact.x - shared_from_this()->_start.x) + shared_from_this()->_start.y;//d(x-e)+f
+		//0 = ax-dx -ab +de + c-f
+		//x = (-ab + de+c-f)(d-a)
+		result.contact.x = (Slope(shared_from_this()) * shared_from_this()->_start.x + other->_start.y - shared_from_this()->_start.y - Slope(other) * other->_start.x) / (Slope(shared_from_this()) - Slope(other));
+		result.contact.y = Slope(other) * (result.contact.x - other->_start.x) + other->_start.y;
+
+		
 		return result;
 	}
 

@@ -20,8 +20,10 @@ void LineScene::Update()
 	Vector2 line_floor = _lineFloor->GetVector();
 	Vector2 line_mouse = _lineMouse->GetVector();
 	Vector2 floor_normal = line_floor.NormalVector2();
+	Vector2 line_shadow = _lineShadow->GetVector();
 	float shadowLength = floor_normal.Dot(line_mouse);
 
+	_lineShadow->_start = _lineShadow->_start + line_shadow.NormalVector2() * (line_shadow.Dot(_lineMouse->_start - _lineShadow->_start) / line_shadow.Length());
 	_lineShadow->_end = _lineShadow->_start + floor_normal * shadowLength;
 
 	_lineFloor->SetBlack();
