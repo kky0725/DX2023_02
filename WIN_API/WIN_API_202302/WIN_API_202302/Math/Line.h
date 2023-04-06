@@ -1,20 +1,27 @@
 #pragma once
-class Line : public Collider
+class Line 
 {
 public:
-	Line(Vector2 start, Vector2 end) : _start(start), _end(end), Collider(Vector2 (0,0)) {}
-	virtual ~Line() {}
+	Line(Vector2 start, Vector2 end);
+	virtual ~Line();
 
 	void Update();
 	void Render(HDC hdc);
 
-	virtual bool IsCollision(Vector2 pos) override;
-	virtual bool IsCollision(shared_ptr<CircleCollider> other) override;
-	virtual bool IsCollision(shared_ptr<RectCollider> other) override;
+	void SetGreen() { _curPenIndex = 0; }
+	void SetRed() { _curPenIndex = 1; }
+	void SetBlue() { _curPenIndex = 2; }
+	void SetBlack() { _curPenIndex = 3; }
+
+	Vector2 GetVector() { return _end - _start; }
+
+	ColResult_Line IsCollision(shared_ptr<Line> other);
 
 public:
 	Vector2 _start;
 	Vector2 _end;
 
+	vector<HPEN> _pens;
+	UINT _curPenIndex = 0;
 };
 

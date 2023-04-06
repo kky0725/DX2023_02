@@ -65,6 +65,8 @@ public:
         return result;
     }
 
+    bool IsBetween(Vector2 v1, Vector2 v2);
+
     float x;
     float y;
 };

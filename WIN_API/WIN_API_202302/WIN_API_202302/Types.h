@@ -1,4 +1,5 @@
 #pragma once
+#include "Math/Vector2.h"
 
 // Types
 #define PI 3.141592
@@ -15,3 +16,9 @@
 #define BLACK RGB(0,0,0)
 
 #define LERP(s,e,t) s + (e - s)*t
+
+struct ColResult_Line
+{
+	bool isCollision;
+	Vector2 contact;
+};
