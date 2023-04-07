@@ -32,11 +32,6 @@ void Line::Render(HDC hdc)
 	LineTo(hdc, _end.x, _end.y);
 }
 
-float Line::Slope(shared_ptr<Line> line)
-{
-	return (line->_end.y - line->_start.y)/(line->_end.x - line->_start.x);
-}
-
 ColResult_Line Line::IsCollision(shared_ptr<Line> other)
 {
 	ColResult_Line result;
@@ -54,13 +49,14 @@ ColResult_Line Line::IsCollision(shared_ptr<Line> other)
 	if (a.IsBetween(a1, a2) && b.IsBetween(b1, b2))
 	{
 		result.isCollision = true;
-		//result.contact.y = Slope(other) * (result.contact.x - other->_start.x) + other->_start.y;//a(x-b)+c
-		//result.contact.y = Slope(shared_from_this()) * (result.contact.x - shared_from_this()->_start.x) + shared_from_this()->_start.y;//d(x-e)+f
-		//0 = ax-dx -ab +de + c-f
-		//x = (-ab + de+c-f)(d-a)
-		result.contact.x = (Slope(shared_from_this()) * shared_from_this()->_start.x + other->_start.y - shared_from_this()->_start.y - Slope(other) * other->_start.x) / (Slope(shared_from_this()) - Slope(other));
-		result.contact.y = Slope(other) * (result.contact.x - other->_start.x) + other->_start.y;
+		float aArea = abs(a.Cross(a1));
+		float bArea = abs(a.Cross(a2));
 
+		float ratio = aArea / (aArea + bArea);
+
+		float length = b.Length() * ratio;
+		Vector2 bNormal = b.NormalVector2();
+		result.contact = other->_start + bNormal * length;
 		
 		return result;
 	}

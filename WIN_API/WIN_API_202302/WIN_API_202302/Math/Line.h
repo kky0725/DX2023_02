@@ -13,8 +13,6 @@ public:
 	void SetBlue() { _curPenIndex = 2; }
 	void SetBlack() { _curPenIndex = 3; }
 
-	float Slope(shared_ptr<Line> line);
-
 	Vector2 GetVector() { return _end - _start; }
 
 	ColResult_Line IsCollision(shared_ptr<Line> other);
