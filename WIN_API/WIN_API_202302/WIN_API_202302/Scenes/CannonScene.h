@@ -9,6 +9,7 @@ public:
 	virtual void Render(HDC hdc) override;
 
 private:
-	shared_ptr<Cannon> _cannon;
+	shared_ptr<Cannon> _cannon1;
+	shared_ptr<Cannon2> _cannon2;
 };
 

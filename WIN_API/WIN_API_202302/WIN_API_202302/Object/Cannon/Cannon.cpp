@@ -19,6 +19,8 @@ Cannon::~Cannon()
 
 void Cannon::Update()
 {
+	if (_hp < 1)
+		return ;
 	Move();
 	Angle();
 	Fire();
@@ -34,6 +36,8 @@ void Cannon::Update()
 
 void Cannon::Render(HDC hdc)
 {
+	if (_hp < 1)
+		return;
 	_muzzle->Render(hdc);
 	_body->Render(hdc);
 	for (auto& bullet : _bullets)
