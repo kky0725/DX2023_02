@@ -33,7 +33,7 @@ void Cannon2::Angle()
 
 void Cannon2::Fire()
 {
-	if (GetAsyncKeyState(VK_SHIFT))
+	if (GetAsyncKeyState(VK_SHIFT) & 0x0001)
 	{
 		auto iter = std::find_if(_bullets.begin(), _bullets.end(),
 			[](const shared_ptr<Bullet>& bullet)-> bool
