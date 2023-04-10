@@ -12,10 +12,13 @@ Cannon::Cannon(Vector2 pos)
 		shared_ptr<Bullet> bullet = make_shared<Bullet>();
 		_bullets.push_back(bullet);
 	}
+
+	_brush = CreateSolidBrush(BLUE);
 }
 
 Cannon::~Cannon()
 {
+	DeleteObject(_brush);
 }
 
 void Cannon::Update()
@@ -44,7 +47,10 @@ void Cannon::Render(HDC hdc)
 {
 	if (!_isActive)
 		return;
+
 	_muzzle->Render(hdc);
+
+	SelectObject(hdc, _brush);
 	_body->Render(hdc);
 	for (auto& bullet : _bullets)
 	{

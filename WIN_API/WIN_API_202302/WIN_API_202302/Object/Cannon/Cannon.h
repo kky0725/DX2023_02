@@ -38,6 +38,8 @@ protected:
 
 	weak_ptr<Cannon> _target;
 
+	HBRUSH _brush;
+
 	int _hp = 100;
 };
 
