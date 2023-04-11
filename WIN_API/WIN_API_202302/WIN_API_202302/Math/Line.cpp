@@ -26,7 +26,7 @@ void Line::Update()
 
 void Line::Render(HDC hdc)
 {
-	SelectObject(hdc, _pens[_curPenIndex]);
+	//SelectObject(hdc, _pens[_curPenIndex]);
 
 	MoveToEx(hdc, _start.x, _start.y, nullptr);
 	LineTo(hdc, _end.x, _end.y);

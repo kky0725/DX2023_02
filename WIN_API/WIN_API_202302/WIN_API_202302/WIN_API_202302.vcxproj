@@ -151,6 +151,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Maze\Maze.h" />
+    <ClInclude Include="Object\Maze\MazeBlock.h" />
+    <ClInclude Include="Scenes\MazeScene.h" />
     <ClInclude Include="Object\Cannon\Cannon2.h" />
     <ClInclude Include="Object\Cannon\Bullet.h" />
     <ClInclude Include="Object\Cannon\Cannon.h" />
@@ -172,6 +175,9 @@
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Maze\Maze.cpp" />
+    <ClCompile Include="Object\Maze\MazeBlock.cpp" />
+    <ClCompile Include="Scenes\MazeScene.cpp" />
     <ClCompile Include="Object\Cannon\Cannon2.cpp" />
     <ClCompile Include="Object\Cannon\Bullet.cpp" />
     <ClCompile Include="Object\Cannon\Cannon.cpp" />
