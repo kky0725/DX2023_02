@@ -3,13 +3,13 @@
 
 Maze::Maze()
 {
-	_blocks.reserve(_poolCoutY);
+	_blocks.reserve(_poolCountY);
 	Vector2 offset = { 400, 150 };
-	for (int y = 0; y < _poolCoutY; y++)
+	for (int y = 0; y < _poolCountY; y++)
 	{
 		vector<shared_ptr<MazeBlock>> blocksX;
-		blocksX.reserve(_poolCoutX);
-		for (int x = 0; x < _poolCoutX; x++)
+		blocksX.reserve(_poolCountX);
+		for (int x = 0; x < _poolCountX; x++)
 		{
 			shared_ptr<MazeBlock> block = make_shared<MazeBlock>();
 			block->SetType(MazeBlock::BlockType::DISABLE);
@@ -21,6 +21,9 @@ Maze::Maze()
 	}
 
 	CreateMaze();
+
+	_blocks[1][1]->SetType(MazeBlock::BlockType::START);
+	_blocks[_poolCountY - 2][_poolCountX - 2]->SetType(MazeBlock::BlockType::END);
 }
 
 Maze::~Maze()
@@ -48,9 +51,9 @@ void Maze::Render(HDC hdc)
 // Maze for Programmers
 void Maze::CreateMaze()
 {
-	for (int y = 0; y < _poolCoutY; y++)
+	for (int y = 0; y < _poolCountY; y++)
 	{
-		for (int x = 0; x < _poolCoutX; x++)
+		for (int x = 0; x < _poolCountX; x++)
 		{
 			if (x % 2 == 0 || y % 2 == 0)
 				_blocks[y][x]->SetType(MazeBlock::BlockType::DISABLE);
@@ -60,24 +63,24 @@ void Maze::CreateMaze()
 	}
 
 	//랜덤하게 오른쪽 또는 아래쪽으로 길을 뚫는 작업.
-	for (int y = 0; y < _poolCoutY; y++)
+	for (int y = 0; y < _poolCountY; y++)
 	{
-		for (int x = 0; x < _poolCoutX; x++)
+		for (int x = 0; x < _poolCountX; x++)
 		{
 			if (x % 2 == 0 || y % 2 == 0)
 				continue;
 
-			if (x == _poolCoutX - 2 && y == _poolCoutY - 2)
+			if (x == _poolCountX - 2 && y == _poolCountY - 2)
 				continue;
 
 			// 랜덤으로 우측 혹은 아래로만 뚫었을 때 길이 안생기는 것 예외 처리
-			if (y == _poolCoutY - 2)
+			if (y == _poolCountY - 2)
 			{
 				_blocks[y][x + 1]->SetType(MazeBlock::BlockType::ABLE);
 				continue;
 			}
 
-			if (x == _poolCoutX - 2)
+			if (x == _poolCountX - 2)
 			{
 				_blocks[y+1][x]->SetType(MazeBlock::BlockType::ABLE);
 				continue;
@@ -90,4 +93,14 @@ void Maze::CreateMaze()
 				_blocks[y + 1][x]->SetType(MazeBlock::BlockType::ABLE);
 		}
 	}
+}
+
+MazeBlock::BlockType Maze::GetBlockType(int y, int x)
+{
+	if (y < 0 || y > _poolCountY)
+		return MazeBlock::BlockType::NONE;
+	if (x < 0 || x > _poolCountX)
+		return MazeBlock::BlockType::NONE;
+
+	return _blocks[y][x]->GetType();
 }

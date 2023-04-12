@@ -27,3 +27,13 @@ struct ColResult_Line
 };
 
 static bool isDebugMode = false;
+
+enum Dir
+{
+	DIR_UP,
+	DIR_RIGHT,
+	DIR_DOWN,
+	DIR_LEFT,
+
+	DIR_COUNT = 4
+};

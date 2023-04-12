@@ -41,6 +41,8 @@ public:
     {
         return (this->x * other.y - this->y * other.x);
     }
+    bool operator==(const Vector2& other);
+    bool operator!=(const Vector2& other);
     float Length() const
     {
         return sqrtf(powf(x, 2) + powf(y, 2));
