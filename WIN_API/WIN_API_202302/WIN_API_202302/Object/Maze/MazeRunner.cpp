@@ -18,6 +18,7 @@ void MazeRunner::Update()
 
 	_time += 0.3f;
 
+	
 	if (_time > 1.0f)
 	{
 		_time = 0.0f;
@@ -27,6 +28,12 @@ void MazeRunner::Update()
 	}
 
 	_maze.lock()->GetBlock((int)_pos.y, (int)_pos.x)->SetType(MazeBlock::BlockType::PLAYER);
+	if (_pathIndex >= 2)
+	{
+		Vector2 oldpos;
+		oldpos = _path[_pathIndex - 2];
+		_maze.lock()->GetBlock((int)oldpos.y, (int)oldpos.x)->SetType(MazeBlock::BlockType::FOOTPRINT);
+	}
 }
 
 void MazeRunner::LeftHand()

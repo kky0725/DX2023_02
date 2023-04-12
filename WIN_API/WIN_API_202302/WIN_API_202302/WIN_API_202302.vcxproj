@@ -151,6 +151,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Arkanoid\ArkaBlock.h" />
+    <ClInclude Include="Object\Arkanoid\ArkaBall.h" />
+    <ClInclude Include="Object\Arkanoid\ArkaBar.h" />
+    <ClInclude Include="Object\Arkanoid\ArkaStage.h" />
+    <ClInclude Include="Scenes\ArkanoidScene.h" />
     <ClInclude Include="Object\Maze\MazeRunner.h" />
     <ClInclude Include="Object\Maze\Maze.h" />
     <ClInclude Include="Object\Maze\MazeBlock.h" />
@@ -176,6 +181,11 @@
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Arkanoid\ArkaBlock.cpp" />
+    <ClCompile Include="Object\Arkanoid\ArkaBall.cpp" />
+    <ClCompile Include="Object\Arkanoid\ArkaBar.cpp" />
+    <ClCompile Include="Object\Arkanoid\ArkaStage.cpp" />
+    <ClCompile Include="Scenes\ArkanoidScene.cpp" />
     <ClCompile Include="Object\Maze\MazeRunner.cpp" />
     <ClCompile Include="Object\Maze\Maze.cpp" />
     <ClCompile Include="Object\Maze\MazeBlock.cpp" />

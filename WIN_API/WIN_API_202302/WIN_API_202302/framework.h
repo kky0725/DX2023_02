@@ -42,6 +42,11 @@ using namespace std;
 #include "Object/Maze/Maze.h"
 #include "Object/Maze/MazeRunner.h"
 
+#include "Object/Arkanoid/ArkaBlock.h"
+#include "Object/Arkanoid/ArkaStage.h"
+#include "Object/Arkanoid/ArkaBar.h"
+#include "Object/Arkanoid/ArkaBall.h"
+
 // Scene
 #include "Scenes/Scene.h"
 

@@ -10,6 +10,12 @@
 #define CENTER_X 640
 #define CENTER_Y 360
 
+#define FRAME_WIDTH 520
+#define FRAME_HEIGHT 640
+#define ARKA_BLOCK_WIDTH 40
+#define ARKA_BLOCK_HEIGHT 20
+
+
 #define WHITE	RGB(255,255,255)
 #define RED		RGB(255,0,0)
 #define GREEN	RGB(0,255,0)
@@ -17,6 +23,7 @@
 #define BLACK	RGB(0,0,0)
 #define YELLOW	RGB(255,255,0)
 #define CYAN	RGB(0,255,255)
+#define GRAY	RGB(128,128,128)
 
 #define LERP(s,e,t) s + (e - s)*t
 
