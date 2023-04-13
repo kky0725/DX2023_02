@@ -33,8 +33,6 @@ struct ColResult_Line
 	Vector2 contact;
 };
 
-static bool isDebugMode = false;
-
 enum Dir
 {
 	DIR_UP,

@@ -1,13 +1,17 @@
 #include "framework.h"
 #include "Collider.h"
 
+bool Collider::_isDebugMode = false;
 Collider::Collider(Vector2 center)
 	: _center(center)
 {
-	HPEN green = CreatePen(PS_SOLID, 3, GREEN);
-	HPEN red = CreatePen(PS_SOLID, 3, RED);
-	HPEN blue = CreatePen(PS_SOLID, 3, BLUE);
-	HPEN black = CreatePen(PS_SOLID, 3, BLACK);
+	HPEN none = CreatePen(PS_SOLID, 0, BLACK);
+	HPEN green = CreatePen(PS_SOLID, 1, GREEN);
+	HPEN red = CreatePen(PS_SOLID, 1, RED);
+	HPEN blue = CreatePen(PS_SOLID, 1, BLUE);
+	HPEN black = CreatePen(PS_SOLID, 1, BLACK);
+
+	_pens.push_back(none);
 	_pens.push_back(green);
 	_pens.push_back(red);
 	_pens.push_back(blue);

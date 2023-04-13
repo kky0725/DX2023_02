@@ -28,7 +28,6 @@ ArkaStage::ArkaStage()
 ArkaStage::~ArkaStage()
 {
 	DeleteObject(_backGround);
-
 }
 
 void ArkaStage::Update()
@@ -42,6 +41,7 @@ void ArkaStage::Update()
 				block->Update();
 		}
 	}
+	
 }
 
 void ArkaStage::Render(HDC hdc)
