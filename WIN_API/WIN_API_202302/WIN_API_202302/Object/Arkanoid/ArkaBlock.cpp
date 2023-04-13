@@ -30,6 +30,6 @@ void ArkaBlock::Update()
 
 void ArkaBlock::Render(HDC hdc)
 {
-	SelectObject(hdc, _brushes[1]);
-	_rect->Render(hdc);
+		SelectObject(hdc, _brushes[1]);
+		_rect->Render(hdc);
 }

@@ -9,8 +9,7 @@ public:
 	virtual void Render(HDC hdc) override;
 
 private:
-	shared_ptr<ArkaBar> _bar;
-	shared_ptr<ArkaBall> _ball;
+	shared_ptr<ArkaPlayer> _player;
 	shared_ptr<ArkaStage> _stage;
 };
 

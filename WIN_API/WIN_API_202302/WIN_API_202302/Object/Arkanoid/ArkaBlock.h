@@ -20,6 +20,7 @@ public:
 	void SetFloor(FloorColor floor) { _floor = floor; }
 	FloorColor GetFloor() { return _floor; }
 	void SetPosition(Vector2 pos) { _rect->SetCenter(pos); }
+	shared_ptr<Collider> GetCollider() { return _rect; }
 
 	bool IsActive() { return _isActive; }
 	void SetActive(bool value) { _isActive = value; }

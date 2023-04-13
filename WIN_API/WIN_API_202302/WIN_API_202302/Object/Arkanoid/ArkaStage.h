@@ -10,6 +10,7 @@ public:
 	void Update();
 	void Render(HDC hdc);
 
+	vector<vector<shared_ptr<ArkaBlock>>> GetBlocks() { return _blocks; }
 
 private:
 	vector<vector<shared_ptr<ArkaBlock>>> _blocks;
@@ -17,8 +18,6 @@ private:
 	UINT _poolCountY = 4;
 
 	shared_ptr<Collider> _frame;
-	shared_ptr<Line> _deathzone;
-
 	HBRUSH _backGround;
 };
 

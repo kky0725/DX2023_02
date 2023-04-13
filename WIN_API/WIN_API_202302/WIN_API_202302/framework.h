@@ -46,8 +46,8 @@ using namespace std;
 
 #include "Object/Arkanoid/ArkaBlock.h"
 #include "Object/Arkanoid/ArkaStage.h"
-#include "Object/Arkanoid/ArkaBar.h"
 #include "Object/Arkanoid/ArkaBall.h"
+#include "Object/Arkanoid/ArkaPlayer.h"
 
 // Scene
 #include "Scenes/Scene.h"

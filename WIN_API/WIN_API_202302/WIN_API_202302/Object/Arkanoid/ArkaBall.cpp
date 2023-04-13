@@ -3,7 +3,7 @@
 
 ArkaBall::ArkaBall()
 {
-	_ball = make_shared<CircleCollider>(Vector2(700, 500), 5);
+	_circle = make_shared<CircleCollider>(Vector2(700, 500), _radius);
 }
 
 ArkaBall::~ArkaBall()
@@ -13,17 +13,17 @@ ArkaBall::~ArkaBall()
 void ArkaBall::Update()
 {
 
-	_ball->MoveCenter(_direction * _speed);
+	_circle->MoveCenter(_direction * _speed);
 
-	if (_ball->GetCenter().y < (WIN_HEIGHT - FRAME_HEIGHT) * 0.5f + 15 || _ball->GetCenter().y > (WIN_HEIGHT+FRAME_HEIGHT) * 0.5f + 15)
+	if (_circle->GetCenter().y < (WIN_HEIGHT - FRAME_HEIGHT) * 0.5f - 15 + _radius /*|| _circle->GetCenter().y > (WIN_HEIGHT+FRAME_HEIGHT) * 0.5f - 15 - _radius*/)
 		_direction.y *= -1;
-	if (_ball->GetCenter().x < (WIN_WIDTH + FRAME_WIDTH) * 0.5f || _ball->GetCenter().x > (WIN_WIDTH + FRAME_WIDTH) * 0.5f)
+	if (_circle->GetCenter().x < (WIN_WIDTH - FRAME_WIDTH) * 0.5f + _radius || _circle->GetCenter().x > (WIN_WIDTH + FRAME_WIDTH) * 0.5f - _radius)
 		_direction.x *= -1;
 
-	_ball->Update();
+	_circle->Update();
 }
 
 void ArkaBall::Render(HDC hdc)
 {
-	_ball->Render(hdc);
+	_circle->Render(hdc);
 }

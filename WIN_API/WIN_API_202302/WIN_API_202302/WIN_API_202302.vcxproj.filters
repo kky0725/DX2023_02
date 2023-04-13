@@ -93,7 +93,7 @@
     <ClInclude Include="Object\Arkanoid\ArkaBall.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Object\Arkanoid\ArkaBar.h">
+    <ClInclude Include="Object\Arkanoid\ArkaPlayer.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Object\Arkanoid\ArkaBlock.h">
@@ -170,7 +170,7 @@
     <ClCompile Include="Object\Arkanoid\ArkaBall.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Object\Arkanoid\ArkaBar.cpp">
+    <ClCompile Include="Object\Arkanoid\ArkaPlayer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Object\Arkanoid\ArkaBlock.cpp">
