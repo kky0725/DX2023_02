@@ -21,7 +21,7 @@ private:
 	bool _canShoot = true;
 	float _barWidth = 60;
 	float _barHeight = 15;
-	float _speed = 3.0f;
+	float _speed = 5.0f;
 
 	int _life = 3;
 	shared_ptr<Collider> _rect;

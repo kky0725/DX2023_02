@@ -23,15 +23,15 @@ void ArkanoidScene::Update()
 			shared_ptr<CircleCollider> playerCollider = dynamic_pointer_cast<CircleCollider>(_player->GetBall()->GetCollider());
 			if (block->GetCollider()->IsCollision(playerCollider) && block->IsActive())
 			{
-				if ((playerCollider->GetCenter().x < dynamic_pointer_cast<RectCollider>(block->GetCollider())->Left() - playerCollider->GetRadius() ||
-					playerCollider->GetCenter().x > dynamic_pointer_cast<RectCollider>(block->GetCollider())->Right()) + playerCollider->GetRadius())
+				if (playerCollider->GetCenter().y < dynamic_pointer_cast<RectCollider>(block->GetCollider())->Top() ||
+					playerCollider->GetCenter().y > dynamic_pointer_cast<RectCollider>(block->GetCollider())->Bottom())
 				{
-					_player->GetBall()->ReflectX();
+					_player->GetBall()->ReflectY();
 					block->SetActive(false);
 				}
 				else
 				{
-					_player->GetBall()->ReflectY();
+					_player->GetBall()->ReflectX();
 					block->SetActive(false);
 				}
 				

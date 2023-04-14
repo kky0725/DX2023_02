@@ -38,7 +38,7 @@ private:
 	_Container v;
 };
 
-int main()
+int Queue()
 {
 	MyQueue<int> q;
 	q.push(5);
