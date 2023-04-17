@@ -4,7 +4,12 @@
 MazeRunner::MazeRunner(shared_ptr<Maze> maze)
 	: _maze(maze), _pos(maze->Start())
 {
-	LeftHand();
+	// LeftHand();
+	//_visited = vector<vector<bool>>(maze->GetY(), vector<bool>(maze->GetX(), false));
+	//DFS(_pos);
+	_discovered = vector<vector<bool>>(maze->GetY(), vector<bool>(maze->GetX(), false));
+	_parent = vector<vector<Vector2>>(maze->GetY(), vector<Vector2>(maze->GetX(), { -1,-1 }));
+	BFS(_pos);
 }
 
 MazeRunner::~MazeRunner()
@@ -102,6 +107,89 @@ void MazeRunner::LeftHand()
 	}
 
 	std::reverse(_path.begin(), _path.end());
+}
+
+void MazeRunner::DFS(Vector2 here)
+{
+	if (_visited[(int)here.y][(int)here.x] == true)
+		return;
+
+	Vector2 endPos = _maze.lock()->End();
+	if (_visited[endPos.y][endPos.x])
+		return;
+
+	_visited[(int)here.y][(int)here.x] = true;
+	_path.push_back(here);
+
+
+	Vector2 frontPos[4] =
+	{
+		Vector2(0,-1),// UP
+		Vector2(1,0), // RIGHT
+		Vector2(0,1), // DOWN
+		Vector2(-1,0) // LEFT
+	};
+
+	for (int i = 0; i < 4; i++)
+	{
+		Vector2 there = here + frontPos[i];
+
+		if (_visited[there.y][there.x])
+			continue;
+
+		if (CanGo(there.y, there.x) == false)
+			continue;
+
+		DFS(there);
+	}
+
+}
+
+void MazeRunner::BFS(Vector2 start)
+{
+	Vector2 endPos = _maze.lock()->End();
+
+	queue<Vector2> queue;
+	_parent[(int)start.y][(int)start.x] = start;
+	_discovered[(int)start.y][(int)start.x] = true;
+	queue.push(start);
+
+	Vector2 frontPos[4] =
+	{
+		Vector2(0,-1),// UP
+		Vector2(1,0), // RIGHT
+		Vector2(0,1), // DOWN
+		Vector2(-1,0) // LEFT
+	};
+
+	while (!queue.empty())
+	{
+		Vector2 here = queue.front();
+		queue.pop();
+		for (int i = 0; i < 4; i++)
+		{
+			Vector2 there = start + frontPos[i];
+
+			if (!_discovered[there.y][there.x])
+				continue;
+
+			if (CanGo(there.y, there.x) == false)
+				continue;
+
+			queue.push(there);
+			_discovered[there.y][there.x] = true;
+			_parent[there.y][there.x] = here;
+		}
+	}
+
+	while (true)
+	{
+		Vector2 targetNode = endPos;
+		if (_parent[targetNode.y][targetNode.x] == targetNode)
+			break;
+		targetNode = _parent[targetNode.y][targetNode.x];
+
+	}
 }
 
 bool MazeRunner::CanGo(int y, int x)
