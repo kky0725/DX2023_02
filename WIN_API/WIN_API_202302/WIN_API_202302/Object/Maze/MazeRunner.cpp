@@ -4,7 +4,7 @@
 MazeRunner::MazeRunner(shared_ptr<Maze> maze)
 	: _maze(maze), _pos(maze->Start())
 {
-	// LeftHand();
+	 //LeftHand();
 	//_visited = vector<vector<bool>>(maze->GetY(), vector<bool>(maze->GetX(), false));
 	//DFS(_pos);
 	_discovered = vector<vector<bool>>(maze->GetY(), vector<bool>(maze->GetX(), false));
@@ -166,11 +166,13 @@ void MazeRunner::BFS(Vector2 start)
 	{
 		Vector2 here = queue.front();
 		queue.pop();
+		if (_discovered[endPos.y][endPos.x])
+			break;
 		for (int i = 0; i < 4; i++)
 		{
-			Vector2 there = start + frontPos[i];
+			Vector2 there = here + frontPos[i];
 
-			if (!_discovered[there.y][there.x])
+			if (_discovered[there.y][there.x])
 				continue;
 
 			if (CanGo(there.y, there.x) == false)
@@ -182,13 +184,21 @@ void MazeRunner::BFS(Vector2 start)
 		}
 	}
 
+	stack<Vector2> path;
+	Vector2 targetNode = endPos;
+	path.push(endPos);
 	while (true)
 	{
-		Vector2 targetNode = endPos;
 		if (_parent[targetNode.y][targetNode.x] == targetNode)
 			break;
 		targetNode = _parent[targetNode.y][targetNode.x];
+		path.push(targetNode);
+	}
 
+	while(!path.empty())
+	{
+		_path.push_back(path.top());
+		path.pop();
 	}
 }
 
