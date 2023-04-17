@@ -14,7 +14,6 @@ ArkaStage::ArkaStage()
 		for (int x = 0; x < _poolCountX; x++)
 		{
 			shared_ptr<ArkaBlock> block = make_shared<ArkaBlock>();
-			//block->SetFloor(); //층별로 색깔을 다르게 하기 위한 코드 추가 예정.
 			Vector2 distance = { ARKA_BLOCK_WIDTH * x,ARKA_BLOCK_HEIGHT * y };
 			block->SetPosition(offset + distance);
 			blocksX.push_back(block);

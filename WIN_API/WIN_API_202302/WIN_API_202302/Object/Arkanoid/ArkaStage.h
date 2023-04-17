@@ -2,8 +2,6 @@
 class ArkaStage
 {
 public:
-
-
 	ArkaStage();
 	~ArkaStage();
 

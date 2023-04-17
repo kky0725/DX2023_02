@@ -17,6 +17,7 @@ using namespace std;
 
 vector<vector<bool>> adjacent2;
 vector<bool> visited;
+queue<int> visitedQ;
 
 void CreateGraphByMatrix()
 {
@@ -87,11 +88,41 @@ int DfsAll()
 	return count;
 }
 
+void BFS(int start)
+{
+	if (visited[start])
+		return;
+
+	visitedQ.push(start);
+	visited[start] = true;
+	
+	while (!visitedQ.empty())
+	{
+		int here = visitedQ.front();
+		cout << here << "를 방문 했습니다." << endl;
+		visitedQ.pop();
+		for (int there = 0; there < adjacent2.size(); there++)
+		{
+			if (here == there)
+				continue;
+
+			if (!adjacent2[here][there])
+				continue;
+
+			if (visited[there])
+				continue;
+
+			visitedQ.push(there);
+			visited[there] = true;
+		}
+	}
+}
+
 int main()
 {
 	CreateGraphByMatrix();
-	int count = DfsAll();
-
+	//int count = DfsAll();
+	BFS(0);
 
 	return 0;
 }
