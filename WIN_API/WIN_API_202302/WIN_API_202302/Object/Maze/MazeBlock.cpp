@@ -12,8 +12,9 @@ MazeBlock::MazeBlock()
 	HBRUSH end = CreateSolidBrush(BLUE);
 	HBRUSH player = CreateSolidBrush(WHITE);
 	HBRUSH footprint = CreateSolidBrush(GRAY);
+	HBRUSH visited = CreateSolidBrush(GRAY2);
 
-	_brushes.reserve(7);
+	_brushes.reserve(8);
 	_brushes.push_back(none);
 	_brushes.push_back(able);
 	_brushes.push_back(disable);
@@ -21,6 +22,7 @@ MazeBlock::MazeBlock()
 	_brushes.push_back(end);
 	_brushes.push_back(player);
 	_brushes.push_back(footprint);
+	_brushes.push_back(visited);
 }
 
 MazeBlock::~MazeBlock()

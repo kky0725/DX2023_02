@@ -4,12 +4,12 @@
 MazeRunner::MazeRunner(shared_ptr<Maze> maze)
 	: _maze(maze), _pos(maze->Start())
 {
-	 //LeftHand();
+	LeftHand();
 	//_visited = vector<vector<bool>>(maze->GetY(), vector<bool>(maze->GetX(), false));
 	//DFS(_pos);
-	_discovered = vector<vector<bool>>(maze->GetY(), vector<bool>(maze->GetX(), false));
-	_parent = vector<vector<Vector2>>(maze->GetY(), vector<Vector2>(maze->GetX(), { -1,-1 }));
-	BFS(_pos);
+	//_discovered = vector<vector<bool>>(maze->GetY(), vector<bool>(maze->GetX(), false));
+	//_parent = vector<vector<Vector2>>(maze->GetY(), vector<Vector2>(maze->GetX(), { -1,-1 }));
+	//BFS(_pos);
 }
 
 MazeRunner::~MazeRunner()
@@ -70,12 +70,14 @@ void MazeRunner::LeftHand()
 		{
 			_direction = static_cast<Dir>(newDir);
 			pos += newDirVector2;
+			_maze.lock()->GetBlock(pos.y, pos.x)->SetType(MazeBlock::BlockType::VISITED);
 			_path.push_back(pos);
 		}
 		// 현재 바라보는 방향으로 전진할 수 있는지 확인
 		else if (CanGo(oldGo.y, oldGo.x))
 		{
 			pos += oldDirVector2;
+			_maze.lock()->GetBlock(pos.y, pos.x)->SetType(MazeBlock::BlockType::VISITED);
 			_path.push_back(pos);
 		}
 
@@ -119,15 +121,20 @@ void MazeRunner::DFS(Vector2 here)
 		return;
 
 	_visited[(int)here.y][(int)here.x] = true;
+	_maze.lock()->GetBlock(here.y, here.x)->SetType(MazeBlock::BlockType::VISITED);
 	_path.push_back(here);
 
 
-	Vector2 frontPos[4] =
+	Vector2 frontPos[8] =
 	{
-		Vector2(0,-1),// UP
-		Vector2(1,0), // RIGHT
-		Vector2(0,1), // DOWN
-		Vector2(-1,0) // LEFT
+		Vector2(0,-1),// Up
+		Vector2(1,0), // Right
+		Vector2(0,1), // Down
+		Vector2(-1,0), // Left
+		Vector2(1,-1), // RightUp
+		Vector2(1,1), // RightDown
+		Vector2(-1,-1), // LeftUp
+		Vector2(-1,1) // LeftDown
 	};
 
 	for (int i = 0; i < 4; i++)
@@ -149,10 +156,10 @@ void MazeRunner::BFS(Vector2 start)
 {
 	Vector2 endPos = _maze.lock()->End();
 
-	queue<Vector2> queue;
+	queue<Vector2> q;
 	_parent[(int)start.y][(int)start.x] = start;
 	_discovered[(int)start.y][(int)start.x] = true;
-	queue.push(start);
+	q.push(start);
 
 	Vector2 frontPos[4] =
 	{
@@ -162,10 +169,10 @@ void MazeRunner::BFS(Vector2 start)
 		Vector2(-1,0) // LEFT
 	};
 
-	while (!queue.empty())
+	while (!q.empty())
 	{
-		Vector2 here = queue.front();
-		queue.pop();
+		Vector2 here = q.front();
+		q.pop();
 		if (_discovered[endPos.y][endPos.x])
 			break;
 		for (int i = 0; i < 4; i++)
@@ -178,9 +185,10 @@ void MazeRunner::BFS(Vector2 start)
 			if (CanGo(there.y, there.x) == false)
 				continue;
 
-			queue.push(there);
+			q.push(there);
 			_discovered[there.y][there.x] = true;
 			_parent[there.y][there.x] = here;
+			_maze.lock()->GetBlock(there.y, there.x)->SetType(MazeBlock::BlockType::VISITED);
 		}
 	}
 

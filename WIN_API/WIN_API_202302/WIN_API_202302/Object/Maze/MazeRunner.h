@@ -24,7 +24,9 @@ private:
 	float _time = 0.0f;
 
 	vector<vector<bool>> _visited;
+
 	vector<vector<bool>> _discovered;
 	vector<vector<Vector2>> _parent;
+	vector<Vector2> _BFSdiscovered;
 };
 
