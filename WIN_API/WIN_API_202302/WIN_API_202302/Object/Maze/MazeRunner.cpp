@@ -5,11 +5,15 @@ MazeRunner::MazeRunner(shared_ptr<Maze> maze)
 	: _maze(maze), _pos(maze->Start())
 {
 	LeftHand();
+
 	//_visited = vector<vector<bool>>(maze->GetY(), vector<bool>(maze->GetX(), false));
 	//DFS(_pos);
+
 	//_discovered = vector<vector<bool>>(maze->GetY(), vector<bool>(maze->GetX(), false));
 	//_parent = vector<vector<Vector2>>(maze->GetY(), vector<Vector2>(maze->GetX(), { -1,-1 }));
 	//BFS(_pos);
+
+
 }
 
 MazeRunner::~MazeRunner()
@@ -208,6 +212,11 @@ void MazeRunner::BFS(Vector2 start)
 		_path.push_back(path.top());
 		path.pop();
 	}
+}
+
+void MazeRunner::Djikstra(Vector2 start)
+{
+
 }
 
 bool MazeRunner::CanGo(int y, int x)
