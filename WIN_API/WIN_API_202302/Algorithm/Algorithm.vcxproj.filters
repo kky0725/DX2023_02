@@ -36,7 +36,7 @@
     <ClCompile Include="PriorityQueue.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Djikstra.cpp">
+    <ClCompile Include="Dijkstra.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

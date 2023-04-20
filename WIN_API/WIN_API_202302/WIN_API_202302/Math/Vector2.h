@@ -54,6 +54,7 @@ public:
 
         return sqrtf(powf(resultX, 2) + powf(resultY, 2));
     }
+    int MahattanDistance(const Vector2& other) const;
     void Normallize()
     {
         this->x /= Length();
