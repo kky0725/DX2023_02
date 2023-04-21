@@ -15,6 +15,9 @@ using namespace std;
 // 그래프의 기원
 // 그래프를 쓰는 이유
 
+// 그래프
+// 노드끼리 서로 관련없이 연결되이 있는 구조를 나타낼 때 네일 적합한 자료구조.
+
 vector<vector<int>> adjacent;
 vector<vector<bool>> adjacent2;
 
