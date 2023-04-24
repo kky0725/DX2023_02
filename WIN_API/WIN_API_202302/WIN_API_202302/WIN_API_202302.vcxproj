@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Math\DisjointSet.h" />
     <ClInclude Include="Object\Arkanoid\ArkaBlock.h" />
     <ClInclude Include="Object\Arkanoid\ArkaBall.h" />
     <ClInclude Include="Object\Arkanoid\ArkaPlayer.h" />
@@ -181,6 +182,7 @@
     <ClInclude Include="Types.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Math\DisjointSet.cpp" />
     <ClCompile Include="Object\Arkanoid\ArkaBlock.cpp" />
     <ClCompile Include="Object\Arkanoid\ArkaBall.cpp" />
     <ClCompile Include="Object\Arkanoid\ArkaPlayer.cpp" />

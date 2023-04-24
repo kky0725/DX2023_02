@@ -32,6 +32,7 @@ using namespace std;
 #include "Math/Vector2.h"
 #include "Math/Collider.h"
 #include "Math/Line.h"
+#include "Math/DisjointSet.h"
 #include "Math/CircleCollider.h"
 #include "Math/RectCollider.h"
 

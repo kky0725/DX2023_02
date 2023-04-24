@@ -22,7 +22,15 @@ MazeRunner::~MazeRunner()
 void MazeRunner::Update()
 {
 	if (_pathIndex >= _path.size())
+	{
+		_maze.lock()->CreateMazeByKruskal();
+		_pos = _maze.lock()->Start();
+		_pathIndex = 0;
+		_path.clear();
+		Astar();
+		_maze.lock()->GetBlock(End.y, end.x)->SetType(MazeBlock::BlockType::END);
 		return;
+	}
 
 	_time += 0.3f;
 
@@ -336,7 +344,10 @@ void MazeRunner::Astar()
 	while (true)
 	{
 		if (pq.empty())
+		{
+			_maze.lock()->GetBlock(endPos.y, endPos.x)->SetType(MazeBlock::BlockType::END);
 			break;
+		}
 
 		Vector2 here = pq.top().pos;
 		int g = pq.top().g;
