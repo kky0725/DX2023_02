@@ -32,6 +32,8 @@ public:
         this->y -= other.y;
         return *this;
     }
+ 
+
 
     float Dot(const Vector2& other) const
     {
@@ -41,8 +43,26 @@ public:
     {
         return (this->x * other.y - this->y * other.x);
     }
-    bool operator==(const Vector2& other);
-    bool operator!=(const Vector2& other);
+    bool operator==(const Vector2& other) const;
+    bool operator!=(const Vector2& other) const;
+    bool operator<(const Vector2& other) const // 프림 알고리즘 용 임시 비교
+    {
+        if (y != other.y)
+        {
+            return y < other.y;
+        }
+
+        return x < other.x;
+    }
+    bool operator>(const Vector2& other) const // 프림 알고리즘 용 임시 비교
+    {
+        if (y != other.y)
+        {
+            return y > other.y;
+        }
+
+        return x > other.x;
+    }
     float Length() const
     {
         return sqrtf(powf(x, 2) + powf(y, 2));
