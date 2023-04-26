@@ -22,7 +22,7 @@ struct Node
 	Node(string data) : data(data) {}
 	~Node() {}
 
-	Node* parent = nullptr;
+	Node* _parent = nullptr;
 	vector<Node*> children;
 
 	string data;
