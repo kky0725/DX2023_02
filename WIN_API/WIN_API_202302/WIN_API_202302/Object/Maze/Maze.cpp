@@ -20,8 +20,9 @@ Maze::Maze()
 		_blocks.push_back(blocksX);
 	}
 
-	//CreateMazeByKruskal();
-	CreateMazeByPrim();
+	//CreateMaze();
+	CreateMazeByKruskal();
+	//CreateMazeByPrim();
 
 
 	_blocks[1][1]->SetType(MazeBlock::BlockType::START);

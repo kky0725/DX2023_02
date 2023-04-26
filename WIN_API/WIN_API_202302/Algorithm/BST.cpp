@@ -87,7 +87,9 @@ void BinarySearchTree::Delete(Node* node)
 	}
 	else
 	{
-		Replace(node, Previous(node));
+		node->_key = Next(node)->_key;
+		Delete(Next(node));
+		return;
 	}
 }
 
