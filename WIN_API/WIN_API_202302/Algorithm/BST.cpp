@@ -70,12 +70,7 @@ void BinarySearchTree::Delete(Node* node)
 	if (node == nullptr)
 		return;
 
-	if (node->_right == nullptr && node->_left == nullptr)
-	{
-		Replace(node, nullptr);
-		return;
-	}
-	else if (node->_right == nullptr)
+	if (node->_right == nullptr)
 	{
 		Replace(node, node->_left);
 		return;
@@ -88,6 +83,7 @@ void BinarySearchTree::Delete(Node* node)
 	else
 	{
 		node->_key = Next(node)->_key;
+		node->_data = Next(node)->_data;
 		Delete(Next(node));
 		return;
 	}
