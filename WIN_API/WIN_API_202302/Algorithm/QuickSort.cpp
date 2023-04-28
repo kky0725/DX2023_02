@@ -21,6 +21,7 @@ int Partition(vector<int>& v, int left, int right)
 	{
 		if (lowIndex > highIndex)
 			break;
+
 		while (lowIndex <= right && pivot >= v[lowIndex])
 		{
 			lowIndex++;
