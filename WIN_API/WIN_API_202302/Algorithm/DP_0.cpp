@@ -11,7 +11,7 @@ using namespace std;
 // ==> 수학에서 최적화 기법으로 나온 알고리즘 디자인 패러다임.
 
 // 캐싱 : 
-int chache[100];
+int cache[100];
 
 // 부분 문제 : 
 // f(n - 1) + f(n - 2)
@@ -34,13 +34,13 @@ int Fibonacci(int n, int& count)
 		++count;
 	
 	// 메모리제이션, 캐싱
-	if (chache[n] != -1)
-		return chache[n];
+	if (cache[n] != -1)
+		return cache[n];
 
 	// 구하기
-	chache[n] = Fibonacci(n - 1, count) + Fibonacci(n - 2, count);
+	cache[n] = Fibonacci(n - 1, count) + Fibonacci(n - 2, count);
 
-	return chache[n];
+	return cache[n];
 }
 
 int nCr(int n, int r)
