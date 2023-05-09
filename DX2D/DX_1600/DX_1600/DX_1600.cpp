@@ -61,15 +61,16 @@ ComPtr<ID3D11RenderTargetView> renderTargetView;
 // 그 외에... 최적화에 필요한 Shader(테셀레이션, Hull, Compute Shader)
 
 ComPtr<ID3D11Buffer> vertexBuffer; // 정점들을 담아놓는 버퍼
-ComPtr<ID3D11VertexShader> vertexShader;
-ComPtr<ID3D11PixelShader> pixelShader;
-ComPtr<ID3D11InputLayout> inputLayout; //어디서 끈어서 읽어야 할지;
+ComPtr<ID3D11VertexShader> vertexShader; // 각 정점에 대응되는 계산식... World, View, Projection
+ComPtr<ID3D11PixelShader> pixelShader; // 면에 해당하는 픽셀 계산식
+ComPtr<ID3D11InputLayout> inputLayout; // 어디서 끊어서 읽어야 할지.. 정보의 배치
 
 HWND hWnd;
 
 struct Vertex
 {
     XMFLOAT3 pos;
+    XMFLOAT4 color;
 };
 
 void InitDevice();
@@ -271,7 +272,7 @@ void InitDevice()
     {
         D3D_FEATURE_LEVEL_11_0,
         D3D_FEATURE_LEVEL_10_1,
-        D3D_FEATURE_LEVEL_10_0,
+        D3D_FEATURE_LEVEL_10_0
     };
 
     UINT featureSize = ARRAYSIZE(featureLevels);
@@ -325,7 +326,11 @@ void InitDevice()
     D3D11_INPUT_ELEMENT_DESC layOut[] =
     {
         {
-            "POSITION", 0 , DXGI_FORMAT_R32G32B32A32_FLOAT,0,0,
+            "POSITION", 0 , DXGI_FORMAT_R32G32B32_FLOAT,0,0,
+            D3D11_INPUT_PER_VERTEX_DATA, 0
+        },
+        {
+            "COLOR", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 0, 12,
             D3D11_INPUT_PER_VERTEX_DATA, 0
         }
     };
@@ -338,11 +343,79 @@ void InitDevice()
 
     D3DCompileFromFile(L"Shader/TutorialShader.hlsl", nullptr, nullptr, "VS", "vs_5_0", flags, 0, vertexBlob.GetAddressOf(), nullptr);
 
+    device->CreateInputLayout(layOut, layoutSize, vertexBlob->GetBufferPointer(), vertexBlob->GetBufferSize(), inputLayout.GetAddressOf());
+
     device->CreateVertexShader(vertexBlob->GetBufferPointer(), vertexBlob->GetBufferSize(), nullptr, vertexShader.GetAddressOf());
+
+    ComPtr<ID3DBlob> pixelBlob;
+    D3DCompileFromFile(L"Shader/TutorialShader.hlsl", nullptr, nullptr, "PS", "ps_5_0", flags, 0, pixelBlob.GetAddressOf(), nullptr);
+
+    device->CreatePixelShader(pixelBlob->GetBufferPointer(), pixelBlob->GetBufferSize(), nullptr, pixelShader.GetAddressOf());
+
+    vector<Vertex> vertices;
+
+    Vertex temp;
+    temp.pos = { XMFLOAT3(-0.5f, 0.5f, 0.0f) };
+    temp.color = { XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) };
+    vertices.push_back(temp);// 왼쪽 위
+
+    temp.pos = { XMFLOAT3(0.5f, 0.5f, 0.0f) };
+    temp.color = { XMFLOAT4(0.7f, 0.6f, 1.0f, 1.0f) };
+    vertices.push_back(temp); // 오른쪽 위
+
+    temp.pos = { XMFLOAT3(0.5f, -0.5f, 0.0f) };
+    temp.color = { XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f) };
+    vertices.push_back(temp);// 오른쪽 아래=> 시계방향// 방향도 중요하다.
+
+
+    temp.pos = { XMFLOAT3(-0.5f, 0.5f, 0.0f) };
+    temp.color = { XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) };
+    vertices.push_back(temp); // 왼쪽 위
+
+    temp.pos = { XMFLOAT3(0.5f, -0.5f, 0.0f) };
+    temp.color = { XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f) };
+    vertices.push_back(temp);// 오른쪽 아래
+
+    temp.pos = { XMFLOAT3(-0.5f, -0.5f, 0.0f) };
+    temp.color = { XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f) };
+    vertices.push_back(temp); // 왼쪽 아래 => 시계방향// 방향도 중요하다.
+
+    D3D11_BUFFER_DESC bd = {};
+    bd.Usage = D3D11_USAGE_DEFAULT;
+    bd.ByteWidth = sizeof(Vertex) * vertices.size();
+    bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
+
+    D3D11_SUBRESOURCE_DATA initData = {};
+    initData.pSysMem = vertices.data();
+
+    device->CreateBuffer(&bd, &initData, vertexBuffer.GetAddressOf());
 
     return;
 }
 
 void Render()
 {
+    FLOAT myColorR = 0.2f;
+    FLOAT myColorG = 0.2f;
+    FLOAT myColorB = 0.2f;
+
+    FLOAT clearColor[4] = { myColorR, myColorG, myColorB, 1.0f }; //4번재는 알파값, 컬러는 기본적으로 4개로 이루어짐, 3원색과 알파값
+
+    deviceContext->ClearRenderTargetView(renderTargetView.Get(), clearColor);
+
+    deviceContext->IASetInputLayout(inputLayout.Get());
+
+    UINT stride = sizeof(Vertex); //한칸당 크기
+    UINT offset = 0;
+
+    deviceContext->IASetVertexBuffers(0, 1, vertexBuffer.GetAddressOf(), &stride, &offset);
+    deviceContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+
+    deviceContext->VSSetShader(vertexShader.Get(), nullptr, 0);
+    deviceContext->PSSetShader(pixelShader.Get(), nullptr, 0);
+
+    deviceContext->Draw(6, 0);
+
+    swapChain->Present(0, 0);
+
 }
