@@ -2,20 +2,22 @@
 class VertexBuffer
 {
 public:
-	VertexBuffer();
+	VertexBuffer(void* data, UINT stride, UINT count, UINT offset);
 	~VertexBuffer();
 
-	void CreateVertices();
 	void CreateVertexBuffer();
 
 	void Set(int slot = 0);
 
 
 private:
-	vector<Vertex> vertices; // 담아놓을 정점들
 	ComPtr<ID3D11Buffer> vertexBuffer; // 정점들을 담아놓는 버퍼
 
-	UINT stride = 0;
-	UINT offset = 0;
+	void* _data = nullptr; //vertices 배열을 가리키는 포인터
+
+	UINT _stride = 0;
+	UINT _offset = 0;
+	UINT _count = 0;
+
 };
 

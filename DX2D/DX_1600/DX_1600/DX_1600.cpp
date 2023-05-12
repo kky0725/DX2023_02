@@ -6,8 +6,6 @@
 
 #define MAX_LOADSTRING 100
 
-void Render();
-
 // 전역 변수:
 HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
@@ -200,15 +198,4 @@ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     }
     return (INT_PTR)FALSE;
-}
-
-void Render()
-{
-    Device::GetInstance()->Clear();
-
-    DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-
-    DC->Draw(6, 0); // DrawCall
-
-    Device::GetInstance()->Present();
 }

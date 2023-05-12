@@ -9,5 +9,7 @@ public:
 	virtual void Render() override;
 
 private:
-};
+	shared_ptr<Quad> _quad1;
+	shared_ptr<Quad> _quad2;
 
+};
