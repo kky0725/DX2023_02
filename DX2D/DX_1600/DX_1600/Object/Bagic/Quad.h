@@ -13,6 +13,7 @@ public:
 
 	shared_ptr<Transform> GetTransform() { return _transform; }
 
+
 private:
 	//Á¤Á¡(pos, color, uv) 6°³
 	vector<Vertex> _vertices;

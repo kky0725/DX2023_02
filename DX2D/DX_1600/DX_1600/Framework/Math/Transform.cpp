@@ -17,9 +17,14 @@ void Transform::Update()
 	_rotateM = XMMatrixRotationZ(_angle);
 	_translateM = XMMatrixTranslation(_pos.x, _pos.y, 0.0f);
 
-	_str = _scaleM * _rotateM * _translateM;
+	_srt = _scaleM * _rotateM * _translateM;
 
-	_matrixBuffer->SetData(_str);
+	if (_parent.expired() == false)
+	{
+		_srt *= _parent.lock()->GetMartix();
+	}
+
+	_matrixBuffer->SetData(_srt);
 	_matrixBuffer->Update();
 }
 

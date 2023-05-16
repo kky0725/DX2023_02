@@ -16,6 +16,11 @@ public:
 	const float& GetAngle() { return _angle; }
 	const Vector2& GetPos() { return _pos; }
 
+	const XMMATRIX& GetMartix() { return _srt; }
+
+	void SetParent(shared_ptr<Transform> parent) { _parent = parent; }
+
+
 private:
 	shared_ptr<class MatrixBuffer> _matrixBuffer;
 
@@ -27,7 +32,9 @@ private:
 	XMMATRIX _rotateM = XMMatrixIdentity();
 	XMMATRIX _translateM = XMMatrixIdentity();
 
-	XMMATRIX _str = XMMatrixIdentity();
+	XMMATRIX _srt = XMMatrixIdentity();
+
+	weak_ptr<Transform> _parent;
 
 };
 

@@ -6,10 +6,13 @@ TutorialScene::TutorialScene()
 	_quad1 = make_shared<Quad>(L"Resource/Zelda.png");
 	_quad2 = make_shared<Quad>(L"Resource/Goomba.png");
 
-	_quad1->GetTransform()->SetPosition(CENTER);
+	_quad1->GetTransform()->SetParent(_quad2->GetTransform());
 
-	_quad1->GetTransform()->SetScale({ 0.5f, 0.5f });
-	_quad2->GetTransform()->SetScale({ 0.5f, 0.5f });
+	_quad2->GetTransform()->SetPosition(CENTER);
+	_quad1->GetTransform()->SetPosition({1000, 0});
+
+	//_quad1->GetTransform()->SetScale({ 0.5f, 0.5f });
+	_quad2->GetTransform()->SetScale({ 0.1f, 0.1f });
 }
 
 TutorialScene::~TutorialScene()
@@ -31,6 +34,6 @@ void TutorialScene::Update()
 
 void TutorialScene::Render()
 {
-	_quad2->Render();
 	_quad1->Render();
+	_quad2->Render();
 }
