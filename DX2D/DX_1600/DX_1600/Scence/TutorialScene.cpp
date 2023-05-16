@@ -6,17 +6,10 @@ TutorialScene::TutorialScene()
 	_quad1 = make_shared<Quad>(L"Resource/Zelda.png");
 	_quad2 = make_shared<Quad>(L"Resource/Goomba.png");
 
-	_world = make_shared<MatrixBuffer>();
-	_view = make_shared<MatrixBuffer>();
-	_projection = make_shared<MatrixBuffer>();
+	_quad1->GetTransform()->SetPosition(CENTER);
 
-	XMMATRIX projectM = XMMatrixOrthographicOffCenterLH(0, WIN_WIDTH, 0, WIN_HEGIHT, 0.0f, 1.0f);
-
-	_projection->SetData(projectM);
-
-	_world->Update();
-	_view->Update();
-	_projection->Update();
+	_quad1->GetTransform()->SetScale({ 0.5f, 0.5f });
+	_quad2->GetTransform()->SetScale({ 0.5f, 0.5f });
 }
 
 TutorialScene::~TutorialScene()
@@ -26,17 +19,18 @@ TutorialScene::~TutorialScene()
 
 void TutorialScene::Update()
 {
+	_angle1 += 0.0001f;
+	_angle2 += 0.0003f;
+
+	_quad1->GetTransform()->SetAngel(_angle1);
+	_quad2->GetTransform()->SetAngel(_angle2);
+
 	_quad1->Update();
 	_quad2->Update();
 }
 
 void TutorialScene::Render()
 {
-	_world->SetVSBuffer(0);
-	_view->SetVSBuffer(1);
-	_projection->SetVSBuffer(2);
-
-
 	_quad2->Render();
 	_quad1->Render();
 }

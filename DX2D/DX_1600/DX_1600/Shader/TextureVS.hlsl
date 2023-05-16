@@ -33,8 +33,8 @@ VertexOutput VS(VertexInput input)// Symentic Name... SV -> SysytemValue
 {
 	VertexOutput output;
 	output.pos = mul(input.pos, world);
-	output.pos = mul(input.pos, view);
-	output.pos = mul(input.pos, projection);
+	output.pos = mul(output.pos, view);
+	output.pos = mul(output.pos, projection);
 	output.color = input.color;
 	output.uv = input.uv;
 
