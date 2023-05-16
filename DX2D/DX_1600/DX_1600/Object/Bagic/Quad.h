@@ -28,5 +28,6 @@ private:
 	shared_ptr<SampleState> _sampleState;
 
 	shared_ptr<Transform> _transform;
+	
 };
 
