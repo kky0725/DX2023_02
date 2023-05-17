@@ -12,6 +12,10 @@ public:
 	void SetAngel(float angle) { _angle = angle; }
 	void SetPosition(Vector2 pos) { _pos = pos; }
 
+	void AddScale(Vector2 value) { _scale += value; }
+	void AddAngle(float angle) { _angle += angle; }
+	void AddVector2(Vector2 value) { _pos += value; }
+
 	const Vector2& GetScale() { return _scale; }
 	const float& GetAngle() { return _angle; }
 	const Vector2& GetPos() { return _pos; }
@@ -20,6 +24,7 @@ public:
 
 	void SetParent(shared_ptr<Transform> parent) { _parent = parent; }
 
+	const Vector2& GetWorldPosition();
 
 private:
 	shared_ptr<class MatrixBuffer> _matrixBuffer;

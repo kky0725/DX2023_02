@@ -1,8 +1,6 @@
 #include "framework.h"
 #include "TutorialScene.h"
 
-#define LERP(s,e,t) s + (e - s)*t
-
 TutorialScene::TutorialScene()
 {
 	_quad1 = make_shared<Quad>(L"Resource/Zelda.png");
