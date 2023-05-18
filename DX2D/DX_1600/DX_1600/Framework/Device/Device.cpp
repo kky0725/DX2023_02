@@ -70,7 +70,7 @@ void Device::CreateDoubleBuffer()
 
     D3D11_VIEWPORT vp;
     vp.Width = WIN_WIDTH;
-    vp.Height = WIN_HEGIHT;
+    vp.Height = WIN_HEIGHT;
     vp.MinDepth = 0.0f;
     vp.MaxDepth = 1.0f;
     vp.TopLeftX = 0;

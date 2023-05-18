@@ -33,8 +33,6 @@ public:
         return *this;
     }
  
-
-
     float Dot(const Vector2& other) const
     {
         return (this->x * other.x + this->y * other.y);
@@ -74,6 +72,7 @@ public:
 
         return sqrtf(powf(resultX, 2) + powf(resultY, 2));
     }
+    float Angle() const { return atan2f(y, x); }
     int MahattanDistance(const Vector2& other) const;
     void Normallize()
     {
@@ -88,6 +87,7 @@ public:
 
         return result;
     }
+
 
     bool IsBetween(Vector2 v1, Vector2 v2);
 

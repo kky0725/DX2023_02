@@ -115,7 +115,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
 
    hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      0, 0, WIN_WIDTH, WIN_HEGIHT, nullptr, nullptr, hInstance, nullptr);
+      0, 0, WIN_WIDTH, WIN_HEIGHT, nullptr, nullptr, hInstance, nullptr);
 
    if (!hWnd)
    {
@@ -167,7 +167,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
         mousePos.x = static_cast<float>(LOWORD(lParam));
         mousePos.y = static_cast<float>(HIWORD(lParam));
-        mousePos.y = (mousePos.y * -1.0f) + WIN_HEGIHT;
+        mousePos.y = (mousePos.y * -1.0f) + WIN_HEIGHT;
         break;
     }
     case WM_PAINT:
