@@ -14,6 +14,10 @@ SolarSystem::SolarSystem()
 
 	_earth->SetPosition({ 200, 0 });
 	_moon->SetPosition({ 50, 0 });
+
+	_sun->SetRevolution(0.00015f);
+	_earth->SetRevolution(0.00025f);
+
 }
 
 SolarSystem::~SolarSystem()
@@ -24,6 +28,7 @@ void SolarSystem::Update()
 {
 	Vector2 lerpResult = LERP(_sun->GetTransform()->GetPos(), mousePos, 0.001f);
 	_sun->SetPosition(lerpResult);
+
 
 	_sun->Update();
 	_earth->Update();

@@ -17,9 +17,9 @@ Planet::~Planet()
 void Planet::Update()
 {
 	_quad->GetTransform()->AddAngle(_rotation);
-	_revolution->AddAngle(_revolutionAngel);
 
 	_revolution->SetPosition(_quad->GetTransform()->GetWorldPosition());
+	_revolution->AddAngle(_revolutionAngel);
 
 	_quad->Update();
 	_revolution->Update();
