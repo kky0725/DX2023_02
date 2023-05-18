@@ -6,17 +6,20 @@ DunPlayer::DunPlayer()
 {
 	_player = make_shared<Quad>(L"Resource/DunResource/Player.png");
 	_item = make_shared<Quad>(L"Resource/DunResource/Item.png");
-	//_bullet = make_shared<DunBullet>();
+	_playerT = make_shared<Transform>();
+
 	for (int i = 0; i < 30; i++)
 	{
 		shared_ptr<DunBullet> bullet = make_shared<DunBullet>();
 		_bullets.push_back(bullet);
 	}
 
-	_item->GetTransform()->SetParent(_player->GetTransform());
+	_item->GetTransform()->SetParent(_playerT);
 
 	_player->GetTransform()->SetPosition({ 50,100 });
-	_item->GetTransform()->SetPosition({ 50,20 });
+	_item->GetTransform()->SetPosition({ 100,0 });
+	_playerT->SetPosition(_player->GetTransform()->GetPos());
+
 }
 
 DunPlayer::~DunPlayer()
@@ -45,14 +48,14 @@ void DunPlayer::Fire()
 
 void DunPlayer::Update()
 {
-	Vector2 temp = mousePos - _item->GetTransform()->GetWorldPosition();
-	_angle = temp.Angle();
-	float radian = -135 * PI / 180;
+	_item->GetTransform()->SetAngel(radian);
 
-	_item->GetTransform()->SetAngel(_angle + radian);
+	Vector2 temp = mousePos - _playerT->GetPos();
+	_playerT->SetAngel(temp.Angle());
 
 	_player->Update();
 	_item->Update();
+	_playerT->Update();
 	for (auto& bullet : _bullets)
 	{
 		bullet->Update();
@@ -67,7 +70,8 @@ void DunPlayer::Render()
 	_item->Render();
 	for (auto& bullet : _bullets)
 	{
-		bullet->Render();
+		if(bullet->IsAtcive())
+			bullet->Render();
 	}
 }
 

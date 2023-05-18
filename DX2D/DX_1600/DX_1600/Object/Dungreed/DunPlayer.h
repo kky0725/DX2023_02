@@ -16,9 +16,9 @@ private:
 	shared_ptr<Quad> _player;
 	shared_ptr<Quad> _item;
 	vector<shared_ptr<DunBullet>> _bullets;
-	shared_ptr<DunBullet> _bullet;
+	shared_ptr<Transform> _playerT;
 
-
+	float radian = -135 * PI / 180;
 	float _angle = 0.0f;
 };
 
