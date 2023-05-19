@@ -93,6 +93,12 @@
     <ClInclude Include="Object\Dungreed\DunBullet.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Framework\TextureMapping\BlendState.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Framework\TextureMapping\StateManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX_1600.cpp">
@@ -158,6 +164,12 @@
     <ClCompile Include="Object\Dungreed\DunBullet.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Framework\TextureMapping\BlendState.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Framework\TextureMapping\StateManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="DX_1600.rc">
@@ -189,7 +201,7 @@
     <Image Include="Resource\DunResource\Bullet.png">
       <Filter>리소스 파일</Filter>
     </Image>
-    <Image Include="Resource\DunResource\Item.png">
+    <Image Include="Resource\DunResource\Bow.png">
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="Resource\DunResource\Player.png">

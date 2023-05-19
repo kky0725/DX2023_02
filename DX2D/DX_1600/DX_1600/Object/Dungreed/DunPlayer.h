@@ -7,6 +7,7 @@ public:
 	DunPlayer();
 	~DunPlayer();
 
+	void SetBowAngle();
 	void Fire();
 
 	void Update();
@@ -14,11 +15,12 @@ public:
 
 private:
 	shared_ptr<Quad> _player;
-	shared_ptr<Quad> _item;
-	vector<shared_ptr<DunBullet>> _bullets;
-	shared_ptr<Transform> _playerT;
+	shared_ptr<Transform> _bowSlot;
 
-	float radian = -135 * PI / 180;
-	float _angle = 0.0f;
+	shared_ptr<Quad> _bow;
+	shared_ptr<Transform> _muzzle;
+	vector<shared_ptr<DunBullet>> _bullets;
+
+	float _radian = -PI * 0.75f;
 };
 

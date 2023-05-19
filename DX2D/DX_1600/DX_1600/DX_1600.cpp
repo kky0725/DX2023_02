@@ -44,6 +44,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     //생성
     Device::Create();
+    StateManager::Create();
 
     shared_ptr<Program> program = make_shared<Program>();
 
@@ -70,6 +71,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // 삭제
     Device::Delete();
+    StateManager::Delete();
 
     return (int) msg.wParam;
 }

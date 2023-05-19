@@ -10,5 +10,10 @@
 #define DEVICE	Device::GetInstance()->GetDevice()
 #define DC		Device::GetInstance()->GetDC()
 
+#define SAMPLER StateManager::GetInstance()->GetSampler()
+#define ALPHA StateManager::GetInstance()->GetAlpha()
+#define ADDITIVE StateManager::GetInstance()->GetAdditive()
+#define BLEND StateManager::GetInstance()->GetBlendState()
+
 #define LERP(s,e,t) s + (e - s)*t
 //Linear interpolation

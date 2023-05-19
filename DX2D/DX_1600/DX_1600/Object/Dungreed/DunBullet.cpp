@@ -11,13 +11,13 @@ DunBullet::~DunBullet()
 {
 }
 
-void DunBullet::Shoot(const Vector2& dir, const Vector2 startPos, float speed, float angle)
+void DunBullet::Shoot(const Vector2& dir, const Vector2 startPos, float speed)
 {
 	_isActive = true;
-	_direction = dir;
+	_direction = dir.NormalVector2();
 	_speed = speed;
 	_bullet->GetTransform()->SetPosition(startPos);
-	_bullet->GetTransform()->SetAngel(angle);
+	_bullet->GetTransform()->SetAngel(_direction.Angle());
 }
 
 void DunBullet::Update()
