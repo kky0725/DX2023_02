@@ -28,7 +28,7 @@ DunPlayer::~DunPlayer()
 
 void DunPlayer::SetBowAngle()
 {
-	Vector2 temp = mousePos - _bowSlot->GetPos();
+	Vector2 temp = MOUSE_POS - _bowSlot->GetPos();
 	_bowSlot->SetAngel(temp.Angle());
 }
 
@@ -39,7 +39,7 @@ void DunPlayer::Fire()
 		auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
 			[](const shared_ptr<DunBullet>& obj)-> bool	{return !obj->IsAtcive();});
 
-		Vector2 dir = mousePos - _bowSlot->GetPos();
+		Vector2 dir = MOUSE_POS - _bowSlot->GetPos();
 		if (bulletIter != _bullets.end())
 		{
 			(*bulletIter)->Shoot(dir, _bow->GetTransform()->GetWorldPosition());

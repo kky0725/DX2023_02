@@ -26,7 +26,7 @@ SolarSystem::~SolarSystem()
 
 void SolarSystem::Update()
 {
-	Vector2 lerpResult = LERP(_sun->GetTransform()->GetPos(), mousePos, 0.001f);
+	Vector2 lerpResult = LERP(_sun->GetTransform()->GetPos(), MOUSE_POS, 0.001f);
 	_sun->SetPosition(lerpResult);
 
 

@@ -25,7 +25,7 @@ void DunBullet::Update()
 	if (_isActive == false)
 		return;
 
-	_bullet->GetTransform()->AddVector2(_direction*_speed);
+	_bullet->GetTransform()->AddVector2(_direction*_speed * DELTA_TIME);
 
 	if (_bullet->GetTransform()->GetWorldPosition().y > WIN_HEIGHT || _bullet->GetTransform()->GetWorldPosition().x > WIN_WIDTH 
 		|| _bullet->GetTransform()->GetWorldPosition().y < 0 || _bullet->GetTransform()->GetWorldPosition().x < 0)
