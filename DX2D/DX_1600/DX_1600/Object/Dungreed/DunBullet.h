@@ -9,7 +9,7 @@ public:
 	void Render();
 
 	void SetPos(const Vector2& pos) { _bullet->GetTransform()->SetPosition(pos); }
-	void Shoot(const Vector2& dir, const Vector2 startPos,float speed = 0.1f);
+	void Shoot(const Vector2& dir, const Vector2 startPos,float speed = 200.0f);
 
 	bool IsAtcive() { return _isActive; }
 	void SetActive(bool value) { _isActive = value; }
