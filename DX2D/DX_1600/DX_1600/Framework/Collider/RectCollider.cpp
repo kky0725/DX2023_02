@@ -70,3 +70,46 @@ void RectCollider::CreateVertices()
     temp.pos = { XMFLOAT3(-halfSize.x, halfSize.y, 0.0f) };
     _vertices.push_back(temp);
 }
+
+bool RectCollider::IsCollision(Vector2 pos)
+{
+    if (pos.x < Left() || pos.x > Right())
+        return false;
+    else if (pos.y < Top() || pos.y > Bottom())
+        return false;
+    return true;
+}
+
+bool RectCollider::IsCollision(shared_ptr<CircleCollider> other)
+{
+    Vector2 rectCenter = _transform->GetWorldPosition();
+    Vector2 circleCenter = other->GetTransform()->GetWorldPosition();
+    Vector2 distance = this->GetWorldSize() * 0.5f + Vector2(other->GetRadius(), other->GetRadius());
+
+    Vector2 leftTop     = Vector2(Left(), Top());
+    Vector2 rightTop    = Vector2(Right(), Top());
+    Vector2 leftBottom  = Vector2(Left(), Bottom());
+    Vector2 rightBottom = Vector2(Right(), Bottom());
+    if (other->IsCollision(leftTop) || other->IsCollision(rightTop) || other->IsCollision(leftBottom) || other->IsCollision(rightBottom))
+        return true;
+
+    if (abs(rectCenter.x - circleCenter.x) > distance.x)
+        return false;
+    else if (abs(rectCenter.y - circleCenter.y) > distance.y)
+        return false;
+    else
+        return true;
+}
+
+bool RectCollider::IsCollision(shared_ptr<RectCollider> other)
+{
+    Vector2 center1 = _transform->GetWorldPosition();
+    Vector2 center2 = other->GetTransform()->GetWorldPosition();
+    Vector2 distance = (this->GetWorldSize() + other->GetWorldSize())* 0.5f;
+    if (abs(center1.x - center2.x) > distance.x)
+        return false;
+    else if (abs(center1.y - center2.y) > distance.y)
+        return false;
+    else
+        return true;
+}

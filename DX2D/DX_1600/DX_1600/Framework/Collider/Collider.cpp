@@ -8,3 +8,8 @@ Collider::Collider()
 Collider::~Collider()
 {
 }
+
+bool Collider::IsCollision(shared_ptr<Collider> col)
+{
+    return false;
+}

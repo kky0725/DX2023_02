@@ -5,23 +5,27 @@ public:
 	RectCollider(Vector2 size);
 	virtual~RectCollider();
 
-	void Update();
-	void Render();
+	virtual void Update() override;
+	virtual void Render() override;
 
-	void CreateData();
-	void CreateVertices();
-
-	void SetPosition(Vector2 pos) { _transform->SetPosition(pos); }
-
-	void SetRed() { _colorBuffer->SetColor(RED); _colorBuffer->Update(); }
-	void SetGreen() { _colorBuffer->SetColor(GREEN); _colorBuffer->Update(); }
+	virtual void CreateData() override;
+	virtual void CreateVertices() override;
 
 	void SetScale(Vector2 scale) { _transform->SetScale(scale); }
+	Vector2 GetWorldSize() const { return Vector2(_transform->GetWorldScale().x * _size.x, _transform->GetWorldScale().y * _size.y); }
 
-	const shared_ptr<Transform> GetTransform() { return _transform; }
-	void SetParent(shared_ptr<Transform> transform) { _transform->SetParent(transform); }
+	float Left() const { return _transform->GetWorldPosition().x - GetWorldSize().x * 0.5f; }
+	float Right() const { return _transform->GetWorldPosition().x + GetWorldSize().x * 0.5f; }
+	float Top() const { return _transform->GetWorldPosition().y - GetWorldSize().y * 0.5f; }
+	float Bottom() const { return _transform->GetWorldPosition().y + GetWorldSize().y * 0.5f;}
+
+	virtual bool IsCollision(Vector2 pos) override;
+	virtual bool IsCollision(shared_ptr<CircleCollider> other) override;
+	virtual bool IsCollision(shared_ptr<RectCollider> other) override;
+
 
 private:
 	Vector2 _size;
+
 };
 
