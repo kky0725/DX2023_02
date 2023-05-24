@@ -22,6 +22,9 @@ void RectCollider::Render()
 
     _transform->SetBuffer(0);
 
+    _colorBuffer->SetPsBuffer(0);
+
+
     DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 
     _vs->Set();
@@ -40,6 +43,8 @@ void RectCollider::CreateData()
     _ps = make_shared<PixelShader>(L"Shader/ColliderPS.hlsl");
 
     _transform = make_shared<Transform>();
+    _colorBuffer = make_shared<ColorBuffer>();
+    SetGreen();
 }
 
 void RectCollider::CreateVertices()

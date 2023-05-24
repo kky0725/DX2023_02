@@ -20,11 +20,13 @@ public:
 	const float& GetAngle() { return _angle; }
 	const Vector2& GetPos() { return _pos; }
 
+
 	const XMMATRIX& GetMartix() { return _srt; }
 
 	void SetParent(shared_ptr<Transform> parent) { _parent = parent; }
 
 	const Vector2& GetWorldPosition();
+	const Vector2& GetWorldScale();
 
 private:
 	shared_ptr<class MatrixBuffer> _matrixBuffer;
