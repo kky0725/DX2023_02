@@ -2,9 +2,10 @@
 #include "RectCollider.h"
 
 RectCollider::RectCollider(Vector2 size)
-	: _size(size)
+	: _size(size), Collider(ColliderType::RECT)
 {
-    CreateData();
+    CreateVertices();
+    Collider::CreateData();
 }
 
 RectCollider::~RectCollider()
@@ -13,38 +14,12 @@ RectCollider::~RectCollider()
 
 void RectCollider::Update()
 {
-    _transform->Update();
+    Collider::Update();
 }
 
 void RectCollider::Render()
 {
-    _vertexBuffer->Set(0);
-
-    _transform->SetBuffer(0);
-
-    _colorBuffer->SetPsBuffer(0);
-
-
-    DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
-
-    _vs->Set();
-    _ps->Set();
-
-    DC->Draw(_vertices.size(), 0);
-}
-
-void RectCollider::CreateData()
-{
-    CreateVertices();
-
-    _vertexBuffer = make_shared<VertexBuffer>(_vertices.data(), sizeof(Vertex), _vertices.size());
-
-    _vs = make_shared<VertexShader>(L"Shader/ColliderVS.hlsl");
-    _ps = make_shared<PixelShader>(L"Shader/ColliderPS.hlsl");
-
-    _transform = make_shared<Transform>();
-    _colorBuffer = make_shared<ColorBuffer>();
-    SetGreen();
+    Collider::Render();
 }
 
 void RectCollider::CreateVertices()
@@ -71,34 +46,52 @@ void RectCollider::CreateVertices()
     _vertices.push_back(temp);
 }
 
-bool RectCollider::IsCollision(Vector2 pos)
+RectCollider::AABBRectInfo RectCollider::GetAABBInfo()
 {
-    if (pos.x < Left() || pos.x > Right())
+    AABBRectInfo result;
+    result.left     = _transform->GetWorldPosition().x - GetWorldSize().x * 0.5f;
+    result.right    = _transform->GetWorldPosition().x + GetWorldSize().x * 0.5f;
+    result.top      = _transform->GetWorldPosition().y - GetWorldSize().y * 0.5f;
+    result.bottom   = _transform->GetWorldPosition().y + GetWorldSize().y * 0.5f;
+
+    return result;
+}
+
+bool RectCollider::IsCollision(const Vector2& pos)
+{
+    AABBRectInfo info = GetAABBInfo();
+
+    if (pos.x < info.left || pos.x > info.right)
         return false;
-    else if (pos.y < Top() || pos.y > Bottom())
+    else if (pos.y > info.top || pos.y < info.bottom)
         return false;
     return true;
 }
 
 bool RectCollider::IsCollision(shared_ptr<CircleCollider> other)
 {
-    Vector2 rectCenter = _transform->GetWorldPosition();
-    Vector2 circleCenter = other->GetTransform()->GetWorldPosition();
-    Vector2 distance = this->GetWorldSize() * 0.5f + Vector2(other->GetRadius(), other->GetRadius());
+    AABBRectInfo info = GetAABBInfo();
 
-    Vector2 leftTop     = Vector2(Left(), Top());
-    Vector2 rightTop    = Vector2(Right(), Top());
-    Vector2 leftBottom  = Vector2(Left(), Bottom());
-    Vector2 rightBottom = Vector2(Right(), Bottom());
+    Vector2 leftTop     = Vector2(info.left, info.top);
+    Vector2 rightTop    = Vector2(info.right, info.top);
+    Vector2 leftBottom  = Vector2(info.left, info.bottom);
+    Vector2 rightBottom = Vector2(info.right, info.bottom);
     if (other->IsCollision(leftTop) || other->IsCollision(rightTop) || other->IsCollision(leftBottom) || other->IsCollision(rightBottom))
         return true;
 
-    if (abs(rectCenter.x - circleCenter.x) > distance.x)
-        return false;
-    else if (abs(rectCenter.y - circleCenter.y) > distance.y)
-        return false;
-    else
-        return true;
+    if (info.right > other->GetTransform()->GetWorldPosition().x && info.left < other->GetTransform()->GetWorldPosition().x)
+    {
+        if (info.top - other->GetWorldRadius() > other->GetTransform()->GetWorldPosition().y
+            && info.bottom + other->GetWorldRadius() < other->GetTransform()->GetWorldPosition().y)
+            return true;
+    }
+    if (info.bottom < other->GetTransform()->GetWorldPosition().y && info.top > other->GetTransform()->GetWorldPosition().y)
+    {
+        if (info.left - other->GetWorldRadius() < other->GetTransform()->GetWorldPosition().x
+            && info.right + other->GetWorldRadius() > other->GetTransform()->GetWorldPosition().x)
+            return true;
+    }
+    return false;
 }
 
 bool RectCollider::IsCollision(shared_ptr<RectCollider> other)

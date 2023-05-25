@@ -2,9 +2,10 @@
 #include "CircleCollider.h"
 
 CircleCollider::CircleCollider(float radius)
-	: _radius(radius)
+	: _radius(radius), Collider(ColliderType::CIRCLE)
 {
-	CreateData();
+    CreateVertices();
+    Collider::CreateData();
 }
 
 CircleCollider::~CircleCollider()
@@ -13,38 +14,12 @@ CircleCollider::~CircleCollider()
 
 void CircleCollider::Update()
 {
-    _transform->Update();
+    Collider::Update();
 }
 
 void CircleCollider::Render()
 {
-    _vertexBuffer->Set(0);
-
-    _transform->SetBuffer(0); // vs
-
-    _colorBuffer->SetPsBuffer(0); // ps
-
-    DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
-
-    _vs->Set();
-    _ps->Set();
-
-    DC->Draw(_vertices.size(), 0);
-}
-
-void CircleCollider::CreateData()
-{
-    CreateVertices();
-
-    _vertexBuffer = make_shared<VertexBuffer>(_vertices.data(), sizeof(Vertex), _vertices.size());
-
-    _vs = make_shared<VertexShader>(L"Shader/ColliderVS.hlsl");
-    _ps = make_shared<PixelShader>(L"Shader/ColliderPS.hlsl");
-
-    _transform = make_shared<Transform>();
-
-    _colorBuffer = make_shared<ColorBuffer>();
-    SetGreen();
+    Collider::Render();
 }
 
 void CircleCollider::CreateVertices()
@@ -58,7 +33,7 @@ void CircleCollider::CreateVertices()
     }
 }
 
-bool CircleCollider::IsCollision(Vector2 pos)
+bool CircleCollider::IsCollision(const Vector2& pos)
 {
     float distance = (_transform->GetWorldPosition() - pos).Length();
     return distance < GetWorldRadius();
@@ -75,4 +50,20 @@ bool CircleCollider::IsCollision(shared_ptr<CircleCollider> other)
 bool CircleCollider::IsCollision(shared_ptr<RectCollider> other)
 {
     return other->IsCollision(shared_from_this());
+}
+
+void CircleCollider::Block(shared_ptr<CircleCollider> moveable)
+{
+    if (!IsCollision(moveable))
+        return;
+
+    Vector2 moveableCenter = moveable->GetTransform()->GetWorldPosition();
+    Vector2 blockCenter = GetTransform()->GetWorldPosition();
+
+    Vector2 dir = moveableCenter - blockCenter;
+
+    float scalar = abs((moveable->GetWorldRadius() + GetWorldRadius()) - dir.Length());
+    dir.Normallize();
+
+    moveable->GetTransform()->AddVector2(dir * scalar);
 }

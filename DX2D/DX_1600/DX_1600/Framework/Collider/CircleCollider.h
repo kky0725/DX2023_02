@@ -10,7 +10,6 @@ public:
 	virtual void Update() override;
 	virtual void Render() override;
 
-	virtual void CreateData() override;
 	virtual void CreateVertices() override;
 
 	void SetScale(float value) { _transform->SetScale({ value, value }); }
@@ -18,9 +17,11 @@ public:
 	float GetRadius() { return _radius; }
 	float GetWorldRadius() { return _radius * _transform->GetWorldScale().x; }
 
-	virtual bool IsCollision(Vector2 pos) override;
+	virtual bool IsCollision(const Vector2& pos) override;
 	virtual bool IsCollision(shared_ptr<CircleCollider> other) override;
 	virtual bool IsCollision(shared_ptr<RectCollider> other) override;
+
+	virtual void Block(shared_ptr<CircleCollider> moveable);
 
 private:
 	float _radius;
