@@ -27,6 +27,7 @@ public:
 	virtual bool IsCollision(shared_ptr<CircleCollider> other) override;
 	virtual bool IsCollision(shared_ptr<RectCollider> other) override;
 
+	virtual void Block(shared_ptr<RectCollider> moveable);
 
 private:
 	Vector2 _size;

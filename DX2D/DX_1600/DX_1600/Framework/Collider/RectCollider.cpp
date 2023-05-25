@@ -106,3 +106,31 @@ bool RectCollider::IsCollision(shared_ptr<RectCollider> other)
     else
         return true;
 }
+
+void RectCollider::Block(shared_ptr<RectCollider> moveable)
+{
+    if (!IsCollision(moveable))
+        return;
+
+    Vector2 moveableCenter = moveable->GetTransform()->GetWorldPosition();
+    Vector2 blockCenter = GetTransform()->GetWorldPosition();
+    Vector2 distance = (this->GetWorldSize() + moveable->GetWorldSize()) * 0.5f;
+
+    Vector2 dir = moveableCenter - blockCenter;
+
+    if ( distance.x - abs(dir.x) < distance.y - abs(dir.y))
+    {
+        float scalar = distance.x - abs(dir.x);
+        if (dir.x < 0)
+            scalar *= -1;
+        moveable->GetTransform()->AddVector2(Vector2(scalar, 0.0f));
+    }
+    else
+    {
+        float scalar = distance.y - abs(dir.y);
+        if (dir.y < 0)
+            scalar *= -1;
+        moveable->GetTransform()->AddVector2(Vector2(0.0f, scalar));
+    }
+    
+}

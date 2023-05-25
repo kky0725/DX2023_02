@@ -32,8 +32,10 @@ void ColliderScene::Update()
 	else
 		_circleCollider2->SetGreen();
 
-	_circleCollider2->SetPosition(MOUSE_POS);
-	_circleCollider2->Block(_circleCollider);
+	//_circleCollider2->SetPosition(MOUSE_POS);
+	//_circleCollider2->Block(_circleCollider);
+	_rectCollider2->SetPosition(MOUSE_POS);
+	_rectCollider2->Block(_rectCollider);
 
 	if (_rectCollider2->IsCollision(_circleCollider) || _rectCollider2->IsCollision(_rectCollider))
 		_rectCollider2->SetRed();
@@ -51,8 +53,8 @@ void ColliderScene::Render()
 
 void ColliderScene::PostRender()
 {
-	ImGui::SliderFloat2("RectPos", (float*)&_rectPos, 0, 1280);
+	//ImGui::SliderFloat2("RectPos", (float*)&_rectPos, 0, 1280);
 	//ImGui::SliderFloat2("CirclePos", (float*)&_circlePos, 0, 1280);
-	_rectCollider2->SetPosition(_rectPos);
+	//_rectCollider2->SetPosition(_rectPos);
 	//_circleCollider2->SetPosition(_circlePos);
 }
