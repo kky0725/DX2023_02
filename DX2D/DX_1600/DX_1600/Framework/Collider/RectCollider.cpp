@@ -51,10 +51,27 @@ RectCollider::AABBRectInfo RectCollider::GetAABBInfo()
     AABBRectInfo result;
     result.left     = _transform->GetWorldPosition().x - GetWorldSize().x * 0.5f;
     result.right    = _transform->GetWorldPosition().x + GetWorldSize().x * 0.5f;
-    result.top      = _transform->GetWorldPosition().y - GetWorldSize().y * 0.5f;
-    result.bottom   = _transform->GetWorldPosition().y + GetWorldSize().y * 0.5f;
+    result.top      = _transform->GetWorldPosition().y + GetWorldSize().y * 0.5f;
+    result.bottom   = _transform->GetWorldPosition().y - GetWorldSize().y * 0.5f;
 
     return result;
+}
+
+RectCollider::OBBRectInfo RectCollider::GetOBBInfo()
+{
+    OBBRectInfo info;
+
+    info.worldPos = _transform->GetWorldPosition();
+
+    XMFLOAT4X4 matrix;
+    XMStoreFloat4x4(&matrix, _transform->GetMartix());
+    info.direction[0] = {matrix._11, matrix._12};
+    info.direction[1] = {matrix._21, matrix._22};
+
+    info.lenght[0] = GetWorldSize().x * 0.5f;
+    info.lenght[1] = GetWorldSize().y * 0.5f;
+
+    return info;
 }
 
 bool RectCollider::IsCollision(const Vector2& pos)
@@ -81,8 +98,8 @@ bool RectCollider::IsCollision(shared_ptr<CircleCollider> other)
 
     if (info.right > other->GetTransform()->GetWorldPosition().x && info.left < other->GetTransform()->GetWorldPosition().x)
     {
-        if (info.top - other->GetWorldRadius() > other->GetTransform()->GetWorldPosition().y
-            && info.bottom + other->GetWorldRadius() < other->GetTransform()->GetWorldPosition().y)
+        if (info.top + other->GetWorldRadius() > other->GetTransform()->GetWorldPosition().y
+            && info.bottom - other->GetWorldRadius() < other->GetTransform()->GetWorldPosition().y)
             return true;
     }
     if (info.bottom < other->GetTransform()->GetWorldPosition().y && info.top > other->GetTransform()->GetWorldPosition().y)
@@ -107,30 +124,77 @@ bool RectCollider::IsCollision(shared_ptr<RectCollider> other)
         return true;
 }
 
-void RectCollider::Block(shared_ptr<RectCollider> moveable)
+bool RectCollider::Block(shared_ptr<RectCollider> moveable)
 {
     if (!IsCollision(moveable))
-        return;
+        return false;
 
     Vector2 moveableCenter = moveable->GetTransform()->GetWorldPosition();
     Vector2 blockCenter = GetTransform()->GetWorldPosition();
-    Vector2 distance = (this->GetWorldSize() + moveable->GetWorldSize()) * 0.5f;
-
+    Vector2 sum = (this->GetWorldSize() + moveable->GetWorldSize()) * 0.5f;
     Vector2 dir = moveableCenter - blockCenter;
+    Vector2 overlap = Vector2(sum.x - abs(dir.x) , sum.y - abs(dir.y));
 
-    if ( distance.x - abs(dir.x) < distance.y - abs(dir.y))
+    Vector2 fixedPos = moveable->GetTransform()->GetPos();
+
+    if (overlap.x < overlap.y )
     {
-        float scalar = distance.x - abs(dir.x);
+        float scalar = overlap.x;
         if (dir.x < 0)
             scalar *= -1;
+
+        fixedPos.x += scalar;
+
         moveable->GetTransform()->AddVector2(Vector2(scalar, 0.0f));
     }
     else
     {
-        float scalar = distance.y - abs(dir.y);
+        float scalar = overlap.y;
         if (dir.y < 0)
             scalar *= -1;
+        fixedPos.y += scalar;
+
         moveable->GetTransform()->AddVector2(Vector2(0.0f, scalar));
     }
-    
+    //moveable->SetPosition(fixedPos);
+
+    return true;
+}
+
+bool RectCollider::Block(shared_ptr<CircleCollider> moveable)
+{
+    if (!IsCollision(moveable))
+        return false;
+
+    Vector2 moveableCenter = moveable->GetTransform()->GetWorldPosition();
+    Vector2 blockCenter = GetTransform()->GetWorldPosition();
+    Vector2 virtuaHalfSize = Vector2(moveable->GetWorldRadius(), moveable->GetWorldRadius());
+    Vector2 sum = this->GetWorldSize() * 0.5f + virtuaHalfSize;
+    Vector2 dir = moveableCenter - blockCenter;
+    Vector2 overlap = Vector2(sum.x - abs(dir.x), sum.y - abs(dir.y));
+
+    Vector2 fixedPos = moveable->GetTransform()->GetPos();
+
+    if (overlap.x < overlap.y)
+    {
+        float scalar = overlap.x;
+        if (dir.x < 0)
+            scalar *= -1;
+
+        fixedPos.x += scalar;
+
+       // moveable->GetTransform()->AddVector2(Vector2(scalar, 0.0f));
+    }
+    else
+    {
+        float scalar = overlap.y;
+        if (dir.y < 0)
+            scalar *= -1;
+        fixedPos.y += scalar;
+
+       // moveable->GetTransform()->AddVector2(Vector2(0.0f, scalar));
+    }
+    moveable->SetPosition(fixedPos);
+
+    return true;
 }

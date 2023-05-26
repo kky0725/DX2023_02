@@ -35,6 +35,7 @@ public:
 	virtual bool IsCollision(shared_ptr<CircleCollider> other) abstract;
 	virtual bool IsCollision(shared_ptr<RectCollider> other) abstract;
 
+
 protected:
 	vector<Vertex> _vertices;
 	shared_ptr<VertexBuffer> _vertexBuffer;

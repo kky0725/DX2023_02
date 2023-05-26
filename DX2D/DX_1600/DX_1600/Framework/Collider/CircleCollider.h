@@ -21,7 +21,8 @@ public:
 	virtual bool IsCollision(shared_ptr<CircleCollider> other) override;
 	virtual bool IsCollision(shared_ptr<RectCollider> other) override;
 
-	virtual void Block(shared_ptr<CircleCollider> moveable);
+	//Matrix 상속 걸려있는 구조에선 Block X
+	bool Block(shared_ptr<CircleCollider> moveable);
 
 private:
 	float _radius;
