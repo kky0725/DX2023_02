@@ -8,6 +8,7 @@ public:
 	DunBullet();
 	~DunBullet();
 
+	void Collider_Update();
 	void Update();
 	void Render();
 

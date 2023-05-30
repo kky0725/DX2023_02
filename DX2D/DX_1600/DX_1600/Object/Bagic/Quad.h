@@ -12,13 +12,14 @@ public:
 	void CreateVertices();
 	void CreateNoneImgVertices(Vector2 halfSize);
 
-	const Vector2& const GetImageSize() { return _srv->GetImageSize(); }
+	const Vector2& const GetImageSize() { return _halfSize; }
 
 	shared_ptr<Transform> GetTransform() { return _transform; }
 
 
 private:
 	//Á¤Á¡(pos, color, uv) 6°³
+	Vector2 _halfSize;
 	vector<Vertex_Texture> _vertices;
 	vector<UINT> _indices;
 

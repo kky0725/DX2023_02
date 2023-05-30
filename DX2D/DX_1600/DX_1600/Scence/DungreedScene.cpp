@@ -4,54 +4,48 @@
 #include "../Object/Dungreed/DunPlayer.h"
 #include "../Object/Dungreed/DunBullet.h"
 #include "../Object/Dungreed/DunMonster.h"
+#include "../Object/Dungreed/DunPlayer_Advanced.h"
 
 DungreedScene::DungreedScene()
 {
-	_player = make_shared<DunPlayer>();
+	_player = make_shared<DunPlayer_Advanced>();
 	_monster = make_shared<DunMonster>();
-	_ground = make_shared<Quad>(L"Resource/DunResource/Map1.png");
-	_groundCollider = make_shared<RectCollider>(_ground->GetImageSize());
+	//_ground = make_shared<Quad>(L"Resource/DunResource/Map1.png");
+	_groundCollider = make_shared<RectCollider>(Vector2((float)WIN_WIDTH, 100.0f));
 
-	_groundCollider->GetTransform()->SetParent(_ground->GetTransform());
+	//_ground->GetTransform()->SetParent(_groundCollider->GetTransform());
 
 	_player->SetTarget(_monster);
-	_ground->GetTransform()->SetPosition(CENTER);
+	//_ground->GetTransform()->SetPosition(CENTER);
 	_groundCollider->GetTransform()->SetPosition(Vector2(0, -100));
 	_groundCollider->SetScale(Vector2(1.0f, 0.3f));
 
-	_ground->GetTransform()->SetScale(Vector2(3.5f, 2.0f));
+	//_ground->GetTransform()->SetScale(Vector2(3.5f, 2.0f));
 }
 
 DungreedScene::~DungreedScene()
 {
 }
 
+void DungreedScene::Collider_Update()
+{
+	_player->Collider_Update();
+	_groundCollider->Update();
+	_monster->Collider_Update();
+}
+
 void DungreedScene::Update()
 {
-	if (KEY_PRESS('A'))
-	{
-		Vector2 movePos = Vector2(-500.0f, 0.0f) * DELTA_TIME;
-		_player->Move(movePos);
-	}
-
-	if (KEY_PRESS('D'))
-	{
-		Vector2 movePos = Vector2(500.0f, 0.0f) * DELTA_TIME;
-		_player->Move(movePos);
-	}
-
-	_ground->Update();
-	_groundCollider->Update();
+	//_ground->Update();
 	_monster->Update();
 	_player->Update();
 
-	if (_groundCollider->Block(_player->GetCollider()))
-		_player->SetPosition(_player->GetCollider()->GetPos());
+	_player->SetFalling(!_groundCollider->Block(_player->GetCollider()));
 }
 
 void DungreedScene::Render()
 {
-	_ground->Render();
+	//_ground->Render();
 	_player->Render();
 	_monster->Render();
 

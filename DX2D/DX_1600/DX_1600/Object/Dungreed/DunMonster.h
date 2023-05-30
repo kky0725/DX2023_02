@@ -5,11 +5,14 @@ public:
 	DunMonster();
 	~DunMonster();
 
+	void Collider_Update();
 	void Update();
 	void Render();
 
-	void Attacked(int damgae) { _hp -= damgae; if (_hp < 1) { _hp = 0; _isActive = false; } }
+	void Damaged(int damgae);
 	const int& GetHp() const { return _hp; }
+
+	void SetPostion(Vector2 pos) { _collider->SetPosition(pos); }
 
 	const shared_ptr<CircleCollider>& GetCollider() { return _collider; }
 

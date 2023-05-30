@@ -8,7 +8,6 @@ DunPlayer::DunPlayer()
 	_player = make_shared<Quad>(L"Resource/DunResource/Player.png");
 	_bow = make_shared<Quad>(L"Resource/DunResource/Bow.png");
 	_bowSlot = make_shared<Transform>();
-	_collider = make_shared<CircleCollider>(50.0f);
 
 	for (int i = 0; i < 30; i++)
 	{
@@ -18,7 +17,6 @@ DunPlayer::DunPlayer()
 
 	_bow->GetTransform()->SetParent(_bowSlot);
 
-	_player->GetTransform()->SetPosition({ 100,500 });
 	_bow->GetTransform()->SetPosition({ 100,0 });
 	_bow->GetTransform()->SetAngel(_radian);
 	
@@ -60,21 +58,19 @@ void DunPlayer::CheckAttack()
 
 	for (auto& bullet : _bullets)
 	{
-		if (bullet->IsCollision(_target.lock())&&bullet->IsAtcive())
+		if (!bullet->IsAtcive())
+			continue;
+		if (bullet->IsCollision(_target.lock()))
 		{
 			bullet->SetActive(false);
-			_target.lock()->Attacked(1);
+			_target.lock()->Damaged(1);
 		}
 	}
 }
 
 void DunPlayer::Update()
 {
-	_player->GetTransform()->AddVector2(Vector2(0.0f, -98.0f * DELTA_TIME));
-	_collider->SetPosition(_player->GetTransform()->GetWorldPosition());
-	_bowSlot->SetPosition(_player->GetTransform()->GetPos());
 	SetBowAngle();
-
 
 	_player->Update();
 	_bow->Update();
@@ -85,8 +81,6 @@ void DunPlayer::Update()
 		bullet->Update();
 	}
 	CheckAttack();
-
-	_collider->Update();
 }
 
 void DunPlayer::Render()
@@ -98,7 +92,5 @@ void DunPlayer::Render()
 		if(bullet->IsAtcive())
 			bullet->Render();
 	}
-
-	_collider->Render();
 }
 

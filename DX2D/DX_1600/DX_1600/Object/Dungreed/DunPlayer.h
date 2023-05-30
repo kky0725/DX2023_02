@@ -6,7 +6,10 @@ class DunPlayer
 {
 public:
 	DunPlayer();
-	~DunPlayer();
+	virtual ~DunPlayer();
+
+	virtual void Update() abstract;
+	virtual void Render();
 
 	void SetBowAngle();
 	void Fire();
@@ -14,22 +17,19 @@ public:
 
 	void SetTarget(shared_ptr<DunMonster> target) { _target = target; }
 
-	void SetPosition(Vector2 pos) { _player->GetTransform()->SetPosition(pos); }
-	void Move(Vector2 movePos) { _player->GetTransform()->AddVector2(movePos); }
-	const shared_ptr<CircleCollider>& GetCollider() { return _collider; }
-	const Vector2& GetPos() { return _player->GetTransform()->GetPos(); }
+	virtual void SetPosition(Vector2 pos) { _player->GetTransform()->SetPosition(pos); }
+	virtual void Move(Vector2 movePos) { _player->GetTransform()->AddVector2(movePos); }
+	virtual const Vector2& GetPos() { return _player->GetTransform()->GetPos(); }
 
-	void Update();
-	void Render();
 
-private:
+
+protected:
 	shared_ptr<Quad> _player;
 	shared_ptr<Transform> _bowSlot;
 
 	shared_ptr<Quad> _bow;
 	shared_ptr<Transform> _muzzle;
 	vector<shared_ptr<DunBullet>> _bullets;
-	shared_ptr<CircleCollider> _collider;
 
 	weak_ptr<DunMonster> _target;
 
