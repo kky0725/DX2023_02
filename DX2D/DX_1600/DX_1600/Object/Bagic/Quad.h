@@ -10,6 +10,9 @@ public:
 	void Render();
 
 	void CreateVertices();
+	void CreateNoneImgVertices(Vector2 halfSize);
+
+	const Vector2& const GetImageSize() { return _srv->GetImageSize(); }
 
 	shared_ptr<Transform> GetTransform() { return _transform; }
 

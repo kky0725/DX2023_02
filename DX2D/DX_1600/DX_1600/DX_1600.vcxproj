@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Dungreed\DunMonster.h" />
     <ClInclude Include="Framework\Collider\Collider.h" />
     <ClInclude Include="Framework\Collider\CircleCollider.h" />
     <ClInclude Include="Framework\Collider\RectCollider.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="Framework\Render\VertexShader.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Dungreed\DunMonster.cpp" />
     <ClCompile Include="Framework\Collider\Collider.cpp" />
     <ClCompile Include="Framework\Collider\CircleCollider.cpp" />
     <ClCompile Include="Framework\Collider\RectCollider.cpp" />
@@ -232,6 +234,7 @@
   <ItemGroup>
     <Image Include="DX_1600.ico" />
     <Image Include="Resource\DunResource\Bullet.png" />
+    <Image Include="Resource\DunResource\Map1.png" />
     <Image Include="Resource\earth.png" />
     <Image Include="Resource\DunResource\Bow.png" />
     <Image Include="Resource\moon.png" />

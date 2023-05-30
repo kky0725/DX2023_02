@@ -1,6 +1,7 @@
 #pragma once
 class DunPlayer;
 class DunBullet;
+class DunMonster;
 
 class DungreedScene : public Scene
 {
@@ -14,6 +15,9 @@ public:
 
 private:
 	shared_ptr<DunPlayer> _player;
+	shared_ptr<Quad> _ground;
+	shared_ptr<RectCollider> _groundCollider;
+	shared_ptr<DunMonster> _monster;
 
 };
 

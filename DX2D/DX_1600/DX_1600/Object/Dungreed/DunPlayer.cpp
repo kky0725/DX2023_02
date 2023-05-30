@@ -1,12 +1,14 @@
 #include "framework.h"
 #include "DunPlayer.h"
 #include "DunBullet.h"
+#include "DunMonster.h"
 
 DunPlayer::DunPlayer()
 {
 	_player = make_shared<Quad>(L"Resource/DunResource/Player.png");
 	_bow = make_shared<Quad>(L"Resource/DunResource/Bow.png");
 	_bowSlot = make_shared<Transform>();
+	_collider = make_shared<CircleCollider>(50.0f);
 
 	for (int i = 0; i < 30; i++)
 	{
@@ -16,9 +18,10 @@ DunPlayer::DunPlayer()
 
 	_bow->GetTransform()->SetParent(_bowSlot);
 
-	_player->GetTransform()->SetPosition({ 50,100 });
+	_player->GetTransform()->SetPosition({ 100,500 });
 	_bow->GetTransform()->SetPosition({ 100,0 });
 	_bow->GetTransform()->SetAngel(_radian);
+	
 
 }
 
@@ -47,20 +50,43 @@ void DunPlayer::Fire()
 	}
 }
 
+void DunPlayer::CheckAttack()
+{
+	if (_target.expired())
+		return;
+
+	if (!_target.lock()->IsAtcive())
+		return;
+
+	for (auto& bullet : _bullets)
+	{
+		if (bullet->IsCollision(_target.lock())&&bullet->IsAtcive())
+		{
+			bullet->SetActive(false);
+			_target.lock()->Attacked(1);
+		}
+	}
+}
+
 void DunPlayer::Update()
 {
+	_player->GetTransform()->AddVector2(Vector2(0.0f, -98.0f * DELTA_TIME));
+	_collider->SetPosition(_player->GetTransform()->GetWorldPosition());
 	_bowSlot->SetPosition(_player->GetTransform()->GetPos());
 	SetBowAngle();
+
 
 	_player->Update();
 	_bow->Update();
 	_bowSlot->Update();
+	Fire();
 	for (auto& bullet : _bullets)
 	{
 		bullet->Update();
 	}
-	Fire();
+	CheckAttack();
 
+	_collider->Update();
 }
 
 void DunPlayer::Render()
@@ -72,5 +98,7 @@ void DunPlayer::Render()
 		if(bullet->IsAtcive())
 			bullet->Render();
 	}
+
+	_collider->Render();
 }
 
