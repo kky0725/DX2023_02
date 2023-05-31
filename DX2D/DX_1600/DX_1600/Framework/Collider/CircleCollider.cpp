@@ -39,17 +39,18 @@ bool CircleCollider::IsCollision(const Vector2& pos)
     return distance < GetWorldRadius();
 }
 
-bool CircleCollider::IsCollision(shared_ptr<CircleCollider> other)
+bool CircleCollider::IsCollision(shared_ptr<CircleCollider> col, bool isObb)
 {
-    Vector2 center1 = _transform->GetWorldPosition();
-    Vector2 center2 = other->_transform->GetWorldPosition();
-    float distance = (center1 - center2).Length();
-    return distance < GetWorldRadius() + other->GetWorldRadius();
+    if (isObb)
+        return OBB_Collision(col);
+    return AABB_Collision(col);
 }
 
-bool CircleCollider::IsCollision(shared_ptr<RectCollider> other)
+bool CircleCollider::IsCollision(shared_ptr<RectCollider> col, bool isObb)
 {
-    return other->IsCollision(shared_from_this());
+    if (isObb)
+        return OBB_Collision(col);
+    return AABB_Collision(col);
 }
 
 bool CircleCollider::Block(shared_ptr<CircleCollider> moveable)
@@ -88,7 +89,7 @@ bool CircleCollider::Block(shared_ptr<RectCollider> moveable)
     {
         float scalar = overlap.x;
         if (dir.x < 0)
-            scalar *= -1;
+            scalar *= -1.0f;
 
         fixedPos.x += scalar;
 
@@ -98,7 +99,7 @@ bool CircleCollider::Block(shared_ptr<RectCollider> moveable)
     {
         float scalar = overlap.y;
         if (dir.y < 0)
-            scalar *= -1;
+            scalar *= -1.0f;
         fixedPos.y += scalar;
 
         // moveable->GetTransform()->AddVector2(Vector2(0.0f, scalar));
@@ -106,4 +107,27 @@ bool CircleCollider::Block(shared_ptr<RectCollider> moveable)
     moveable->SetPosition(fixedPos);
 
     return true;
+}
+
+bool CircleCollider::AABB_Collision(shared_ptr<RectCollider> col)
+{
+    return col->IsCollision(shared_from_this());
+}
+
+bool CircleCollider::AABB_Collision(shared_ptr<CircleCollider> col)
+{
+    Vector2 center1 = _transform->GetWorldPosition();
+    Vector2 center2 = col->_transform->GetWorldPosition();
+    float distance = (center1 - center2).Length();
+    return distance < GetWorldRadius() + col->GetWorldRadius();
+}
+
+bool CircleCollider::OBB_Collision(shared_ptr<RectCollider> col)
+{
+    return col->IsCollision(shared_from_this());
+}
+
+bool CircleCollider::OBB_Collision(shared_ptr<CircleCollider> col)
+{
+    return AABB_Collision(col);
 }

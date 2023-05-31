@@ -33,3 +33,9 @@
 
 #define LERP(s,e,t) s + (e - s)*t
 //Linear interpolation
+
+//struct Hit_Result
+//{
+//	bool isCollision = false;
+//	vector<Vector2> contact;
+//};

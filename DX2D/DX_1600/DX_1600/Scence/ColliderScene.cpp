@@ -19,27 +19,32 @@ ColliderScene::~ColliderScene()
 {
 }
 
-void ColliderScene::Update()
+void ColliderScene::Collider_Update()
 {
 	_rectCollider->Update();
 	_rectCollider2->Update();
 	_circleCollider->Update();
 	_circleCollider2->Update();
+}
 
-	if (_circleCollider2->IsCollision(_circleCollider) || _circleCollider2->IsCollision(_rectCollider))
-		_circleCollider2->SetRed();
-	else
-		_circleCollider2->SetGreen();
-
-	//_circleCollider2->SetPosition(MOUSE_POS);
-	//_circleCollider2->Block(_circleCollider);
+void ColliderScene::Update()
+{
 	_rectCollider2->SetPosition(MOUSE_POS);
-	_rectCollider2->Block(_circleCollider);
 
-	if (_rectCollider2->IsCollision(_circleCollider) || _rectCollider2->IsCollision(_rectCollider))
+	if (KEY_PRESS('W'))
+		_rectCollider2->GetTransform()->AddAngle(0.5f * DELTA_TIME);
+
+	if (_rectCollider->IsCollision(_rectCollider2, true))
+	{
+		_rectCollider->SetRed();
 		_rectCollider2->SetRed();
+	}
 	else
+	{
+		_rectCollider->SetGreen();
 		_rectCollider2->SetGreen();
+	}
+
 }
 
 void ColliderScene::Render()

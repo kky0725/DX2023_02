@@ -19,8 +19,6 @@ DunPlayer::DunPlayer()
 
 	_bow->GetTransform()->SetPosition({ 100,0 });
 	_bow->GetTransform()->SetAngel(_radian);
-	
-
 }
 
 DunPlayer::~DunPlayer()

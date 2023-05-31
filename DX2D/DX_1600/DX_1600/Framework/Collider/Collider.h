@@ -30,13 +30,21 @@ public:
 	const shared_ptr<Transform> GetTransform() { return _transform; }
 	void SetParent(shared_ptr<Transform> transform) { _transform->SetParent(transform); }
 
-	bool IsCollision(shared_ptr<Collider> col);
+	bool IsCollision(shared_ptr<Collider> col, bool isObb = false);
+	bool Block(shared_ptr<Collider> other);
+
 	virtual bool IsCollision(const Vector2& pos) abstract;
-	virtual bool IsCollision(shared_ptr<CircleCollider> other) abstract;
-	virtual bool IsCollision(shared_ptr<RectCollider> other) abstract;
+	virtual bool IsCollision(shared_ptr<CircleCollider> col, bool isObb = false) abstract;
+	virtual bool IsCollision(shared_ptr<RectCollider> col, bool isObb = false) abstract;
 
 
 protected:
+	virtual bool AABB_Collision(shared_ptr<RectCollider> col) abstract;
+	virtual bool AABB_Collision(shared_ptr<CircleCollider> col) abstract;
+
+	virtual bool OBB_Collision(shared_ptr<CircleCollider> col) abstract;
+	virtual bool OBB_Collision(shared_ptr<RectCollider> col) abstract;
+
 	vector<Vertex> _vertices;
 	shared_ptr<VertexBuffer> _vertexBuffer;
 
