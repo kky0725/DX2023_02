@@ -16,10 +16,10 @@ DungreedScene::DungreedScene()
 	//_ground->GetTransform()->SetParent(_groundCollider->GetTransform());
 
 	_player->SetTarget(_monster);
+	_player->SetPosition(CENTER);
 	//_ground->GetTransform()->SetPosition(CENTER);
-	_groundCollider->GetTransform()->SetPosition(Vector2(0, -100));
-	_groundCollider->SetScale(Vector2(1.0f, 0.3f));
-
+	_monster->SetPostion({ 800,500 });
+	_groundCollider->GetTransform()->SetPosition(Vector2(CENTER.x, 50.0f));
 	//_ground->GetTransform()->SetScale(Vector2(3.5f, 2.0f));
 }
 

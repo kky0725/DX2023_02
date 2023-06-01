@@ -1,4 +1,5 @@
 #pragma once
+#include "DunPlayer.h"
 class DunPlayer;
 class DunBullet;
 

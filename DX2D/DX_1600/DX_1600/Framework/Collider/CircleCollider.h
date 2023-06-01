@@ -33,8 +33,6 @@ private:
 	virtual bool OBB_Collision(shared_ptr<CircleCollider> col) override final;
 	virtual bool OBB_Collision(shared_ptr<RectCollider> col) override final;
 
-	bool OBB_Collision(shared_ptr<RectCollider> col);
-
 	float _radius;
 };
 

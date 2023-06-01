@@ -34,14 +34,14 @@ void ColliderScene::Update()
 	if (KEY_PRESS('W'))
 		_rectCollider2->GetTransform()->AddAngle(0.5f * DELTA_TIME);
 
-	if (_rectCollider->IsCollision(_rectCollider2, true))
+	if (_circleCollider->IsCollision(_rectCollider2, true))
 	{
-		_rectCollider->SetRed();
+		_circleCollider->SetRed();
 		_rectCollider2->SetRed();
 	}
 	else
 	{
-		_rectCollider->SetGreen();
+		_circleCollider->SetGreen();
 		_rectCollider2->SetGreen();
 	}
 

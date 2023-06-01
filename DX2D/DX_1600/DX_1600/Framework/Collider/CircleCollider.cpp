@@ -124,7 +124,7 @@ bool CircleCollider::AABB_Collision(shared_ptr<CircleCollider> col)
 
 bool CircleCollider::OBB_Collision(shared_ptr<RectCollider> col)
 {
-    return col->IsCollision(shared_from_this());
+    return col->IsCollision(shared_from_this(), true);
 }
 
 bool CircleCollider::OBB_Collision(shared_ptr<CircleCollider> col)

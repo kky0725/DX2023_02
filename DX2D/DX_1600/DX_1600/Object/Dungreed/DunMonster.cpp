@@ -7,7 +7,6 @@ DunMonster::DunMonster()
 	_collider = make_shared<CircleCollider>(_quad->GetImageSize().x);
 	_quad->GetTransform()->SetParent(_collider->GetTransform());
 
-	_collider->GetTransform()->SetPosition({ 800,500 });
 	_collider->GetTransform()->SetScale({ 0.3f, 0.3f });
 
 }

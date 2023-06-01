@@ -17,14 +17,14 @@ public:
 
 	void SetTarget(shared_ptr<DunMonster> target) { _target = target; }
 
-	virtual void SetPosition(Vector2 pos) { _player->GetTransform()->SetPosition(pos); }
-	virtual void Move(Vector2 movePos) { _player->GetTransform()->AddVector2(movePos); }
-	virtual const Vector2& GetPos() { return _player->GetTransform()->GetPos(); }
+	virtual void SetPosition(Vector2 pos) { _quad->GetTransform()->SetPosition(pos); }
+	virtual void Move(Vector2 movePos) { _quad->GetTransform()->AddVector2(movePos); }
+	virtual const Vector2& GetPos() { return _quad->GetTransform()->GetPos(); }
 
 
 
 protected:
-	shared_ptr<Quad> _player;
+	shared_ptr<Quad> _quad;
 	shared_ptr<Transform> _bowSlot;
 
 	shared_ptr<Quad> _bow;

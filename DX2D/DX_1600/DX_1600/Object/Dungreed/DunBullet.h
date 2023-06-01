@@ -25,7 +25,7 @@ public:
 
 private:
 	bool _isActive = false;
-	float _speed = 20.0f;
+	float _speed = 200.0f;
 	Vector2 _direction = Vector2(0.0f, 0.0f);
 	
 	shared_ptr<CircleCollider> _collider;

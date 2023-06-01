@@ -7,7 +7,7 @@ DunPlayer_Advanced::DunPlayer_Advanced()
 {
 	_collider = make_shared<CircleCollider>(50.0f);
 
-	_player->GetTransform()->SetParent(_collider->GetTransform());
+	_quad->GetTransform()->SetParent(_collider->GetTransform());
 	_bowSlot->SetParent(_collider->GetTransform());
 }
 
@@ -25,8 +25,6 @@ void DunPlayer_Advanced::Collider_Update()
 
 void DunPlayer_Advanced::Update()
 {
-	_collider->Update();
-
 	Input();
 	Falling();
 
@@ -43,13 +41,13 @@ void DunPlayer_Advanced::Input()
 {
 	if (KEY_PRESS('A'))
 	{
-		Vector2 movePos = Vector2(-500.0f, 0.0f) * DELTA_TIME;
+		Vector2 movePos = Vector2(-_speed, 0.0f) * DELTA_TIME;
 		Move(movePos);
 	}
 
 	if (KEY_PRESS('D'))
 	{
-		Vector2 movePos = Vector2(500.0f, 0.0f) * DELTA_TIME;
+		Vector2 movePos = Vector2(_speed, 0.0f) * DELTA_TIME;
 		Move(movePos);
 	}
 }
