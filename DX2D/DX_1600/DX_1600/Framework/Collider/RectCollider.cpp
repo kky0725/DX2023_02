@@ -209,6 +209,11 @@ bool RectCollider::OBB_Collision(shared_ptr<CircleCollider> col)
     //if (col->IsCollision(leftTop) || col->IsCollision(rightTop) || col->IsCollision(leftBottom) || col->IsCollision(rightBottom))
     //    return true;
 
+    //float corner1 = abs(nea1.Dot(aToB)) - ea1.Length();
+    //float corner2 = abs(nea2.Dot(aToB)) - ea2.Length();
+    //if (pow(corner1, 2) + pow(corner2, 2) > pow(col->GetWorldRadius(), 2))
+    //    return false;
+
     // nea1 축으로 투영
     float length = abs(nea1.Dot(aToB));
     float lengthA = ea1.Length();
@@ -223,9 +228,8 @@ bool RectCollider::OBB_Collision(shared_ptr<CircleCollider> col)
     if (length > lengthA + lengthB)
         return false;
 
-    float corner1 = abs(nea1.Dot(aToB)) - ea1.Length();
-    float corner2 = abs(nea2.Dot(aToB)) - ea2.Length();
-    if (pow(corner1,2) + pow(corner2,2) > pow(col->GetWorldRadius(),2))
+    float d = sqrt(pow(infoA.lenght[0], 2) + pow(infoA.lenght[1], 2)) + col->GetWorldRadius();
+    if (aToB.Length() > d)
         return false;
 
     return true;

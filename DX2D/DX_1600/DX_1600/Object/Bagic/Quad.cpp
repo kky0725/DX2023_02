@@ -3,8 +3,8 @@
 
 Quad::Quad()
 {
-    _vs = make_shared<VertexShader>(L"Shader/TextureVS.hlsl");
-    _ps = make_shared<PixelShader>(L"Shader/TexturePS.hlsl");
+    _vs = ADD_VS(L"Shader/TextureVS.hlsl");
+    _ps = ADD_PS(L"Shader/TexturePS.hlsl");
     CreateNoneImgVertices(Vector2(500,10));
     _vertexBuffer = make_shared<VertexBuffer>(_vertices.data(), sizeof(Vertex_Texture), _vertices.size(), 0);
     _indexBuffer = make_shared<IndexBuffer>(_indices.data(), _indices.size());
@@ -16,8 +16,8 @@ Quad::Quad()
 
 Quad::Quad(wstring srvfile)
 {
-    _vs = make_shared<VertexShader>(L"Shader/TextureVS.hlsl");
-    _ps = make_shared<PixelShader>(L"Shader/TexturePS.hlsl");
+    _vs = ADD_VS(L"Shader/TextureVS.hlsl");
+    _ps = ADD_PS(L"Shader/TexturePS.hlsl");
 
     _srv = make_shared<SRV>(srvfile);
 
