@@ -5,11 +5,12 @@
 DunBullet::DunBullet()
 {
 	_bullet = make_shared<Quad>(L"Resource/DunResource/Bullet.png");
-	_bullet->GetTransform()->SetScale({ 0.05f,0.05f });
-
+	_transform = make_shared<Transform>();
 	_collider = make_shared<CircleCollider>(5.0f);
-	_bullet->GetTransform()->SetParent(_collider->GetTransform());
-	_bullet->GetTransform()->SetPosition({ -7.0f, 0.0f });
+
+	_transform->SetScale({ 0.05f,0.05f });
+	_transform->SetParent(_collider->GetTransform());
+	_transform->SetPosition({ -7.0f, 0.0f });
 }
 
 DunBullet::~DunBullet()
@@ -51,15 +52,15 @@ void DunBullet::Update()
 	if (_isActive == false)
 		return;
 
-	_bullet->Update();
+	_transform->Update();
 
 }
 
 
 void DunBullet::Render()
 {
+	_transform->SetBuffer(0);
 	_bullet->Render();
-
 	_collider->Render();
 }
 

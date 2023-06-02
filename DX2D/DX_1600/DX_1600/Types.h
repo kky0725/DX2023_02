@@ -32,6 +32,8 @@
 #define ADD_VS(k) ShaderManager::GetInstnace()->AddVS(k)
 #define ADD_PS(k) ShaderManager::GetInstnace()->AddPS(k)
 
+#define ADD_SRV(k) SRVManager::GetInstance()->Add_SRV(k)
+
 #define DELTA_TIME Timer::GetInstance()->GetDeltaTime()
 
 #define LERP(s,e,t) s + (e - s)*t

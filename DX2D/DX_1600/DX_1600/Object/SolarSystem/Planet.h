@@ -9,10 +9,10 @@ public:
 	void Update();
 	void Render();
 
-	void SetPosition(Vector2 pos) { _quad->GetTransform()->SetPosition(pos); }
-	void SetParent(shared_ptr<Planet> planet) { _quad->GetTransform()->SetParent(planet->GetRevolution()); }
+	void SetPosition(Vector2 pos) { _transform->SetPosition(pos); }
+	void SetParent(shared_ptr<Planet> planet) { _transform->SetParent(planet->GetRevolution()); }
 	
-	shared_ptr<Transform> GetTransform() { return _quad->GetTransform(); }
+	shared_ptr<Transform> GetTransform() { return _transform; }
 	shared_ptr<Transform> GetRevolution() { return _revolution; }
 
 	void SetRotation(float value) { _rotation = value; }
@@ -21,6 +21,7 @@ public:
 private:
 	shared_ptr<Quad> GetQuad() { return _quad; }
 	shared_ptr<Quad> _quad;
+	shared_ptr<Transform> _transform;
 	shared_ptr<Transform> _revolution;
 
 	float _rotation = 0.0f;

@@ -4,8 +4,9 @@
 DunMonster::DunMonster()
 {
 	_quad = make_shared<Quad>(L"Resource/Goomba.png");
-	_collider = make_shared<CircleCollider>(_quad->GetImageSize().x);
-	_quad->GetTransform()->SetParent(_collider->GetTransform());
+	_transform = make_shared<Transform>();
+	_collider = make_shared<CircleCollider>(_quad->GetImageSize().x - 100.0f);
+	_transform->SetParent(_collider->GetTransform());
 
 	_collider->GetTransform()->SetScale({ 0.3f, 0.3f });
 
@@ -26,13 +27,14 @@ void DunMonster::Update()
 {
 	if (!_isActive)
 		return;
-	_quad->Update();
+	_transform->Update();
 }
 
 void DunMonster::Render()
 {
 	if (_hp > 0)
 	{
+		_transform->SetBuffer(0);
 		_quad->Render();
 		_collider->Render();
 	}

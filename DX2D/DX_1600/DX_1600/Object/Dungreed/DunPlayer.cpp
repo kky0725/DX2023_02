@@ -8,6 +8,9 @@ DunPlayer::DunPlayer()
 	_quad = make_shared<Quad>(L"Resource/DunResource/Player.png");
 	_bow = make_shared<Quad>(L"Resource/DunResource/Bow.png");
 	_bowSlot = make_shared<Transform>();
+	
+	_transform = make_shared<Transform>();
+	_bowTransform = make_shared<Transform>();
 
 	for (int i = 0; i < 30; i++)
 	{
@@ -15,10 +18,10 @@ DunPlayer::DunPlayer()
 		_bullets.push_back(bullet);
 	}
 
-	_bow->GetTransform()->SetParent(_bowSlot);
+	_bowTransform->SetParent(_bowSlot);
 
-	_bow->GetTransform()->SetPosition({ 100,0 });
-	_bow->GetTransform()->SetAngel(_radian);
+	_bowTransform->SetPosition({ 100,0 });
+	_bowTransform->SetAngel(_radian);
 }
 
 DunPlayer::~DunPlayer()
@@ -32,10 +35,10 @@ void DunPlayer::Update()
 
 	SetBowAngle();
 
-	_bowSlot->SetPosition(_quad->GetTransform()->GetPos());
+	_bowSlot->SetPosition(_transform->GetPos());
 
-	_quad->Update();
-	_bow->Update();
+	_transform->Update();
+	_bowTransform->Update();
 	_bowSlot->Update();
 	for (auto& bullet : _bullets)
 	{
@@ -46,7 +49,9 @@ void DunPlayer::Update()
 
 void DunPlayer::Render()
 {
+	_transform->SetBuffer(0);
 	_quad->Render();
+	_bowTransform->SetBuffer(0);
 	_bow->Render();
 	for (auto& bullet : _bullets)
 	{
@@ -71,7 +76,7 @@ void DunPlayer::Fire()
 		Vector2 dir = MOUSE_POS - GetPos();
 		if (bulletIter != _bullets.end())
 		{
-			(*bulletIter)->Shoot(dir, _bow->GetTransform()->GetWorldPosition());
+			(*bulletIter)->Shoot(dir, _bowTransform->GetWorldPosition());
 		}
 	}
 }

@@ -71,12 +71,15 @@ using namespace Microsoft::WRL;
 
 //TextureMapping
 #include "Framework/TextureMapping/SRV.h"
+#include "Framework/TextureMapping/SRVManager.h"
 #include "Framework/TextureMapping/SampleState.h"
 #include "Framework/TextureMapping/BlendState.h"
 #include "Framework/TextureMapping/StateManager.h"
 
+
 //Object
 #include "Object/Bagic/Quad.h"
+#include "Object/Bagic/Sprite.h"
 
 //Scence
 #include "Scence/Scene.h"

@@ -22,6 +22,7 @@ public:
 
 private:
 	shared_ptr<Quad> _quad;
+	shared_ptr<Transform> _transform;
 	int _hp = 20;
 	bool _isActive = true;
 

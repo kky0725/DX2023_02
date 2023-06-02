@@ -9,8 +9,6 @@ Quad::Quad()
     _vertexBuffer = make_shared<VertexBuffer>(_vertices.data(), sizeof(Vertex_Texture), _vertices.size(), 0);
     _indexBuffer = make_shared<IndexBuffer>(_indices.data(), _indices.size());
 
-    _transform = make_shared<Transform>();
-
     //랜더링 할 때 srv가 필요한데 없어서 실행 안되는 문제 해결 예정
 }
 
@@ -19,30 +17,36 @@ Quad::Quad(wstring srvfile)
     _vs = ADD_VS(L"Shader/TextureVS.hlsl");
     _ps = ADD_PS(L"Shader/TexturePS.hlsl");
 
-    _srv = make_shared<SRV>(srvfile);
+    _srv = ADD_SRV(srvfile);
 
     CreateVertices();
     _vertexBuffer = make_shared<VertexBuffer>(_vertices.data(), sizeof(Vertex_Texture), _vertices.size(), 0);
     _indexBuffer = make_shared<IndexBuffer>(_indices.data(), _indices.size());
+}
 
-    _transform = make_shared<Transform>();
+Quad::Quad(wstring srvfile, Vector2 size)
+{
+    _vs = ADD_VS(L"Shader/TextureVS.hlsl");
+    _ps = ADD_PS(L"Shader/TexturePS.hlsl");
+
+    _srv = ADD_SRV(srvfile);
+    _halfSize = size * 0.5f;
+
+    CreateVertices();
+    _vertexBuffer = make_shared<VertexBuffer>(_vertices.data(), sizeof(Vertex_Texture), _vertices.size(), 0);
+    _indexBuffer = make_shared<IndexBuffer>(_indices.data(), _indices.size());
 }
 
 Quad::~Quad()
 {
 }
 
-void Quad::Update()
-{
-    _transform->Update();
-}
 
 void Quad::Render()
 {
     _vertexBuffer->Set(0);
     _indexBuffer->Set();
 
-    _transform->SetBuffer(0);
     _vs->Set();
 
     _srv->Set(0);
@@ -56,9 +60,14 @@ void Quad::Render()
 
 void Quad::CreateVertices()
 {
-    Vertex_Texture temp;
+    if (_halfSize.x == 0.0f && _halfSize.y == 0.0f)
+    {
     _halfSize.x = _srv->GetImageSize().x * 0.5f;
     _halfSize.y = _srv->GetImageSize().y * 0.5f;
+    }
+
+    Vertex_Texture temp;
+
     temp.pos = { XMFLOAT3(-_halfSize.x, _halfSize.y, 0.0f) };
     temp.color = { XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) };
     temp.uv = { 0.0f, 0.0f };

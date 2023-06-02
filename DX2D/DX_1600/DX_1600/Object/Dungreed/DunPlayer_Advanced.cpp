@@ -7,7 +7,7 @@ DunPlayer_Advanced::DunPlayer_Advanced()
 {
 	_collider = make_shared<CircleCollider>(50.0f);
 
-	_quad->GetTransform()->SetParent(_collider->GetTransform());
+	_transform->SetParent(_collider->GetTransform());
 	_bowSlot->SetParent(_collider->GetTransform());
 }
 
