@@ -39,6 +39,8 @@
 #define LERP(s,e,t) s + (e - s)*t
 //Linear interpolation
 
+using CallBack = function<void(void)>;
+
 //struct Hit_Result
 //{
 //	bool isCollision = false;

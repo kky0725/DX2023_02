@@ -1,13 +1,15 @@
 #include "framework.h"
 #include "Program.h"
-#include "../Scence/TutorialScene.h"
-#include "../Scence/SolarSystem.h"
-#include "../Scence/DungreedScene.h"
-#include "../Scence/ColliderScene.h"
+#include "../Scence/BagicScene/TutorialScene.h"
+#include "../Scence/BagicScene/SolarSystem.h"
+#include "../Scence/BagicScene/DungreedScene.h"
+#include "../Scence/BagicScene/ColliderScene.h"
+#include "../Scence/BagicScene/SpriteScene.h"
+#include "../Scence/BagicScene/ActionScene.h"
 
 Program::Program()
 {
-	_curScene = make_shared<DungreedScene>();
+	_curScene = make_shared<ActionScene>();
 	
 	_view = make_shared<MatrixBuffer>();
 	_projection = make_shared<MatrixBuffer>();
