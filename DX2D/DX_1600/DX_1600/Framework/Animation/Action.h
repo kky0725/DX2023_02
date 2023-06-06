@@ -23,6 +23,7 @@ public:
 	};
 
 	Action(vector<Clip> clips, string name = "", Type type = Type::LOOP, float speed = 0.1f);
+	~Action();
 
 	void Update();
 

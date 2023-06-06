@@ -6,6 +6,10 @@ Action::Action(vector<Clip> clips, string name, Type type, float speed)
 {
 }
 
+Action::~Action()
+{
+}
+
 void Action::Update()
 {
 	if (_isPlay == false)
@@ -73,7 +77,7 @@ void Action::Stop()
 	_curClipIndex = 0;
 
 	if (_endEvent != nullptr)
-		_endEvent;
+		_endEvent();
 }
 
 void Action::Reset()
