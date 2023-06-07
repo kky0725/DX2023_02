@@ -1,5 +1,7 @@
 #pragma once
 class Link_Ani;
+class Zelda_Player;
+class Zelda_Item;
 
 class ActionScene : public Scene
 {
@@ -13,6 +15,7 @@ public:
 
 
 private:
-	shared_ptr<Link_Ani> _link;
+	shared_ptr<Zelda_Player> _player;
+	shared_ptr<Zelda_Item> _item;
 };
 
