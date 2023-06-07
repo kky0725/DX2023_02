@@ -13,9 +13,11 @@ public:
 	virtual void Render() override;
 	virtual void PostRender() override;
 
+	void GetItem();
+
 
 private:
 	shared_ptr<Zelda_Player> _player;
-	shared_ptr<Zelda_Item> _item;
+	vector<shared_ptr<Zelda_Item>> _items;
 };
 

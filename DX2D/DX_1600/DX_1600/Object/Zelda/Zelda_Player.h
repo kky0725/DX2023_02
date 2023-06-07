@@ -13,6 +13,9 @@ public:
 
 	void Move(Vector2 movePos) { _collider->GetTransform()->AddVector2(movePos); }
 	void Input();
+	void AddHp(int value) { _hp += value; }
+
+	shared_ptr<RectCollider> GetCollider() { return _collider; }
 
 
 private:

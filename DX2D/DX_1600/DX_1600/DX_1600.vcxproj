@@ -259,6 +259,7 @@
     <Image Include="Resource\DunResource\Map1.png" />
     <Image Include="Resource\earth.png" />
     <Image Include="Resource\DunResource\Bow.png" />
+    <Image Include="Resource\Item_11x5.png" />
     <Image Include="Resource\moon.png" />
     <Image Include="Resource\DunResource\Player.png" />
     <Image Include="Resource\sun.png" />
