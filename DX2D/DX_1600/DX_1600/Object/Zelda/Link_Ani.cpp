@@ -88,12 +88,10 @@ void Link_Ani::CreateIdleAction(float w, float h, float nth, int num, string nam
 		{
 			Action::Clip clip = Action::Clip(i * w, nth * h, w, h, srv);
 			clips.push_back(clip);
-			clips.push_back(clip);
-			clips.push_back(clip);
 		}
 	}
 
-	shared_ptr<Action> action = make_shared<Action>(clips, name);
+	shared_ptr<Action> action = make_shared<Action>(clips, name, Action::Type::LOOP, 0.3f);
 	action->Play();
 
 	_actions.push_back(action);

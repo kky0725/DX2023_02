@@ -40,7 +40,7 @@ public:
 
 private:
 	string _name;
-	vector < Clip> _clips;
+	vector <Clip> _clips;
 
 	Type _repeatType = Type::END;
 	bool _isPlay = false;
