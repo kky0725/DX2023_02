@@ -151,7 +151,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Scence\BagicScene\CupHeadScene.h" />
+    <ClInclude Include="Object\CupHead\Cup_Player.h" />
     <ClInclude Include="Framework\Animation\Action.h" />
+    <ClInclude Include="Framework\Utility\tinyxml2.h" />
     <ClInclude Include="Object\Zelda\Link_Ani.h" />
     <ClInclude Include="Scence\BagicScene\ActionScene.h" />
     <ClInclude Include="Object\Dungreed\DunPlayer_Advanced.h" />
@@ -199,7 +202,10 @@
     <ClInclude Include="Object\Zelda\Zelda_Item.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Scence\BagicScene\CupHeadScene.cpp" />
+    <ClCompile Include="Object\CupHead\Cup_Player.cpp" />
     <ClCompile Include="Framework\Animation\Action.cpp" />
+    <ClCompile Include="Framework\Utility\tinyxml2.cpp" />
     <ClCompile Include="Object\Zelda\Link_Ani.cpp" />
     <ClCompile Include="Scence\BagicScene\ActionScene.cpp" />
     <ClCompile Include="Object\Dungreed\DunPlayer_Advanced.cpp" />
@@ -255,6 +261,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="DX_1600.ico" />
+    <Image Include="Resource\CupHead\Idle.png" />
     <Image Include="Resource\DunResource\Bullet.png" />
     <Image Include="Resource\DunResource\Map1.png" />
     <Image Include="Resource\earth.png" />
@@ -269,6 +276,20 @@
     <Image Include="small.ico" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Shader\ActionPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">PS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">PS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">PS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">PS</EntryPointName>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
     <FxCompile Include="Shader\ColliderPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
@@ -375,6 +396,9 @@
     <ProjectReference Include="..\ImGUi\ImGUi.vcxproj">
       <Project>{2089f5d7-b850-4402-b4fd-c33835e2038a}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Xml Include="Resource\CupHead\Idle.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

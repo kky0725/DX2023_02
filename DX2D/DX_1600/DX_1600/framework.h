@@ -44,8 +44,8 @@ using namespace Microsoft::WRL;
 //Types
 #include "Types.h"
 
-// FrameWork
-#include "FrameWork/Device/Device.h"
+// Framework
+#include "Framework/Device/Device.h"
 
 //Math
 #include "Framework/Math/Vector2.h"
@@ -54,6 +54,7 @@ using namespace Microsoft::WRL;
 //Utility
 #include "Framework/Utility/InputManager.h"
 #include "Framework/Utility/Timer.h"
+#include "Framework/Utility/tinyxml2.h"
 
 //Render
 #include "Framework/Render/ConstantBuffer.h"

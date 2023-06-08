@@ -1,15 +1,26 @@
 #include "framework.h"
 #include "Sprite.h"
 
-Sprite::Sprite(wstring path, Vector2 maxFrame, Vector2 size)
-	: _maxFrame(maxFrame), Quad(path, size)
+Sprite::Sprite(wstring path, Vector2 size)
+	:_maxFrame(nullptr), Quad(path, size)
 {
 	_vs = ADD_VS(L"Shader/SpriteVS.hlsl");
-	_ps = ADD_PS(L"Shader/SpritePS.hlsl");
+	_ps = ADD_PS(L"Shader/ActionPS.hlsl");
 
-	_frameBuffer = make_shared<FrameBuffer>();
-	_frameBuffer->SetMaxFrame(_maxFrame);
-	_frameBuffer->SetCurFrame(_curFrame);
+	_actionBuffer = make_shared<ActionBuffer>();
+	_actionBuffer->_data.imageSize = _srv->GetImageSize();
+}
+
+Sprite::Sprite(wstring path, Vector2 maxFrame, Vector2 size)
+	: _maxFrame(nullptr), Quad(path, size)
+{
+	_maxFrame = make_shared<Vector2>(maxFrame);
+
+	_vs = ADD_VS(L"Shader/SpriteVS.hlsl");
+	_ps = ADD_PS(L"Shader/ActionPS.hlsl");
+
+	_actionBuffer = make_shared<ActionBuffer>();
+	_actionBuffer->_data.imageSize = _srv->GetImageSize();
 }
 
 Sprite::~Sprite()
@@ -18,24 +29,30 @@ Sprite::~Sprite()
 
 void Sprite::Update()
 {
-	_frameBuffer->Update();
+	_actionBuffer->Update();
 }
 
 void Sprite::Render()
 {
-	_frameBuffer->SetPsBuffer(0);
+	_actionBuffer->SetPsBuffer(0);
 	Quad::Render();
 }
 
 void Sprite::SetCurFrmae(Vector2 frame)
 {
-	_frameBuffer->SetCurFrame(frame);
+	if (_maxFrame == nullptr)
+		return;
+
+	Vector2 size;
+	size.x = _actionBuffer->_data.imageSize.x / (*_maxFrame).x;
+	size.y = _actionBuffer->_data.imageSize.y / (*_maxFrame).y;
+	_actionBuffer->_data.startPos.x = frame.x * size.x;
+	_actionBuffer->_data.startPos.y = frame.y * size.y;
+	_actionBuffer->_data.size = size;
 }
 
 void Sprite::SetCurFrmae(Action::Clip clip)
 {
-	Vector2 frame;
-	frame.x = clip._startPos.x / clip._size.x;
-	frame.y = clip._startPos.y / clip._size.y;
-	_frameBuffer->SetCurFrame(frame);
+	_actionBuffer->_data.startPos = clip._startPos;
+	_actionBuffer->_data.size = clip._size;
 }
