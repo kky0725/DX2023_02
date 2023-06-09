@@ -263,6 +263,7 @@
     <Image Include="DX_1600.ico" />
     <Image Include="Resource\CupHead\Idle.png" />
     <Image Include="Resource\CupHead\Run.png" />
+    <Image Include="Resource\CupHead\track.png" />
     <Image Include="Resource\DunResource\Bullet.png" />
     <Image Include="Resource\DunResource\Map1.png" />
     <Image Include="Resource\earth.png" />

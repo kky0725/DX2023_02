@@ -7,6 +7,19 @@ CupHeadScene::CupHeadScene()
 {
 	_player = make_shared<Cup_Player>();
 	_player->SetPosition(CENTER);
+
+	_track = make_shared<Quad>(L"Resource/CupHead/track.png");
+	_transform = make_shared<Transform>();
+	Vector2 trackSize = _track->GetImageSize();
+	_collider = make_shared<RectCollider>(trackSize * 2.0f);
+
+	_transform->SetParent(_collider->GetTransform());
+	_transform->SetPosition(Vector2(0, 75));
+
+	Vector2 pos = CENTER;
+	pos.y -= 350.0f;
+	_collider->GetTransform()->SetPosition(pos);
+	_transform->Update();
 }
 
 CupHeadScene::~CupHeadScene()
@@ -16,10 +29,18 @@ CupHeadScene::~CupHeadScene()
 void CupHeadScene::Update()
 {
 	_player->Update();
+
+	_collider->Update();
+
+	_collider->Block(_player->GetCollider());
 }
 
 void CupHeadScene::Render()
 {
+	_transform->SetBuffer(0);
+	_track->Render();
+	_collider->Render();
+
 	_player->Render();
 }
 

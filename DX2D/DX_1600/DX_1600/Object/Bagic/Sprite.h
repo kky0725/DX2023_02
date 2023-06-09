@@ -12,6 +12,9 @@ public:
 	void SetCurFrmae(Vector2 frame);
 	void SetCurFrmae(Action::Clip clip);
 
+	void SetLeft() { _actionBuffer->_data.isRight = 0; }
+	void SetRight() { _actionBuffer->_data.isRight = 1; }
+
 private:
 	shared_ptr<ActionBuffer> _actionBuffer;
 

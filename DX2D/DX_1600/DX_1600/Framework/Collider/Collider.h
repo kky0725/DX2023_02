@@ -33,6 +33,9 @@ public:
 	bool IsCollision(shared_ptr<Collider> col, bool isObb = false);
 	bool Block(shared_ptr<Collider> other);
 
+	virtual bool Block(shared_ptr<CircleCollider> moveable) abstract;
+	virtual bool Block(shared_ptr<RectCollider> moveable) abstract;
+
 	virtual bool IsCollision(const Vector2& pos) abstract;
 	virtual bool IsCollision(shared_ptr<CircleCollider> col, bool isObb = false) abstract;
 	virtual bool IsCollision(shared_ptr<RectCollider> col, bool isObb = false) abstract;

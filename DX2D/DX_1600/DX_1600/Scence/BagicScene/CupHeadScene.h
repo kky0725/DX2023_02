@@ -1,4 +1,6 @@
 #pragma once
+class Cup_Player;
+
 class CupHeadScene : public Scene
 {
 public:
@@ -10,6 +12,10 @@ public:
 	virtual void PostRender() override;
 
 private:
-	shared_ptr<class Cup_Player> _player;
+	shared_ptr<Cup_Player> _player;
+
+	shared_ptr<Collider> _collider;
+	shared_ptr<Quad> _track;
+	shared_ptr<Transform> _transform;
 };
 
