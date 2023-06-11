@@ -151,6 +151,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\CupHead\Cup_Bullet.h" />
+    <ClInclude Include="Object\CupHead\Cup_Ani.h" />
+    <ClInclude Include="Object\CupHead\Cup_Boss.h" />
     <ClInclude Include="Scence\BagicScene\CupHeadScene.h" />
     <ClInclude Include="Object\CupHead\Cup_Player.h" />
     <ClInclude Include="Framework\Animation\Action.h" />
@@ -202,6 +205,9 @@
     <ClInclude Include="Object\Zelda\Zelda_Item.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\CupHead\Cup_Bullet.cpp" />
+    <ClCompile Include="Object\CupHead\Cup_Ani.cpp" />
+    <ClCompile Include="Object\CupHead\Cup_Boss.cpp" />
     <ClCompile Include="Scence\BagicScene\CupHeadScene.cpp" />
     <ClCompile Include="Object\CupHead\Cup_Player.cpp" />
     <ClCompile Include="Framework\Animation\Action.cpp" />
@@ -261,8 +267,16 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="DX_1600.ico" />
+    <Image Include="Resource\CupHead\AimStraightShot.png" />
+    <Image Include="Resource\CupHead\Bullet_Intro.png" />
+    <Image Include="Resource\CupHead\Bullet_Loop.png" />
+    <Image Include="Resource\CupHead\Clown_Page_Two_Die.png" />
+    <Image Include="Resource\CupHead\Clown_Page_Two_Idle.png" />
+    <Image Include="Resource\CupHead\Clown_Page_Two_Intro.png" />
     <Image Include="Resource\CupHead\Idle.png" />
+    <Image Include="Resource\CupHead\Jump.png" />
     <Image Include="Resource\CupHead\Run.png" />
+    <Image Include="Resource\CupHead\RunShot.png" />
     <Image Include="Resource\CupHead\track.png" />
     <Image Include="Resource\DunResource\Bullet.png" />
     <Image Include="Resource\DunResource\Map1.png" />
@@ -400,8 +414,16 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Xml Include="Resource\CupHead\AimStraightShot.xml" />
+    <Xml Include="Resource\CupHead\Bullet_Intro.xml" />
+    <Xml Include="Resource\CupHead\Bullet_Loop.xml" />
+    <Xml Include="Resource\CupHead\Clown_Page_Two_Die.xml" />
+    <Xml Include="Resource\CupHead\Clown_Page_Two_Idle.xml" />
+    <Xml Include="Resource\CupHead\Clown_Page_Two_Intro.xml" />
     <Xml Include="Resource\CupHead\Idle.xml" />
+    <Xml Include="Resource\CupHead\Jump.xml" />
     <Xml Include="Resource\CupHead\Run.xml" />
+    <Xml Include="Resource\CupHead\RunShot.xml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -55,7 +55,7 @@ void DunPlayer::Render()
 	_bow->Render();
 	for (auto& bullet : _bullets)
 	{
-		if (bullet->IsAtcive())
+		if (bullet->IsActive())
 			bullet->Render();
 	}
 }
@@ -71,7 +71,7 @@ void DunPlayer::Fire()
 	if (GetAsyncKeyState(VK_LBUTTON) & 0x0001)
 	{
 		auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
-			[](const shared_ptr<DunBullet>& obj)-> bool	{return !obj->IsAtcive();});
+			[](const shared_ptr<DunBullet>& obj)-> bool	{return !obj->IsActive();});
 
 		Vector2 dir = MOUSE_POS - GetPos();
 		if (bulletIter != _bullets.end())
@@ -91,7 +91,7 @@ void DunPlayer::CheckAttack()
 
 	for (auto& bullet : _bullets)
 	{
-		if (!bullet->IsAtcive())
+		if (!bullet->IsActive())
 			continue;
 		if (bullet->IsCollision(_target.lock()))
 		{

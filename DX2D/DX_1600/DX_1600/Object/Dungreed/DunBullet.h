@@ -16,7 +16,7 @@ public:
 	void Shoot(const Vector2& dir, const Vector2 startPos,float speed = 200.0f);
 
 
-	bool IsAtcive() { return _isActive; }
+	bool IsActive() { return _isActive; }
 	void SetActive(bool value) { _isActive = value; }
 
 	const shared_ptr<CircleCollider>& GetCollider() { return _collider; }
