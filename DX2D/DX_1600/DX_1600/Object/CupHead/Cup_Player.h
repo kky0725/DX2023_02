@@ -5,15 +5,12 @@ class Cup_Bullet;
 class Cup_Player
 {
 public:
-
-
 	Cup_Player();
 	~Cup_Player();
 
 	void Update();
 	void Render();
 	void PosRender();
-
 
 	void Move(Vector2 movePos) { _collider->GetTransform()->AddVector2(movePos); }
 	void Input();

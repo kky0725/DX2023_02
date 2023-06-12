@@ -3,17 +3,16 @@
 
 using namespace tinyxml2;
 
-
 Cup_Ani::Cup_Ani()
 {
 	CreateAction(L"Resource/CupHead/Idle.png", "Resource/CupHead/Idle.xml", "CUP_IDLE", Vector2(250, 250));
 	CreateAction(L"Resource/CupHead/Jump.png", "Resource/CupHead/Jump.xml", "CUP_JUMP", Vector2(120, 120));
-	CreateAction(L"Resource/CupHead/Run.png", "Resource/CupHead/Run.xml", "CUP_RUN", Vector2(120, 120));
+	CreateAction(L"Resource/CupHead/Run.png", "Resource/CupHead/Run.xml", "CUP_RUN", Vector2(120, 140));
 	CreateAction(L"Resource/CupHead/AimStraightShot.png", "Resource/CupHead/AimStraightShot.xml", "CUP_SHOT", Vector2(250, 250));
 	CreateAction(L"Resource/CupHead/RunShot.png", "Resource/CupHead/RunShot.xml", "CUP_RUNSHOT", Vector2(120, 120));
 
 	_transform = make_shared<Transform>();
-	_transform->SetPosition(Vector2(0, 9.76));
+	_transform->SetPosition(Vector2(0.0f, 9.76f));
 
 	SetRight();
 }
@@ -95,7 +94,6 @@ void Cup_Ani::SelectState()
 	{
 		_state = State::IDLE;
 	}
-
 	if (KEY_PRESS(VK_LEFT))
 	{
 		_state = State::RUN;
@@ -107,7 +105,6 @@ void Cup_Ani::SelectState()
 	{
 		_state = State::IDLE;
 	}
-
 	if (KEY_PRESS(VK_RIGHT))
 	{
 		_state = State::RUN;
@@ -119,7 +116,6 @@ void Cup_Ani::SelectState()
 	{
 		_state = State::IDLE;
 	}
-
 	if (KEY_PRESS('X'))
 	{
 		_state = State::SHOT;

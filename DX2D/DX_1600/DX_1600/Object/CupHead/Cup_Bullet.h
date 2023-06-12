@@ -26,14 +26,14 @@ public:
 
 	const shared_ptr<CircleCollider>& GetCollider() { return _collider; }
 
-	void EndEvent() { _state = State::LOOP; }
+	void EndEvent() { _state = State::LOOP; _actions[LOOP]->Play(); }
 
 	void SetLeft();
 	void SetRight();
 
 private:
 	bool _isActive = false;
-	float _speed = 200.0f;
+	float _speed = 300.0f;
 	Vector2 _direction = Vector2(0.0f, 0.0f);
 
 	shared_ptr<CircleCollider> _collider;

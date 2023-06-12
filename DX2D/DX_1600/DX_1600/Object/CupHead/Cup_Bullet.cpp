@@ -11,8 +11,8 @@ Cup_Bullet::Cup_Bullet()
 	_collider = make_shared<CircleCollider>(5.0f);
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_collider->GetTransform());
-	_transform->SetAngel(-PI / 2);
-	_transform->SetPosition(Vector2(-60, 0));
+	_transform->SetAngel(-PI * 0.5f);
+	_transform->SetPosition(Vector2(-60.0f, 0.0f));
 
 	_actions[State::INTRO]->SetEndEvent(std::bind(&Cup_Bullet::EndEvent, this));
 }
@@ -51,6 +51,10 @@ void Cup_Bullet::Render()
 
 void Cup_Bullet::Shoot(const Vector2& dir, const Vector2 startPos)
 {
+	_state = State::INTRO;
+	_actions[_state]->Play();
+	_actions[LOOP]->Reset();
+
 	_isActive = true;
 	_direction = dir.NormalVector2();
 	_collider->GetTransform()->SetPosition(startPos);
@@ -102,12 +106,10 @@ void Cup_Bullet::CreateAction(wstring srvPath, string xmlPath, string actionName
 
 void Cup_Bullet::SetLeft()
 {
-	_state = State::INTRO;
 	_sprites[_state]->SetLeft();
 }
 
 void Cup_Bullet::SetRight()
 {
-	_state = State::INTRO;
 	_sprites[_state]->SetRight();
 }

@@ -78,9 +78,6 @@ void Cup_Player::Fire()
 		return;
 	}
 
-
-
-
 	if (KEY_PRESS('X'))
 	{
 		auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
@@ -103,8 +100,6 @@ void Cup_Player::Fire()
 			(*bulletIter)->SetLeft();
 			(*bulletIter)->Shoot(Vector2(-1, 0), startPos);
 		}
-
-
 	}
 
 }

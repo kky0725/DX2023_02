@@ -42,6 +42,6 @@ private:
 	Vector2 _fixedPos;
 
 	bool _isRight = true;
-	bool _isGround = true;
+	bool _isGround = false;
 };
 
