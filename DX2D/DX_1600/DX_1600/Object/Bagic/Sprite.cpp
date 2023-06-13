@@ -21,6 +21,7 @@ Sprite::Sprite(wstring path, Vector2 maxFrame, Vector2 size)
 
 	_actionBuffer = make_shared<ActionBuffer>();
 	_actionBuffer->_data.imageSize = _srv.lock()->GetImageSize();
+
 }
 
 Sprite::~Sprite()

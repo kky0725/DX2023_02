@@ -125,3 +125,26 @@ public:
 	Data _data;
 private:
 };
+
+class MosaicActionBuffer : public ConstantBuffer
+{
+public:
+	struct Data
+	{
+		Vector2 startPos;
+		Vector2 size;
+		Vector2 imageSize;
+		int		isRight = 0;
+		int		value = 1;
+	};
+
+	MosaicActionBuffer()
+		: ConstantBuffer(&_data, sizeof(_data))
+	{
+
+	}
+	virtual ~MosaicActionBuffer() {}
+
+	Data _data;
+private:
+};

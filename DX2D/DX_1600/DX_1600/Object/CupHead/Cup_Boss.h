@@ -35,7 +35,7 @@ private:
 	vector<shared_ptr<Sprite>> _sprites;
 	vector<shared_ptr<Action>> _actions;
 	shared_ptr<Transform> _transform;
-	int _hp = 5;
+	int _hp = 1;
 	bool _isActive = true;
 
 	shared_ptr<CircleCollider> _collider;

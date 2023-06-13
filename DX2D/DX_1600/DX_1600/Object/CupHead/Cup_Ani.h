@@ -24,7 +24,7 @@ public:
 	void SetParent(shared_ptr<Transform> parent) { _transform->SetParent(parent); }
 
 	void SetState(State state);
-	void EndEvent() { _curState = State::IDLE; }
+	void EndEvent() { SetState(IDLE); }
 
 	void SetIsGround(bool value) { _isGround = value; }
 	bool GetISGround() const { return _isGround; }
