@@ -4,42 +4,38 @@
 TutorialScene::TutorialScene()
 {
 	_quad1 = make_shared<Quad>(L"Resource/Zelda.png");
-	_quad2 = make_shared<Quad>(L"Resource/Goomba.png");
+	//_quad1 = make_shared<Quad>(L"Resource/Sun.png");
+	_quad1->SetPS(ADD_PS(L"Shader/FilterPS.hlsl"));
 	_transform1 = make_shared<Transform>();
-	_transform2 = make_shared<Transform>();
 
-	_transform1->SetParent(_transform2);
+	_transform1->SetPosition(CENTER);
 
-	_transform1->SetPosition({1000, 0});
-
-	//_quad1->GetTransform()->SetScale({ 0.5f, 0.5f });
-	_transform2->SetScale({ 0.1f, 0.1f });
+	_filterBuffer = make_shared<FilterBuffer>();
+	_filterBuffer->_data.imageSize = _quad1->GetImageSize();
+	_filterBuffer->_data.radialCenter = Vector2(0.5f, 0.5f);
 }
 
 TutorialScene::~TutorialScene()
 {
-	
 }
 
 void TutorialScene::Update()
 {
-	_angle1 += 0.0001f;
-	_angle2 += 0.0003f;
-
-	Vector2 lerpResult = LERP(_transform2->GetPos(), MOUSE_POS, 0.001f);
-	_transform2->SetPosition(lerpResult);
-
-	_transform1->SetAngel(_angle1);
-	_transform2->SetAngel(_angle2);
-
 	_transform1->Update();
-	_transform2->Update();
+	_filterBuffer->Update();
 }
 
 void TutorialScene::Render()
 {
 	_transform1->SetBuffer(0);
-	_transform2->SetBuffer(0);
+	_filterBuffer->SetPsBuffer(0);
 	_quad1->Render();
-	_quad2->Render();
+}
+
+void TutorialScene::PostRender()
+{
+	ImGui::SliderInt("Selected", &_filterBuffer->_data.selected, 0, 10);
+	ImGui::SliderInt("value1", &_filterBuffer->_data.value1, 1, 300);
+	ImGui::SliderInt("value2", &_filterBuffer->_data.value2, 1, 300);
+	ImGui::SliderInt("value3", &_filterBuffer->_data.value3, 1, 300);
 }

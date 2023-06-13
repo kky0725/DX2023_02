@@ -13,7 +13,7 @@ CupHeadScene::CupHeadScene()
 
 	_track = make_shared<Quad>(L"Resource/CupHead/track.png");
 	_transform = make_shared<Transform>();
-	Vector2 trackSize = _track->GetImageSize();
+	Vector2 trackSize = _track->GetQuadHalfSize();
 	_collider = make_shared<RectCollider>(trackSize * 2.0f);
 
 	_transform->SetParent(_collider->GetTransform());

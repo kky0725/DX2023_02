@@ -23,10 +23,10 @@ Cup_Ani::~Cup_Ani()
 
 void Cup_Ani::Update()
 {
-	SelectState();
+	StateControl();
 
-	_actions[_state]->Update();
-	_sprites[_state]->Update();
+	_actions[_curState]->Update();
+	_sprites[_curState]->Update();
 	_transform->Update();
 }
 
@@ -34,8 +34,8 @@ void Cup_Ani::Render()
 {
 	_transform->SetBuffer(0);
 
-	_sprites[_state]->SetCurFrmae(_actions[_state]->GetCurClip());
-	_sprites[_state]->Render();
+	_sprites[_curState]->SetCurFrmae(_actions[_curState]->GetCurClip());
+	_sprites[_curState]->Render();
 }
 
 void Cup_Ani::PostRender()
@@ -80,11 +80,11 @@ void Cup_Ani::CreateAction(wstring srvPath, string xmlPath, string actionName, V
 	_sprites.push_back(sprite);
 }
 
-void Cup_Ani::SelectState()
+void Cup_Ani::StateControl()
 {
 	if (KEY_DOWN('Z'))
 	{
-		_state = State::JUMP;
+		SetState(JUMP);
 	}
 
 	if (!_isGround)
@@ -92,44 +92,51 @@ void Cup_Ani::SelectState()
 
 	if (KEY_UP(VK_LEFT))
 	{
-		_state = State::IDLE;
+		SetState(IDLE);
 	}
 	if (KEY_PRESS(VK_LEFT))
 	{
-		_state = State::RUN;
+		SetState(RUN);
 		_isRight = false;
 		SetLeft();
 	}
 
 	if (KEY_UP(VK_RIGHT))
 	{
-		_state = State::IDLE;
+		SetState(IDLE);
 	}
 	if (KEY_PRESS(VK_RIGHT))
 	{
-		_state = State::RUN;
+		SetState(RUN);
 		_isRight = true;
 		SetRight();
 	}
 
 	if (KEY_UP('X'))
 	{
-		_state = State::IDLE;
+		SetState(IDLE);
 	}
 	if (KEY_PRESS('X'))
 	{
-		_state = State::SHOT;
+		SetState(SHOT);
 	}
 
-	if (KEY_PRESS('X') && KEY_PRESS(VK_RIGHT))
+	if (KEY_PRESS('X') && (KEY_PRESS(VK_RIGHT) || KEY_PRESS(VK_LEFT)))
 	{
-		_state = State::RUN_SHOT;
+		_curState = State::RUN_SHOT;
 	}
+}
 
-	if (KEY_PRESS('X') && KEY_PRESS(VK_LEFT))
-	{
-		_state = State::RUN_SHOT;
-	}
+void Cup_Ani::SetState(State state)
+{
+	_curState = state;
+
+	if (_curState == _oldState)
+		return;
+
+	_actions[_curState]->Play();
+	_actions[_oldState]->Reset();
+	_oldState = _curState;
 }
 
 void Cup_Ani::SetLeft()

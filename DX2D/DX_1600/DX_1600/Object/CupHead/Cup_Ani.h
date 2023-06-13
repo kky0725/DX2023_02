@@ -20,10 +20,11 @@ public:
 	void PostRender();
 
 	void CreateAction(wstring srvPath, string xmlPath, string actionName, Vector2 size);
-	void SelectState();
+	void StateControl();
 	void SetParent(shared_ptr<Transform> parent) { _transform->SetParent(parent); }
 
-	void EndEvent() { _state = State::IDLE; }
+	void SetState(State state);
+	void EndEvent() { _curState = State::IDLE; }
 
 	void SetIsGround(bool value) { _isGround = value; }
 	bool GetISGround() const { return _isGround; }
@@ -37,7 +38,8 @@ private:
 	vector<shared_ptr<Sprite>> _sprites;
 	shared_ptr<Transform> _transform;
 
-	State _state = State::IDLE;
+	State _curState = State::IDLE;
+	State _oldState = State::IDLE;
 
 	Vector2 _fixedPos;
 
