@@ -126,24 +126,23 @@ public:
 private:
 };
 
-class MosaicActionBuffer : public ConstantBuffer
+class IntBuffer : public ConstantBuffer
 {
 public:
 	struct Data
 	{
-		Vector2 startPos;
-		Vector2 size;
-		Vector2 imageSize;
-		int		isRight = 0;
-		int		value = 1;
+		int	value1 = 0;
+		int	value2 = 0;
+		int	value3 = 0;
+		int	value4 = 0;
 	};
 
-	MosaicActionBuffer()
+	IntBuffer()
 		: ConstantBuffer(&_data, sizeof(_data))
 	{
 
 	}
-	virtual ~MosaicActionBuffer() {}
+	virtual ~IntBuffer() {}
 
 	Data _data;
 private:

@@ -37,6 +37,7 @@ public:
 	bool IsPlay() { return _isPlay; }
 
 	void SetEndEvent(CallBack endEvent) { _endEvent = endEvent; }
+	void SetAlmostEnd(CallBack event) { _almostEnd = event; }
 
 private:
 	string _name;
@@ -53,4 +54,5 @@ private:
 	bool _isRevers = false;
 
 	CallBack _endEvent = nullptr;
+	CallBack _almostEnd = nullptr;
 };

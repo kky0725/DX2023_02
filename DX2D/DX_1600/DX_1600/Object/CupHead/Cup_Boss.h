@@ -16,7 +16,7 @@ public:
 	void Update();
 	void Render();
 
-	void CreateAction(wstring srvPath, string xmlPath, string actionName, Vector2 size, bool isLoop = true);
+	void CreateAction(wstring srvPath, string xmlPath, string actionName, Vector2 size, bool isLoop = true, float time = 0.1f);
 
 	void Damaged(int damgae);
 	const int& GetHp() const { return _hp; }
@@ -41,5 +41,7 @@ private:
 	shared_ptr<CircleCollider> _collider;
 
 	State _state = State::INTRO;
+
+	shared_ptr<IntBuffer> _intBuffer;
 };
 
