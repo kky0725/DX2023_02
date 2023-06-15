@@ -17,6 +17,7 @@ Cup_Player::Cup_Player()
 	}
 
 	_animation->SetParent(_collider->GetTransform());
+	EffectManager::GetInstance()->AddEffect("Hit", L"Resource/hit_4x2.png", Vector2(4, 2), Vector2(100, 100), 0.1f);
 }
 
 Cup_Player::~Cup_Player()
@@ -133,6 +134,7 @@ bool Cup_Player::IsCollision_Bullets(shared_ptr<Collider> col)
 		if (col->IsCollision(bullet->GetCollider()))
 		{
 			bullet->SetActive(false);
+			EFFECT_PLAY("Hit", bullet->GetCollider()->GetPos());
 			return true;
 		}
 	}

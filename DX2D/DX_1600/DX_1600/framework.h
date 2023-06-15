@@ -86,6 +86,8 @@ using namespace Microsoft::WRL;
 //Object
 #include "Object/Bagic/Quad.h"
 #include "Object/Bagic/Sprite.h"
+#include "Object/Bagic/Effect.h"
+#include "Object/Bagic/EffectManager.h"
 
 //Scence
 #include "Scence/Scene.h"

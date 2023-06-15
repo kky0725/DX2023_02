@@ -34,7 +34,7 @@ void Cup_Ani::Render()
 {
 	_transform->SetBuffer(0);
 
-	_sprites[_curState]->SetCurFrmae(_actions[_curState]->GetCurClip());
+	_sprites[_curState]->SetCurClip(_actions[_curState]->GetCurClip());
 	_sprites[_curState]->Render();
 }
 

@@ -151,6 +151,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Bagic\EffectManager.h" />
+    <ClInclude Include="Object\Bagic\Effect.h" />
+    <ClInclude Include="Scence\BagicScene\EffectScene.h" />
     <ClInclude Include="Object\CupHead\Cup_Bullet.h" />
     <ClInclude Include="Object\CupHead\Cup_Ani.h" />
     <ClInclude Include="Object\CupHead\Cup_Boss.h" />
@@ -205,6 +208,9 @@
     <ClInclude Include="Object\Zelda\Zelda_Item.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Bagic\EffectManager.cpp" />
+    <ClCompile Include="Object\Bagic\Effect.cpp" />
+    <ClCompile Include="Scence\BagicScene\EffectScene.cpp" />
     <ClCompile Include="Object\CupHead\Cup_Bullet.cpp" />
     <ClCompile Include="Object\CupHead\Cup_Ani.cpp" />
     <ClCompile Include="Object\CupHead\Cup_Boss.cpp" />
@@ -267,6 +273,7 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="DX_1600.ico" />
+    <Image Include="Resource\BlueExplosion.png" />
     <Image Include="Resource\CupHead\AimStraightShot.png" />
     <Image Include="Resource\CupHead\Bullet_Intro.png" />
     <Image Include="Resource\CupHead\Bullet_Loop.png" />
@@ -282,6 +289,8 @@
     <Image Include="Resource\DunResource\Map1.png" />
     <Image Include="Resource\earth.png" />
     <Image Include="Resource\DunResource\Bow.png" />
+    <Image Include="Resource\GreenExplosion.png" />
+    <Image Include="Resource\hit_4x2.png" />
     <Image Include="Resource\Item_11x5.png" />
     <Image Include="Resource\moon.png" />
     <Image Include="Resource\DunResource\Player.png" />

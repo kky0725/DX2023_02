@@ -33,6 +33,7 @@ void CupHeadScene::Update()
 {
 	_player->Update();
 	_boss->Update();
+	_boss->Fire(_player->GetCollider()->GetPos());
 	_collider->Update();
 	CheckAttack();
 

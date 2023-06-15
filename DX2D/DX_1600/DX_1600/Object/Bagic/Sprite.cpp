@@ -21,7 +21,6 @@ Sprite::Sprite(wstring path, Vector2 maxFrame, Vector2 size)
 
 	_actionBuffer = make_shared<ActionBuffer>();
 	_actionBuffer->_data.imageSize = _srv.lock()->GetImageSize();
-
 }
 
 Sprite::~Sprite()
@@ -39,7 +38,7 @@ void Sprite::Render()
 	Quad::Render();
 }
 
-void Sprite::SetCurFrmae(Vector2 frame)
+void Sprite::SetCurClip(Vector2 frame)
 {
 	if (_maxFrame == nullptr)
 		return;
@@ -52,7 +51,7 @@ void Sprite::SetCurFrmae(Vector2 frame)
 	_actionBuffer->_data.size = size;
 }
 
-void Sprite::SetCurFrmae(Action::Clip clip)
+void Sprite::SetCurClip(Action::Clip clip)
 {
 	_actionBuffer->_data.startPos = clip._startPos;
 	_actionBuffer->_data.size = clip._size;

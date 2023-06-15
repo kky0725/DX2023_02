@@ -7,6 +7,7 @@
 #include "../Scence/BagicScene/SpriteScene.h"
 #include "../Scence/BagicScene/ActionScene.h"
 #include "../Scence/BagicScene/CupHeadScene.h"
+#include "../Scence/BagicScene/EffectScene.h"
 
 Program::Program()
 {
@@ -38,6 +39,7 @@ void Program::Update()
 
 	_curScene->Collider_Update();
 	_curScene->Update();
+	EffectManager::GetInstance()->Update();
 }
 
 void Program::Render()
@@ -54,6 +56,7 @@ void Program::Render()
 	ALPHA->SetState();
 
 	_curScene->Render();
+	EffectManager::GetInstance()->Render();
 
 	ImGui::Text("FPS : %d", Timer::GetInstance()->GetFPS());
 

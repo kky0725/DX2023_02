@@ -1,4 +1,6 @@
 #pragma once
+class Cup_Bullet;
+
 class Cup_Boss
 {
 public:
@@ -20,6 +22,7 @@ public:
 
 	void Damaged(int damgae);
 	const int& GetHp() const { return _hp; }
+	void Fire(Vector2 targetPos);
 
 	const shared_ptr<CircleCollider>& GetCollider() { return _collider; }
 
@@ -35,7 +38,7 @@ private:
 	vector<shared_ptr<Sprite>> _sprites;
 	vector<shared_ptr<Action>> _actions;
 	shared_ptr<Transform> _transform;
-	int _hp = 1;
+	int _hp = 5;
 	bool _isActive = true;
 
 	shared_ptr<CircleCollider> _collider;
@@ -43,5 +46,12 @@ private:
 	State _state = State::INTRO;
 
 	shared_ptr<IntBuffer> _intBuffer;
+
+
+	vector<shared_ptr<Cup_Bullet>> _bullets;
+	float _speed = 200.0f;
+	float _time = 0.0f;
+	float _atkSpeed = 0.5f;
+	//bool _atkCool = false;
 };
 

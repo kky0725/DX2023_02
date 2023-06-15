@@ -35,7 +35,7 @@ void Link_Ani::Update()
 void Link_Ani::Render()
 {
 	_transform->SetBuffer(0);
-	_sprite->SetCurFrmae(_actions[_state]->GetCurClip());
+	_sprite->SetCurClip(_actions[_state]->GetCurClip());
 	_sprite->Render();
 }
 

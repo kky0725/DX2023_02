@@ -41,6 +41,8 @@
 
 #define DELTA_TIME Timer::GetInstance()->GetDeltaTime()
 
+#define EFFECT_PLAY(n,p) EffectManager::GetInstance()->Play(n,p)
+
 #define LERP(s,e,t) s + (e - s)*t
 //Linear interpolation
 

@@ -31,7 +31,7 @@ void Zelda_Item::Render()
 	if (!_isActive)
 		return;
 	_transform->SetBuffer(0);
-	_sprite->SetCurFrmae(Vector2(4,0));
+	_sprite->SetCurClip(Vector2(4,0));
 	_sprite->Render();
 	_collider->Render();
 }

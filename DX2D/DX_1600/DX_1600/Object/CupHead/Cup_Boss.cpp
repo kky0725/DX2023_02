@@ -1,5 +1,6 @@
 #include "framework.h"
 #include "Cup_Boss.h"
+#include "Cup_Bullet.h"
 
 using namespace tinyxml2;
 
@@ -26,7 +27,7 @@ Cup_Boss::Cup_Boss()
 	_intBuffer->_data.value1 = 1;
 	_intBuffer->_data.value2 = 200;
 
-	_sprites[2]->SetPS(ADD_PS(L"Shader/MosaicActionPS.hlsl"));
+	_sprites[DIE]->SetPS(ADD_PS(L"Shader/MosaicActionPS.hlsl"));
 }
 
 Cup_Boss::~Cup_Boss()
@@ -40,10 +41,16 @@ void Cup_Boss::Update()
 	if (_state == State::DIE && _intBuffer->_data.value2 > 1)
 		_intBuffer->_data.value2 -= 5;
 	_collider->Update();
-	_intBuffer->Update();
+	
 	_actions[_state]->Update();
+	_intBuffer->Update();
+
+	_sprites[_state]->SetCurClip(_actions[_state]->GetCurClip());
 	_sprites[_state]->Update();
 	_transform->Update();
+
+	for (auto& bullet : _bullets)
+		bullet->Update();
 }
 
 void Cup_Boss::Render()
@@ -52,10 +59,11 @@ void Cup_Boss::Render()
 		return;
 	_transform->SetBuffer(0);
 	_intBuffer->SetPsBuffer(1);
-	_sprites[_state]->SetCurFrmae(_actions[_state]->GetCurClip());
 	_sprites[_state]->Render();
 	_collider->Render();
 
+	for (auto& bullet : _bullets)
+		bullet->Render();
 }
 
 void Cup_Boss::CreateAction(wstring srvPath, string xmlPath, string actionName, Vector2 size, bool isLoop, float time)
@@ -101,8 +109,6 @@ void Cup_Boss::CreateAction(wstring srvPath, string xmlPath, string actionName, 
 	action->Update();
 	sprite->Update();
 
-	sprite->SetCurFrmae(action->GetCurClip());
-
 	_actions.push_back(action);
 	_sprites.push_back(sprite);
 }
@@ -118,4 +124,30 @@ void Cup_Boss::Damaged(int damgae)
 		_hp = 0;
 		DieEvent();
 	}
+}
+
+void Cup_Boss::Fire(Vector2 targetPos)
+{
+	_time += DELTA_TIME;
+	if (_time > _atkSpeed)
+	{
+		_time = 0.0f;
+	}
+	else
+		return;
+
+	auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
+		[](const shared_ptr<Cup_Bullet>& obj)-> bool {return !obj->IsActive(); });
+
+	if (bulletIter == _bullets.end())
+		return;
+
+	//_atkCool = true;
+	Vector2 startPos = _collider->GetPos();
+	Vector2 dir = targetPos - startPos;
+	dir.Normallize();
+	(*bulletIter)->SetDir(dir.Angle() - PI * 0.5f);
+	(*bulletIter)->Shoot(dir, startPos);
+
+
 }
