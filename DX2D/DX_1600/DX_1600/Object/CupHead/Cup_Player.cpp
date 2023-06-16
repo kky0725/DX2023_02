@@ -7,6 +7,8 @@ using namespace tinyxml2;
 
 Cup_Player::Cup_Player()
 {
+	SOUND->Add("Cup_Attack", "Resource/Sound/Attack.wav", false);
+
 	_collider = make_shared<CircleCollider>(50.0f);
 	_animation = make_shared<Cup_Ani>();
 
@@ -26,15 +28,21 @@ Cup_Player::~Cup_Player()
 
 void Cup_Player::Update()
 {
+	if (!_isActive)
+		return;
 	Input();
 	_collider->Update();
 	_animation->Update();
 	for(auto& bullet : _bullets)
 		bullet->Update();
+	if (!_animation->IsActive())
+		_isActive = false;
 }
 
 void Cup_Player::Render()
 {
+	if (!_isActive)
+		return;
 	_animation->Render();
 	for(auto& bullet : _bullets)
 		bullet->Render();
@@ -81,6 +89,7 @@ void Cup_Player::Fire()
 
 	if (KEY_PRESS('X'))
 	{
+		SOUND->Play("Cup_Attack", 0.3f);
 		auto bulletIter = std::find_if(_bullets.begin(), _bullets.end(),
 			[](const shared_ptr<Cup_Bullet>& obj)-> bool {return !obj->IsActive(); });
 
@@ -121,6 +130,20 @@ void Cup_Player::Jump()
 	{
 		_jumpPower = 600.0f;
 		_animation->SetIsGround(false);
+	}
+}
+
+void Cup_Player::Damaged(int damgae)
+{
+	if (!_isActive)
+		return;
+	_hp -= damgae;
+	_animation->DamagedEvent();
+
+	if (_hp < 1)
+	{
+		_hp = 0;
+		_animation->DieEvent();
 	}
 }
 

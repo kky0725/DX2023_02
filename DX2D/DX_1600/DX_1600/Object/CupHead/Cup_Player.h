@@ -17,6 +17,9 @@ public:
 	void Fire();
 	void Jump();
 
+	void Damaged(int damgae);
+	const int& GetHp() const { return _hp; }
+
 	bool IsCollision_Bullets(shared_ptr<Collider> col);
 
 	void SetGrounded();
@@ -24,7 +27,15 @@ public:
 	void SetPosition(Vector2 pos) { _collider->SetPosition(pos); }
 	shared_ptr<Collider> GetCollider() { return _collider; }
 
+	//void SetActive(bool value) { _isActive = value; }
+	bool IsAtcive() { return _isActive; }
+
+
+
 private:
+	int _hp = 50;
+	bool _isActive = true;
+
 	shared_ptr<Cup_Ani> _animation;
 	shared_ptr<Collider> _collider;
 

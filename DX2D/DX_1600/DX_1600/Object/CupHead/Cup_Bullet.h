@@ -22,7 +22,7 @@ public:
 
 	bool IsActive() { return _isActive; }
 	void SetActive(bool value) { _isActive = value; }
-	void SetDir(float value) { _transform->SetAngel(value); }
+	void SetAngle(float value) { _collider->GetTransform()->SetAngel(value); }
 
 	const shared_ptr<CircleCollider>& GetCollider() { return _collider; }
 

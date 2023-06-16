@@ -24,6 +24,8 @@ public:
 	const int& GetHp() const { return _hp; }
 	void Fire(Vector2 targetPos);
 
+	bool IsCollision_Bullets(shared_ptr<Collider> col);
+
 	const shared_ptr<CircleCollider>& GetCollider() { return _collider; }
 
 	void SetActive(bool value) { _isActive = value; }

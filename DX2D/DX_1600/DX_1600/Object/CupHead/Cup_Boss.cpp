@@ -28,6 +28,14 @@ Cup_Boss::Cup_Boss()
 	_intBuffer->_data.value2 = 200;
 
 	_sprites[DIE]->SetPS(ADD_PS(L"Shader/MosaicActionPS.hlsl"));
+	for (int i = 0; i < 30; i++)
+	{
+		shared_ptr<Cup_Bullet> bullet = make_shared<Cup_Bullet>();
+		_bullets.push_back(bullet);
+	}
+
+	EffectManager::GetInstance()->AddEffect("BossHit", L"Resource/GreenExplosion.png", Vector2(4, 4), Vector2(100, 100), 0.1f);
+
 }
 
 Cup_Boss::~Cup_Boss()
@@ -146,8 +154,25 @@ void Cup_Boss::Fire(Vector2 targetPos)
 	Vector2 startPos = _collider->GetPos();
 	Vector2 dir = targetPos - startPos;
 	dir.Normallize();
-	(*bulletIter)->SetDir(dir.Angle() - PI * 0.5f);
+	(*bulletIter)->SetAngle(dir.Angle());
 	(*bulletIter)->Shoot(dir, startPos);
 
 
+}
+
+bool Cup_Boss::IsCollision_Bullets(shared_ptr<Collider> col)
+{
+	for (auto bullet : _bullets)
+	{
+		if (!bullet->IsActive())
+			continue;
+
+		if (col->IsCollision(bullet->GetCollider()))
+		{
+			bullet->SetActive(false);
+			EFFECT_PLAY("BossHit", bullet->GetCollider()->GetPos());
+			return true;
+		}
+	}
+	return false;
 }

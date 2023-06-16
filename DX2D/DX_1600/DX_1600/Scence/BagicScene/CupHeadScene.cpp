@@ -33,7 +33,7 @@ void CupHeadScene::Update()
 {
 	_player->Update();
 	_boss->Update();
-	_boss->Fire(_player->GetCollider()->GetPos());
+	_boss->Fire(_player->GetCollider()->GetTransform()->GetWorldPosition());
 	_collider->Update();
 	CheckAttack();
 
@@ -57,15 +57,21 @@ void CupHeadScene::PostRender()
 {
 	//_player->PosRender();
 	ImGui::Text("HP: %d", _boss->GetHp());
+	ImGui::Text("HP: %d", _player->GetHp());
 }
 
 void CupHeadScene::CheckAttack()
 {
-	if (!_boss->IsAtcive())
+	if (!_boss->IsAtcive() || !_player->IsAtcive())
 		return;
 
 	if (_player->IsCollision_Bullets(_boss->GetCollider()))
 	{
 		_boss->Damaged(1);
+	}
+
+	if (_boss->IsCollision_Bullets(_player->GetCollider()))
+	{
+		_player->Damaged(1);
 	}
 }

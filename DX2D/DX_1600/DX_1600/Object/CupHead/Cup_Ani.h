@@ -9,6 +9,9 @@ public:
 		RUN,
 		SHOT,
 		RUN_SHOT,
+		DAMGED,
+		DIE,
+		END,
 		NONE
 	};
 
@@ -29,6 +32,13 @@ public:
 	void SetIsGround(bool value) { _isGround = value; }
 	bool GetISGround() const { return _isGround; }
 	bool GetIsRight() const { return _isRight; }
+
+	void DieEvent() { SetState(DIE); }
+	void EndEvent() { SetState(END); }
+	void DamagedEvent() { SetState(DAMGED); }
+
+	bool IsActive() { if (_curState == END) return true; else return false; }
+
 
 private:
 	void SetLeft();

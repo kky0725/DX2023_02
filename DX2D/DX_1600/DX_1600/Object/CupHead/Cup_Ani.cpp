@@ -10,6 +10,8 @@ Cup_Ani::Cup_Ani()
 	CreateAction(L"Resource/CupHead/Run.png", "Resource/CupHead/Run.xml", "CUP_RUN", Vector2(120, 140));
 	CreateAction(L"Resource/CupHead/AimStraightShot.png", "Resource/CupHead/AimStraightShot.xml", "CUP_SHOT", Vector2(250, 250));
 	CreateAction(L"Resource/CupHead/RunShot.png", "Resource/CupHead/RunShot.xml", "CUP_RUNSHOT", Vector2(120, 120));
+	CreateAction(L"Resource/CupHead/RunShot.png", "Resource/CupHead/RunShot.xml", "CUP_RUNSHOT", Vector2(120, 120));//DAMGED로 수정 예정
+	CreateAction(L"Resource/CupHead/RunShot.png", "Resource/CupHead/RunShot.xml", "CUP_RUNSHOT", Vector2(120, 120));//DIE로 수정 예정
 
 	_transform = make_shared<Transform>();
 	_transform->SetPosition(Vector2(0.0f, 9.76f));
