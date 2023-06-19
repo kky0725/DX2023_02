@@ -57,6 +57,19 @@ void Cup_Player::PosRender()
 
 void Cup_Player::Input()
 {
+	// 중력적용
+	{
+		_jumpPower -= 15.0f;
+
+		if (_jumpPower < -600.0f)
+			_jumpPower = -600.0f;
+
+		_collider->GetTransform()->AddVector2(Vector2(0.0f, 1.0f) * _jumpPower * DELTA_TIME);
+	}
+
+	if (_animation->GetState() == Cup_Ani::State::HIT)
+		return;
+
 	if (KEY_PRESS(VK_LEFT))
 	{
 		Vector2 movePos = Vector2(-_speed, 0.0f) * DELTA_TIME;
@@ -116,16 +129,6 @@ void Cup_Player::Fire()
 
 void Cup_Player::Jump()
 {
-	// 중력적용
-	{
-		_jumpPower -= 15.0f;
-
-		if (_jumpPower < -600.0f)
-			_jumpPower = -600.0f;
-
-		_collider->GetTransform()->AddVector2(Vector2(0.0f, 1.0f) * _jumpPower * DELTA_TIME);
-	}
-
 	if (KEY_DOWN('Z') && _animation->GetISGround())
 	{
 		_jumpPower = 600.0f;
@@ -167,9 +170,20 @@ bool Cup_Player::IsCollision_Bullets(shared_ptr<Collider> col)
 
 void Cup_Player::SetGrounded()
 {
+	if (!IsAlive())
+		return;
+
 	if (!_animation->GetISGround() && _jumpPower < 0)
 	{
-		_animation->EndEvent();
+		_animation->SetStateIdle();
 		_animation->SetIsGround(true);
 	}
+}
+
+bool Cup_Player::IsAlive()
+{
+	if (_animation->GetState() == Cup_Ani::State::GHOST)
+		return false;
+	else
+		return true;
 }

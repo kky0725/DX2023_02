@@ -30,10 +30,10 @@ public:
 	//void SetActive(bool value) { _isActive = value; }
 	bool IsAtcive() { return _isActive; }
 
-
+	bool IsAlive();
 
 private:
-	int _hp = 50;
+	int _hp = 10;
 	bool _isActive = true;
 
 	shared_ptr<Cup_Ani> _animation;

@@ -10,11 +10,16 @@ Cup_Ani::Cup_Ani()
 	CreateAction(L"Resource/CupHead/Run.png", "Resource/CupHead/Run.xml", "CUP_RUN", Vector2(120, 140));
 	CreateAction(L"Resource/CupHead/AimStraightShot.png", "Resource/CupHead/AimStraightShot.xml", "CUP_SHOT", Vector2(250, 250));
 	CreateAction(L"Resource/CupHead/RunShot.png", "Resource/CupHead/RunShot.xml", "CUP_RUNSHOT", Vector2(120, 120));
-	CreateAction(L"Resource/CupHead/RunShot.png", "Resource/CupHead/RunShot.xml", "CUP_RUNSHOT", Vector2(120, 120));//DAMGED로 수정 예정
-	CreateAction(L"Resource/CupHead/RunShot.png", "Resource/CupHead/RunShot.xml", "CUP_RUNSHOT", Vector2(120, 120));//DIE로 수정 예정
-
+	CreateAction(L"Resource/CupHead/Player_Hit.png", "Resource/CupHead/Player_Hit.xml", "CUP_HIT", Vector2(250, 250), false);
+	CreateAction(L"Resource/CupHead/Player_Ghost.png", "Resource/CupHead/Player_Ghost.xml", "CUP_GHOST", Vector2(250, 250), false);
 	_transform = make_shared<Transform>();
 	_transform->SetPosition(Vector2(0.0f, 9.76f));
+
+	// Action Envent 설정
+	{
+		_actions[HIT]->SetEndEvent(std::bind(&Cup_Ani::SetStateIdle, this));
+		_actions[GHOST]->SetEndEvent(std::bind(&Cup_Ani::EndEvent, this));
+	}
 
 	SetRight();
 }
@@ -25,6 +30,8 @@ Cup_Ani::~Cup_Ani()
 
 void Cup_Ani::Update()
 {
+	if (!_isActive)
+		return;
 	StateControl();
 
 	_actions[_curState]->Update();
@@ -34,6 +41,8 @@ void Cup_Ani::Update()
 
 void Cup_Ani::Render()
 {
+	if (!_isActive)
+		return;
 	_transform->SetBuffer(0);
 
 	_sprites[_curState]->SetCurClip(_actions[_curState]->GetCurClip());
@@ -47,7 +56,7 @@ void Cup_Ani::PostRender()
 }
 
 
-void Cup_Ani::CreateAction(wstring srvPath, string xmlPath, string actionName, Vector2 size)
+void Cup_Ani::CreateAction(wstring srvPath, string xmlPath, string actionName, Vector2 size, bool isLoop, float time)
 {
 	shared_ptr<SRV> srv = ADD_SRV(srvPath);
 
@@ -75,15 +84,30 @@ void Cup_Ani::CreateAction(wstring srvPath, string xmlPath, string actionName, V
 		row = row->NextSiblingElement();
 	}
 
-	shared_ptr<Action> action = make_shared<Action>(clips, actionName);
+	shared_ptr<Action> action;
+	if (isLoop)
+	{
+		action = make_shared<Action>(clips, actionName);
+	}
+	else
+	{
+		action = make_shared<Action>(clips, actionName, Action::Type::END);
+	}
 	action->Play();
 	shared_ptr<Sprite> sprite = make_shared<Sprite>(srvPath, size);
+
+	action->Update();
+	sprite->Update();
+
 	_actions.push_back(action);
 	_sprites.push_back(sprite);
 }
 
 void Cup_Ani::StateControl()
 {
+	if (_curState == State::HIT)
+		return;
+
 	if (KEY_DOWN('Z'))
 	{
 		SetState(JUMP);

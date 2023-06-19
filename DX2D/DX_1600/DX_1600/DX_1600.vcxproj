@@ -292,6 +292,8 @@
     <Image Include="Resource\CupHead\Clown_Page_Two_Intro.png" />
     <Image Include="Resource\CupHead\Idle.png" />
     <Image Include="Resource\CupHead\Jump.png" />
+    <Image Include="Resource\CupHead\Player_Ghost.png" />
+    <Image Include="Resource\CupHead\Player_Hit.png" />
     <Image Include="Resource\CupHead\Run.png" />
     <Image Include="Resource\CupHead\RunShot.png" />
     <Image Include="Resource\CupHead\track.png" />
@@ -473,6 +475,8 @@
     <Xml Include="Resource\CupHead\Clown_Page_Two_Intro.xml" />
     <Xml Include="Resource\CupHead\Idle.xml" />
     <Xml Include="Resource\CupHead\Jump.xml" />
+    <Xml Include="Resource\CupHead\Player_Ghost.xml" />
+    <Xml Include="Resource\CupHead\Player_Hit.xml" />
     <Xml Include="Resource\CupHead\Run.xml" />
     <Xml Include="Resource\CupHead\RunShot.xml" />
   </ItemGroup>

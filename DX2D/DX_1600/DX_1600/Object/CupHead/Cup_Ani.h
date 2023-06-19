@@ -9,8 +9,8 @@ public:
 		RUN,
 		SHOT,
 		RUN_SHOT,
-		DAMGED,
-		DIE,
+		HIT,
+		GHOST,
 		END,
 		NONE
 	};
@@ -22,25 +22,27 @@ public:
 	void Render();
 	void PostRender();
 
-	void CreateAction(wstring srvPath, string xmlPath, string actionName, Vector2 size);
+	void CreateAction(wstring srvPath, string xmlPath, string actionName, Vector2 size, bool isLoop = true, float time = 0.1f);
 	void StateControl();
 	void SetParent(shared_ptr<Transform> parent) { _transform->SetParent(parent); }
 
 	void SetState(State state);
-	void EndEvent() { SetState(IDLE); }
+	State GetState() { return _curState; }
+	void SetStateIdle() { SetState(IDLE); }
+	void DieEvent() { SetState(GHOST); }
+	void EndEvent() { _isActive = false; }
+	void DamagedEvent() { SetState(HIT); }
 
 	void SetIsGround(bool value) { _isGround = value; }
 	bool GetISGround() const { return _isGround; }
 	bool GetIsRight() const { return _isRight; }
 
-	void DieEvent() { SetState(DIE); }
-	void EndEvent() { SetState(END); }
-	void DamagedEvent() { SetState(DAMGED); }
-
-	bool IsActive() { if (_curState == END) return true; else return false; }
+	bool IsActive() { return _isActive; }
 
 
 private:
+	bool _isActive = true;
+
 	void SetLeft();
 	void SetRight();
 
