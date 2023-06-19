@@ -20,16 +20,22 @@ public:
     {
         return Vector2(this->x * other, this->y * other);
     }
-    Vector2 operator+=(const Vector2& other)
+    Vector2& operator+=(const Vector2& other)
     {
         this->x += other.x;
         this->y += other.y;
         return *this;
     }
-    Vector2 operator-=(const Vector2& other)
+    Vector2& operator-=(const Vector2& other)
     {
         this->x -= other.x;
         this->y -= other.y;
+        return *this;
+    }
+    Vector2 operator -()
+    {
+        this->x = -x;
+        this->y = -y;
         return *this;
     }
  

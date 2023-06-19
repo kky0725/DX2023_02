@@ -7,7 +7,7 @@
 CupHeadScene::CupHeadScene()
 {
 	_player = make_shared<Cup_Player>();
-	_player->SetPosition(CENTER);
+	_player->SetPosition(Vector2(0,0));
 
 	_boss = make_shared<Cup_Boss>();
 
@@ -19,10 +19,10 @@ CupHeadScene::CupHeadScene()
 	_transform->SetParent(_collider->GetTransform());
 	_transform->SetPosition(Vector2(0, 75));
 
-	Vector2 pos = CENTER;
-	pos.y -= 350.0f;
-	_collider->GetTransform()->SetPosition(pos);
+	_collider->GetTransform()->SetPosition(Vector2(0.0f, CENTER.y * -1.0f));
 	_transform->Update();
+
+	CAMERA->SetTarget(_player->GetTransform());
 }
 
 CupHeadScene::~CupHeadScene()

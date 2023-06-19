@@ -67,6 +67,9 @@ void Cup_Player::Input()
 		_collider->GetTransform()->AddVector2(Vector2(0.0f, 1.0f) * _jumpPower * DELTA_TIME);
 	}
 
+	if (!IsAlive())
+		return;
+
 	if (_animation->GetState() == Cup_Ani::State::HIT)
 		return;
 
@@ -175,8 +178,10 @@ void Cup_Player::SetGrounded()
 
 	if (!_animation->GetISGround() && _jumpPower < 0)
 	{
-		_animation->SetStateIdle();
 		_animation->SetIsGround(true);
+		if (_animation->GetState() == Cup_Ani::State::HIT)
+			return;
+		_animation->SetStateIdle();
 	}
 }
 

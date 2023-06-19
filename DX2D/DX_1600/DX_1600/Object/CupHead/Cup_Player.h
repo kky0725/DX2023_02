@@ -32,6 +32,8 @@ public:
 
 	bool IsAlive();
 
+	shared_ptr<Transform> GetTransform() { return _collider->GetTransform(); }
+
 private:
 	int _hp = 10;
 	bool _isActive = true;

@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Framework\Camera\Camera.h" />
     <ClInclude Include="Library\FMOD\inc\fmod.h" />
     <ClInclude Include="Library\FMOD\inc\fmod.hpp" />
     <ClInclude Include="Library\FMOD\inc\fmod_codec.h" />
@@ -217,6 +218,7 @@
     <ClInclude Include="Object\Zelda\Zelda_Item.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Framework\Camera\Camera.cpp" />
     <ClCompile Include="Object\Bagic\EffectManager.cpp" />
     <ClCompile Include="Object\Bagic\Effect.cpp" />
     <ClCompile Include="Scence\BagicScene\EffectScene.cpp" />

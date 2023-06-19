@@ -21,7 +21,7 @@ Cup_Boss::Cup_Boss()
 		_actions[0]->SetAlmostEnd(std::bind(&Cup_Boss::IdleEvent, this));
 		_actions[2]->SetEndEvent(std::bind(&Cup_Boss::EndEvent, this));
 	}
-	_collider->SetPosition(CENTER + Vector2(400,0));
+	_collider->SetPosition(Vector2(400,0));
 
 	_intBuffer = make_shared<IntBuffer>();
 	_intBuffer->_data.value1 = 1;

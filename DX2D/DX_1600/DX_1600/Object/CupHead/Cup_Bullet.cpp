@@ -9,12 +9,17 @@ Cup_Bullet::Cup_Bullet()
 	CreateAction(L"Resource/CupHead/Bullet_Loop.png", "Resource/CupHead/Bullet_Loop.xml", "BULLET_LOOP", Vector2(50, 150));
 
 	_collider = make_shared<CircleCollider>(5.0f);
+	_collider->SetPosition(Vector2(-1000, -1000));
 	_transform = make_shared<Transform>();
 	_transform->SetParent(_collider->GetTransform());
 	_transform->SetAngel(-PI * 0.5f);
 	_transform->SetPosition(Vector2(-60.0f, 0.0f));
 
 	_actions[State::INTRO]->SetEndEvent(std::bind(&Cup_Bullet::EndEvent, this));
+	_state = State::LOOP;
+
+	_collider->Update();
+	_transform->Update();
 }
 
 Cup_Bullet::~Cup_Bullet()
@@ -29,7 +34,7 @@ void Cup_Bullet::Update()
 	_collider->GetTransform()->AddVector2(_direction * _speed * DELTA_TIME);
 
 	if (_collider->GetTransform()->GetWorldPosition().y > WIN_HEIGHT || _collider->GetTransform()->GetWorldPosition().x > WIN_WIDTH
-		|| _collider->GetTransform()->GetWorldPosition().y < 0 || _collider->GetTransform()->GetWorldPosition().x < 0)
+		|| _collider->GetTransform()->GetWorldPosition().y < -WIN_HEIGHT || _collider->GetTransform()->GetWorldPosition().x < -WIN_WIDTH)
 		_isActive = false;
 
 	_actions[_state]->Update();

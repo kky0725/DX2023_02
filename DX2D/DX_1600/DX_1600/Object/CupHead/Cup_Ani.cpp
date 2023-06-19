@@ -105,7 +105,7 @@ void Cup_Ani::CreateAction(wstring srvPath, string xmlPath, string actionName, V
 
 void Cup_Ani::StateControl()
 {
-	if (_curState == State::HIT)
+	if (_curState == State::HIT || _curState == State::GHOST)
 		return;
 
 	if (KEY_DOWN('Z'))
