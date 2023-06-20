@@ -1,6 +1,7 @@
 #pragma once
 class Cup_Player;
 class Cup_Boss;
+class Cup_Track;
 
 class CupHeadScene : public Scene
 {
@@ -17,9 +18,6 @@ public:
 private:
 	shared_ptr<Cup_Player> _player;
 	shared_ptr<Cup_Boss> _boss;
-
-	shared_ptr<Collider> _collider;
-	shared_ptr<Quad> _track;
-	shared_ptr<Transform> _transform;
+	vector<shared_ptr<Cup_Track>> _tracks;
 };
 

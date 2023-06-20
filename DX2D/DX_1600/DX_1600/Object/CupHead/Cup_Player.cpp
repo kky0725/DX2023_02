@@ -49,7 +49,7 @@ void Cup_Player::Render()
 	_collider->Render();
 }
 
-void Cup_Player::PosRender()
+void Cup_Player::PostRender()
 {
 
 }
@@ -134,6 +134,7 @@ void Cup_Player::Jump()
 {
 	if (KEY_DOWN('Z') && _animation->GetISGround())
 	{
+		//CAMERA->ShakeStart(50.0f, 30.0f);
 		_jumpPower = 600.0f;
 		_animation->SetIsGround(false);
 	}

@@ -16,4 +16,3 @@ private:
 	void* _data;
 	UINT _dataSize;
 };
-

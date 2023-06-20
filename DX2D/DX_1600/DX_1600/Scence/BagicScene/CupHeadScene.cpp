@@ -3,6 +3,7 @@
 
 #include "../../Object/CupHead/Cup_Player.h"
 #include "../../Object/CupHead/Cup_Boss.h"
+#include "../../Object/CupHead/Cup_Track.h"
 
 CupHeadScene::CupHeadScene()
 {
@@ -10,19 +11,16 @@ CupHeadScene::CupHeadScene()
 	_player->SetPosition(Vector2(0,0));
 
 	_boss = make_shared<Cup_Boss>();
-
-	_track = make_shared<Quad>(L"Resource/CupHead/track.png");
-	_transform = make_shared<Transform>();
-	Vector2 trackSize = _track->GetQuadHalfSize();
-	_collider = make_shared<RectCollider>(trackSize * 2.0f);
-
-	_transform->SetParent(_collider->GetTransform());
-	_transform->SetPosition(Vector2(0, 75));
-
-	_collider->GetTransform()->SetPosition(Vector2(0.0f, CENTER.y * -1.0f));
-	_transform->Update();
+	
+	for (int i = 0; i < 3; i++)
+	{
+		shared_ptr<Cup_Track> track = make_shared<Cup_Track>(Vector2(CENTER.x * i * 2, CENTER.y * -1.0f + i * 50.0f));
+		_tracks.push_back(track);
+	}
 
 	CAMERA->SetTarget(_player->GetTransform());
+	CAMERA->SetLeftBottom(Vector2(-_tracks[0]->GetTrackSize().x, -1000.0f));
+	CAMERA->SetRightTop(Vector2(_tracks[0]->GetTrackSize().x * 6, 1000.0f));
 }
 
 CupHeadScene::~CupHeadScene()
@@ -33,22 +31,31 @@ void CupHeadScene::Update()
 {
 	_player->Update();
 	_boss->Update();
+	for (auto track : _tracks)
+	{
+		track->Update();
+	}
+
 	if(_player->GetHp() > 0)
 		_boss->Fire(_player->GetCollider()->GetTransform()->GetWorldPosition());
-	_collider->Update();
 	CheckAttack();
 
-	if (_collider->Block(_player->GetCollider()))
+	for (auto track : _tracks)
 	{
-		_player->SetGrounded();
+		if (track->GetCollider()->Block(_player->GetCollider()))
+		{
+			_player->SetGrounded();
+		}
 	}
+
 }
 
 void CupHeadScene::Render()
 {
-	_transform->SetBuffer(0);
-	_track->Render();
-	_collider->Render();
+	for (auto track : _tracks)
+	{
+		track->Render();
+	}
 
 	_boss->Render();
 	_player->Render();
@@ -56,9 +63,18 @@ void CupHeadScene::Render()
 
 void CupHeadScene::PostRender()
 {
-	//_player->PosRender();
 	ImGui::Text("Boss HP: %d", _boss->GetHp());
 	ImGui::Text("Cup HP: %d", _player->GetHp());
+
+	if(ImGui::Button("TargetON", ImVec2(100, 50)))
+	{
+		CAMERA->SetTarget(_player->GetTransform());
+	}
+
+	if (ImGui::Button("TargetOFF", ImVec2(100, 50)))
+	{
+		CAMERA->SetTarget(nullptr);
+	}
 }
 
 void CupHeadScene::CheckAttack()
@@ -74,8 +90,8 @@ void CupHeadScene::CheckAttack()
 		_boss->Damaged(1);
 	}
 
-	if (_boss->IsCollision_Bullets(_player->GetCollider()))
-	{
-		_player->Damaged(1);
-	}
+	//if (_boss->IsCollision_Bullets(_player->GetCollider()))
+	//{
+	//	_player->Damaged(1);
+	//}
 }

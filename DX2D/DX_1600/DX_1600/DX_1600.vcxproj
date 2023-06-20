@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Object\CupHead\Cup_Track.h" />
     <ClInclude Include="Framework\Camera\Camera.h" />
     <ClInclude Include="Library\FMOD\inc\fmod.h" />
     <ClInclude Include="Library\FMOD\inc\fmod.hpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Library\FMOD\inc\fmod_dsp_effects.h" />
     <ClInclude Include="Library\FMOD\inc\fmod_errors.h" />
     <ClInclude Include="Library\FMOD\inc\fmod_output.h" />
+    <ClInclude Include="Framework\Math\MyMath.h" />
     <ClInclude Include="Object\Bagic\EffectManager.h" />
     <ClInclude Include="Object\Bagic\Effect.h" />
     <ClInclude Include="Scence\BagicScene\EffectScene.h" />
@@ -218,7 +220,9 @@
     <ClInclude Include="Object\Zelda\Zelda_Item.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Object\CupHead\Cup_Track.cpp" />
     <ClCompile Include="Framework\Camera\Camera.cpp" />
+    <ClCompile Include="Framework\Math\MyMath.cpp" />
     <ClCompile Include="Object\Bagic\EffectManager.cpp" />
     <ClCompile Include="Object\Bagic\Effect.cpp" />
     <ClCompile Include="Scence\BagicScene\EffectScene.cpp" />
