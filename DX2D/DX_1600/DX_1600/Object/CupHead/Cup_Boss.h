@@ -22,6 +22,7 @@ public:
 
 	void Damaged(int damgae);
 	const int& GetHp() const { return _hp; }
+	void SetHp(int value) { _hp = value; if (_hp <= 0) _isActive = false; }
 	void Fire(Vector2 targetPos);
 
 	bool IsCollision_Bullets(shared_ptr<Collider> col);

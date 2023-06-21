@@ -75,6 +75,16 @@ void CupHeadScene::PostRender()
 	{
 		CAMERA->SetTarget(nullptr);
 	}
+
+	if (ImGui::Button("Save", ImVec2(50, 50)))
+	{
+		Save();
+	}
+
+	if (ImGui::Button("Load", ImVec2(50, 50)))
+	{
+		Load();
+	}
 }
 
 void CupHeadScene::CheckAttack()
@@ -94,4 +104,36 @@ void CupHeadScene::CheckAttack()
 	//{
 	//	_player->Damaged(1);
 	//}
+}
+
+void CupHeadScene::Save()
+{
+	BinaryWriter writer = BinaryWriter(L"save/test.test");
+	writer.Int(1);
+
+	Vector2 playerPos = _player->GetCollider()->GetTransform()->GetWorldPosition();
+
+	writer.String("PlayerPos");
+	writer.Byte(&playerPos, sizeof(Vector2));
+
+	int bossHp = _boss->GetHp();
+	writer.Int(bossHp);
+}
+
+void CupHeadScene::Load()
+{
+	BinaryReader reader = BinaryReader(L"save/test.test");
+	int temp = reader.Int();
+
+	string str = reader.String();
+	assert(str == "PlayerPos");
+
+	Vector2 playerPos;
+	Vector2* ptr = &playerPos;
+	reader.Byte((void**)&ptr, sizeof(Vector2));
+
+	_player->SetPosition(playerPos);
+	
+	temp = reader.Int();
+	_boss->SetHp(temp);
 }

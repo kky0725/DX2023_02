@@ -15,6 +15,9 @@ public:
 
 	void CheckAttack();
 
+	void Save();
+	void Load();
+
 private:
 	shared_ptr<Cup_Player> _player;
 	shared_ptr<Cup_Boss> _boss;
