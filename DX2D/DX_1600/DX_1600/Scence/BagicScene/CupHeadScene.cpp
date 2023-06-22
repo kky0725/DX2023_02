@@ -27,6 +27,16 @@ CupHeadScene::~CupHeadScene()
 {
 }
 
+void CupHeadScene::Init()
+{
+	_player->SetPosition(Vector2(0, 0));
+}
+
+void CupHeadScene::End()
+{
+	//to do: CupHead ÃÑ¾Ë È¸¼ö..
+}
+
 void CupHeadScene::Update()
 {
 	_player->Update();

@@ -27,15 +27,11 @@ DungreedScene::~DungreedScene()
 {
 }
 
-void DungreedScene::Collider_Update()
+void DungreedScene::Update()
 {
 	_player->Collider_Update();
 	_groundCollider->Update();
 	_monster->Collider_Update();
-}
-
-void DungreedScene::Update()
-{
 	//_ground->Update();
 	_monster->Update();
 	_player->Update();

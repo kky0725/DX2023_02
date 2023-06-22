@@ -102,6 +102,7 @@ using namespace Microsoft::WRL;
 
 //Scence
 #include "Scence/Scene.h"
+#include "Scence/SceneManager.h"
 
 //Program
 #include "Program/Program.h"

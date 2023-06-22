@@ -33,6 +33,7 @@
 #define KEY_PRESS(k) InputManager::GetInstance()->Press(k)
 
 #define MOUSE_POS InputManager::GetInstance()->GetMousePos()
+#define W_MOUSE_POS Camera::GetInstance()->GetWorldMousePos()
 
 #define ADD_VS(k) ShaderManager::GetInstnace()->AddVS(k)
 #define ADD_PS(k) ShaderManager::GetInstnace()->AddPS(k)
@@ -44,6 +45,7 @@
 #define EFFECT_PLAY(n,p) EffectManager::GetInstance()->Play(n,p)
 #define SOUND Sound::GetInstance()
 #define CAMERA Camera::GetInstance()
+#define SCENE SceneManager::GetInstance()
 
 #define LERP(s,e,t) s + (e - s)*t
 //Linear interpolation

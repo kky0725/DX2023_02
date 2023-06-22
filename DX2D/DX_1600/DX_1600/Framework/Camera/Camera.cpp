@@ -57,6 +57,14 @@ void Camera::SetPosition(const Vector2& pos)
 	_view->SetPosition(pos * -1.0f);
 }
 
+const Vector2 Camera::GetWorldMousePos()
+{
+	XMMATRIX inverseM = DirectX::XMMatrixInverse(nullptr,_view->GetMartix());
+	Vector2 mousePos = MOUSE_POS;
+
+	return mousePos.TransformCoord(inverseM) - CENTER;
+}
+
 void Camera::FollowMode()
 {
 	Vector2 targetPos = _target.lock()->GetWorldPosition() - _offset;

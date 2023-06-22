@@ -13,8 +13,6 @@ Program::Program()
 {
 	srand((unsigned int)time(nullptr));
 
-	_curScene = make_shared<CupHeadScene>();
-
 	Timer::GetInstance()->SetLockFPS(60.0);
 }
 
@@ -29,8 +27,7 @@ void Program::Update()
 	Sound::GetInstance()->Update();
 	CAMERA->Update();
 
-	_curScene->Collider_Update();
-	_curScene->Update();
+	SCENE->Update();
 
 	EffectManager::GetInstance()->Update();
 }
@@ -48,13 +45,13 @@ void Program::Render()
 
 	ALPHA->SetState();
 
-	_curScene->Render();
+	SCENE->Render();
 	EffectManager::GetInstance()->Render();
 
 	ImGui::Text("FPS : %d", Timer::GetInstance()->GetFPS());
 
 	CAMERA->PostRender();
-	_curScene->PostRender();
+	SCENE->PostRender();
 
 	ImGui::Render();
 	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
