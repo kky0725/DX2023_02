@@ -1,6 +1,8 @@
 #include "framework.h"
 #include "Collider.h"
 
+bool Collider::_isDebug = true;
+
 Collider::Collider(ColliderType type)
     :_type(type)
 {
@@ -17,12 +19,14 @@ void Collider::Update()
 
 void Collider::Render()
 {
+    if (!_isDebug)
+        return;
+
     _vertexBuffer->Set(0);
 
     _transform->SetBuffer(0);
 
     _colorBuffer->SetPsBuffer(0);
-
 
     DC->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINESTRIP);
 

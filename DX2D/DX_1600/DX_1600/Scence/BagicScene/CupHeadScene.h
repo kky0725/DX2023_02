@@ -15,7 +15,6 @@ public:
 	virtual void Render() override;
 	virtual void PostRender() override;
 
-
 	void CheckAttack();
 
 	void Save();
@@ -25,5 +24,6 @@ private:
 	shared_ptr<Cup_Player> _player;
 	shared_ptr<Cup_Boss> _boss;
 	vector<shared_ptr<Cup_Track>> _tracks;
+	shared_ptr<Button> _button;
 };
 

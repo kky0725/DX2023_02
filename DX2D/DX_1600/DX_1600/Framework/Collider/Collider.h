@@ -41,6 +41,7 @@ public:
 	virtual bool IsCollision(shared_ptr<RectCollider> col, bool isObb = false) abstract;
 
 
+	static bool _isDebug;
 protected:
 	virtual bool AABB_Collision(shared_ptr<RectCollider> col) abstract;
 	virtual bool AABB_Collision(shared_ptr<CircleCollider> col) abstract;

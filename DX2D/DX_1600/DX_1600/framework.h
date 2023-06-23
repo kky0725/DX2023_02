@@ -100,6 +100,10 @@ using namespace Microsoft::WRL;
 #include "Object/Bagic/Effect.h"
 #include "Object/Bagic/EffectManager.h"
 
+//UI
+#include "Object//UI/Button.h"
+#include "Object/UI/HpBar.h"
+
 //Scence
 #include "Scence/Scene.h"
 #include "Scence/SceneManager.h"

@@ -5,6 +5,9 @@ Camera* Camera::_instance = nullptr;
 Camera::Camera()
 {
 	_view = make_shared<Transform>();
+	_uiView = make_shared<Transform>();
+	_uiView->Update();
+
 	_projection = make_shared<MatrixBuffer>();
 
 	//XMMATRIX projectM = XMMatrixOrthographicOffCenterLH(0, WIN_WIDTH, 0, WIN_HEIGHT, 0.0f, 1.0f);

@@ -21,6 +21,10 @@ CupHeadScene::CupHeadScene()
 	CAMERA->SetTarget(_player->GetTransform());
 	CAMERA->SetLeftBottom(Vector2(-_tracks[0]->GetTrackSize().x, -1000.0f));
 	CAMERA->SetRightTop(Vector2(_tracks[0]->GetTrackSize().x * 6, 1000.0f));
+
+	_button = make_shared<Button>(L"Resource/UI/Button.png", Vector2(97, 48));
+	//_button->SetPosition(CENTER);
+	_button->SetEvent(std::bind(&CupHeadScene::Load, this));
 }
 
 CupHeadScene::~CupHeadScene()
@@ -57,7 +61,6 @@ void CupHeadScene::Update()
 			_player->SetGrounded();
 		}
 	}
-
 }
 
 void CupHeadScene::Render()
@@ -69,6 +72,8 @@ void CupHeadScene::Render()
 
 	_boss->Render();
 	_player->Render();
+
+	_button->Update();
 }
 
 void CupHeadScene::PostRender()
@@ -95,6 +100,8 @@ void CupHeadScene::PostRender()
 	{
 		Load();
 	}
+
+	_button->PostRender();
 }
 
 void CupHeadScene::CheckAttack()
