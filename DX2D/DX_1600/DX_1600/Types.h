@@ -1,4 +1,4 @@
-#pragma once
+ #pragma once
 #include "Framework/Math/Vector2.h"
 
 #define WIN_WIDTH 1280

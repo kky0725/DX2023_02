@@ -17,7 +17,6 @@ public:
 
 	shared_ptr<RectCollider> GetCollider() { return _collider; }
 
-
 private:
 	shared_ptr<Link_Ani> _animation;
 
@@ -25,4 +24,3 @@ private:
 	int _hp = 200;
 	float _speed = 200.0f;
 };
-

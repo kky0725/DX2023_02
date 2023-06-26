@@ -33,6 +33,5 @@ protected:
 	weak_ptr<VertexShader> _vs;
 	weak_ptr<PixelShader> _ps;
 	weak_ptr<SRV> _srv;
-	//shared_ptr<SampleState> _sampleState;
 };
 

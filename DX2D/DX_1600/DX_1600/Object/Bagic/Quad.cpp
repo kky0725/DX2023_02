@@ -69,22 +69,18 @@ void Quad::CreateVertices()
     Vertex_Texture temp;
 
     temp.pos = { XMFLOAT3(-_halfSize.x, _halfSize.y, 0.0f) };
-    temp.color = { XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) };
     temp.uv = { 0.0f, 0.0f };
     _vertices.push_back(temp);// 왼쪽 위
 
     temp.pos = { XMFLOAT3(_halfSize.x, _halfSize.y, 0.0f) };
-    temp.color = { XMFLOAT4(0.7f, 0.6f, 1.0f, 1.0f) };
     temp.uv = { 1.0f, 0.0f };
     _vertices.push_back(temp); // 오른쪽 위
 
     temp.pos = { XMFLOAT3(_halfSize.x, -_halfSize.y, 0.0f) };
-    temp.color = { XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f) };
     temp.uv = { 1.0f, 1.0f };
     _vertices.push_back(temp);// 오른쪽 아래=> 시계방향// 방향도 중요하다.
 
     temp.pos = { XMFLOAT3(-_halfSize.x, -_halfSize.y, 0.0f) };
-    temp.color = { XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f) };
     temp.uv = { 0.0f, 1.0f };
     _vertices.push_back(temp); // 왼쪽 아래 => 시계방향// 방향도 중요하다.
 
@@ -102,22 +98,18 @@ void Quad::CreateNoneImgVertices(Vector2 halfSize)
     Vertex_Texture temp;
     
     temp.pos = { XMFLOAT3(-halfSize.x, halfSize.y, 0.0f) };
-    temp.color = { XMFLOAT4(1.0f, 0.0f, 0.0f, 1.0f) };
     temp.uv = { 0.0f, 0.0f };
     _vertices.push_back(temp);// 왼쪽 위
 
     temp.pos = { XMFLOAT3(halfSize.x, halfSize.y, 0.0f) };
-    temp.color = { XMFLOAT4(0.7f, 0.6f, 1.0f, 1.0f) };
     temp.uv = { 1.0f, 0.0f };
     _vertices.push_back(temp); // 오른쪽 위
 
     temp.pos = { XMFLOAT3(halfSize.x, -halfSize.y, 0.0f) };
-    temp.color = { XMFLOAT4(0.0f, 0.0f, 1.0f, 1.0f) };
     temp.uv = { 1.0f, 1.0f };
     _vertices.push_back(temp);// 오른쪽 아래=> 시계방향// 방향도 중요하다.
 
     temp.pos = { XMFLOAT3(-halfSize.x, -halfSize.y, 0.0f) };
-    temp.color = { XMFLOAT4(0.0f, 1.0f, 0.0f, 1.0f) };
     temp.uv = { 0.0f, 1.0f };
     _vertices.push_back(temp); // 왼쪽 아래 => 시계방향// 방향도 중요하다.
 
