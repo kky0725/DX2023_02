@@ -57,3 +57,8 @@ using CallBack = function<void(void)>;
 //	bool isCollision = false;
 //	vector<Vector2> contact;
 //};
+
+struct BlockInfo
+{
+	Vector2 pos;
+};

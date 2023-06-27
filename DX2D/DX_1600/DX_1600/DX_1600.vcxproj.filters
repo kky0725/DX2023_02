@@ -231,6 +231,12 @@
     <ClInclude Include="Object\UI\HpBar.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Scence\BagicScene\MapToolScene.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\CupHead\Cup_Block.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX_1600.cpp">
@@ -408,6 +414,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Object\UI\HpBar.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Scence\BagicScene\MapToolScene.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\CupHead\Cup_Block.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
