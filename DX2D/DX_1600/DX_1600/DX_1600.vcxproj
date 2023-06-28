@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Object\CupHead\Cup_Block.h" />
+    <ClInclude Include="Framework\Render\RenderTarget.h" />
     <ClInclude Include="Scence\BagicScene\MapToolScene.h" />
     <ClInclude Include="Object\UI\HpBar.h" />
     <ClInclude Include="Object\UI\Button.h" />
@@ -228,6 +229,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Object\CupHead\Cup_Block.cpp" />
+    <ClCompile Include="Framework\Render\RenderTarget.cpp" />
     <ClCompile Include="Scence\BagicScene\MapToolScene.cpp" />
     <ClCompile Include="Object\UI\HpBar.cpp" />
     <ClCompile Include="Object\UI\Button.cpp" />
@@ -530,6 +532,9 @@
     <Xml Include="Resource\CupHead\RunShot.xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="DX_1600.APS" />
+    <None Include="fmod.dll" />
+    <None Include="imgui.ini" />
     <None Include="Library\FMOD\fmod.dll" />
     <None Include="Library\FMOD\inc\fmod.cs" />
     <None Include="Library\FMOD\inc\fmod_dsp.cs" />

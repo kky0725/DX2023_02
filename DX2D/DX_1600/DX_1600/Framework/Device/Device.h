@@ -24,9 +24,11 @@ public:
 	ComPtr<ID3D11Device> GetDevice() { return _device; }
 	ComPtr<ID3D11DeviceContext> GetDC() { return _deviceContext; }
 
+
 	void Clear();
 	void Present();
 
+	void SetMainRenderTarget();
 private:
 	Device();
 	~Device();

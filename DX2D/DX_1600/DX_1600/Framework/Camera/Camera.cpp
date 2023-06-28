@@ -34,7 +34,9 @@ void Camera::Update()
 
 void Camera::PostRender()
 {
-
+	ImGui::Text("MOUSE_POS : {%d, %d}", (int)MOUSE_POS.x, (int)MOUSE_POS.y);
+	ImGui::Text("W_MOUSE_POS : {%d, %d}", (int)W_MOUSE_POS.x, (int)W_MOUSE_POS.y);
+	ImGui::Text("S_MOUSE_POS : {%d, %d}", (int)InputManager::GetInstance()->GetScreenMousePos().x, (int)InputManager::GetInstance()->GetScreenMousePos().y);
 }
 
 void Camera::ShakeStart(float magnitude, float duration, float reduceDamping)
@@ -63,7 +65,7 @@ void Camera::SetPosition(const Vector2& pos)
 const Vector2 Camera::GetWorldMousePos()
 {
 	XMMATRIX inverseM = DirectX::XMMatrixInverse(nullptr,_view->GetMartix());
-	Vector2 mousePos = MOUSE_POS;
+	Vector2 mousePos = MOUSE_POS - CENTER;
 
 	return mousePos.TransformCoord(inverseM);
 }

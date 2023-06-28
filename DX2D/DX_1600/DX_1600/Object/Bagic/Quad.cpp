@@ -1,15 +1,14 @@
 #include "framework.h"
 #include "Quad.h"
 
-Quad::Quad()
+Quad::Quad(Vector2 size)
 {
     _vs = ADD_VS(L"Shader/TextureVS.hlsl");
     _ps = ADD_PS(L"Shader/TexturePS.hlsl");
-    CreateNoneImgVertices(Vector2(500,10));
+
+    _halfSize = size * 0.5f;
     _vertexBuffer = make_shared<VertexBuffer>(_vertices.data(), sizeof(Vertex_Texture), _vertices.size(), 0);
     _indexBuffer = make_shared<IndexBuffer>(_indices.data(), _indices.size());
-
-    //랜더링 할 때 srv가 필요한데 없어서 실행 안되는 문제 해결 예정
 }
 
 Quad::Quad(wstring srvfile)
@@ -49,7 +48,8 @@ void Quad::Render()
 
     _vs.lock()->Set();
 
-    _srv.lock()->Set(0);
+    if(_srv.expired() == false)
+        _srv.lock()->Set(0);
     SAMPLER->Set(0);
 
     _ps.lock()->Set();
@@ -81,35 +81,6 @@ void Quad::CreateVertices()
     _vertices.push_back(temp);// 오른쪽 아래=> 시계방향// 방향도 중요하다.
 
     temp.pos = { XMFLOAT3(-_halfSize.x, -_halfSize.y, 0.0f) };
-    temp.uv = { 0.0f, 1.0f };
-    _vertices.push_back(temp); // 왼쪽 아래 => 시계방향// 방향도 중요하다.
-
-    _indices.push_back(0);
-    _indices.push_back(1);
-    _indices.push_back(2);
-
-    _indices.push_back(0);
-    _indices.push_back(2);
-    _indices.push_back(3);
-}
-
-void Quad::CreateNoneImgVertices(Vector2 halfSize)
-{
-    Vertex_Texture temp;
-    
-    temp.pos = { XMFLOAT3(-halfSize.x, halfSize.y, 0.0f) };
-    temp.uv = { 0.0f, 0.0f };
-    _vertices.push_back(temp);// 왼쪽 위
-
-    temp.pos = { XMFLOAT3(halfSize.x, halfSize.y, 0.0f) };
-    temp.uv = { 1.0f, 0.0f };
-    _vertices.push_back(temp); // 오른쪽 위
-
-    temp.pos = { XMFLOAT3(halfSize.x, -halfSize.y, 0.0f) };
-    temp.uv = { 1.0f, 1.0f };
-    _vertices.push_back(temp);// 오른쪽 아래=> 시계방향// 방향도 중요하다.
-
-    temp.pos = { XMFLOAT3(-halfSize.x, -halfSize.y, 0.0f) };
     temp.uv = { 0.0f, 1.0f };
     _vertices.push_back(temp); // 왼쪽 아래 => 시계방향// 방향도 중요하다.
 

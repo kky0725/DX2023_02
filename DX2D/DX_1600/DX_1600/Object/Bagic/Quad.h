@@ -2,7 +2,7 @@
 class Quad
 {
 public:
-	Quad();
+	Quad(Vector2 size);
 	Quad(wstring srvfile);
 	Quad(wstring srvfile, Vector2 size);
 	virtual ~Quad();
@@ -11,9 +11,9 @@ public:
 
 	void SetPS(shared_ptr<PixelShader> ps) { _ps = ps; }
 	void SetVS(shared_ptr<VertexShader> vs) { _vs = vs; }
+	void SetSRV(shared_ptr<SRV> srv) { _srv = srv; }
 
 	void CreateVertices();
-	void CreateNoneImgVertices(Vector2 halfSize);
 
 	const Vector2& const GetQuadHalfSize() { return _halfSize; }
 	const Vector2& const GetImageSize() { return _srv.lock()->GetImageSize(); }

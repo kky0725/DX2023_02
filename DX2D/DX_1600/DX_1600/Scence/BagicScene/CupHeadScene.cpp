@@ -23,8 +23,17 @@ CupHeadScene::CupHeadScene()
 	CAMERA->SetRightTop(Vector2(_tracks[0]->GetTrackSize().x * 6, 1000.0f));
 
 	_button = make_shared<Button>(L"Resource/UI/Button.png", Vector2(97, 48));
-	//_button->SetPosition(CENTER);
 	_button->SetEvent(std::bind(&CupHeadScene::Load, this));
+
+#pragma region RTV
+	_rtv = make_shared<RenderTarget>();
+	_rtvQuad = make_shared<Quad>(Vector2(WIN_WIDTH, WIN_HEIGHT));
+	shared_ptr<SRV> srv = make_shared<SRV>(_rtv->GetSRV());
+	_rtvQuad->SetSRV(srv);
+	_rtvQuad->SetPS(ADD_PS(L"Shader/FilterPs.hlsl"));
+	_rtvTransform = make_shared<Transform>();
+	_filter = make_shared<FilterBuffer>();
+#pragma endregion
 }
 
 CupHeadScene::~CupHeadScene()
@@ -61,10 +70,21 @@ void CupHeadScene::Update()
 			_player->SetGrounded();
 		}
 	}
+
+	_rtvTransform->Update();
+	_button->Update();
 }
 
 void CupHeadScene::Render()
 {
+	_rtvTransform->SetBuffer(0);
+	_filter->SetPsBuffer(0);
+	_rtvQuad->Render();
+}
+
+void CupHeadScene::PreRender()
+{
+	_rtv->Set();
 	for (auto track : _tracks)
 	{
 		track->Render();
@@ -72,8 +92,6 @@ void CupHeadScene::Render()
 
 	_boss->Render();
 	_player->Render();
-
-	_button->Update();
 }
 
 void CupHeadScene::PostRender()
@@ -100,6 +118,11 @@ void CupHeadScene::PostRender()
 	{
 		Load();
 	}
+
+	ImGui::SliderInt("Selected", &_filter->_data.selected, 0, 10);
+	ImGui::SliderInt("value1", &_filter->_data.value1, 1, 300);
+	ImGui::SliderInt("value2", &_filter->_data.value2, 1, 300);
+	ImGui::SliderInt("value3", &_filter->_data.value3, 1, 300);
 
 	_button->PostRender();
 }

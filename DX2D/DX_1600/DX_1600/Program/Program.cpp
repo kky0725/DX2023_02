@@ -48,6 +48,9 @@ void Program::Render()
 	CAMERA->SetCameraBuffer();
 	CAMERA->SetProjectionBuffer();
 
+	SCENE->PreRender();
+
+	Device::GetInstance()->SetMainRenderTarget();
 	ALPHA->SetState();
 
 	SCENE->Render();

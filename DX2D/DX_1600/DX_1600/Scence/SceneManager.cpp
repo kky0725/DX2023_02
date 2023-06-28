@@ -9,9 +9,9 @@
 SceneManager* SceneManager::_instance = nullptr;
 SceneManager::SceneManager()
 {
-	_scenes.push_back(make_shared<MapToolScene>());
-	_scenes.push_back(make_shared<TutorialScene>());
-	_scenes.push_back(make_shared<SolarSystem>());
+	//_scenes.push_back(make_shared<MapToolScene>());
+	//_scenes.push_back(make_shared<TutorialScene>());
+	//_scenes.push_back(make_shared<SolarSystem>());
 	_scenes.push_back(make_shared<CupHeadScene>());
 }
 
@@ -27,6 +27,11 @@ void SceneManager::Update()
 void SceneManager::Render()
 {
 	_scenes[_curScene]->Render();
+}
+
+void SceneManager::PreRender()
+{
+	_scenes[_curScene]->PreRender();
 }
 
 void SceneManager::PostRender()

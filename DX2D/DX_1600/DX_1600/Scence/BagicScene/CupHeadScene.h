@@ -13,6 +13,7 @@ public:
 	virtual void End() override;
 	virtual void Update() override;
 	virtual void Render() override;
+	virtual void PreRender() override;
 	virtual void PostRender() override;
 
 	void CheckAttack();
@@ -25,5 +26,10 @@ private:
 	shared_ptr<Cup_Boss> _boss;
 	vector<shared_ptr<Cup_Track>> _tracks;
 	shared_ptr<Button> _button;
+
+	shared_ptr<Quad> _rtvQuad;
+	shared_ptr<Transform> _rtvTransform;
+	shared_ptr<RenderTarget> _rtv;
+	shared_ptr<FilterBuffer> _filter;
 };
 
