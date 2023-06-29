@@ -51,5 +51,7 @@ void RenderTarget::CreateSRV()
 	desc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
 	desc.Texture2D.MipLevels = 1;
 
-	DEVICE->CreateShaderResourceView(_rtvTexture.Get(), &desc, _srv.GetAddressOf());
+	DEVICE->CreateShaderResourceView(_rtvTexture.Get(), &desc, _shaderResourceView.GetAddressOf());
+
+	_rtvSRV = make_shared<SRV>(_shaderResourceView);
 }

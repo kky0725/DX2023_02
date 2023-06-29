@@ -7,6 +7,8 @@ Quad::Quad(Vector2 size)
     _ps = ADD_PS(L"Shader/TexturePS.hlsl");
 
     _halfSize = size * 0.5f;
+
+    CreateVertices();
     _vertexBuffer = make_shared<VertexBuffer>(_vertices.data(), sizeof(Vertex_Texture), _vertices.size(), 0);
     _indexBuffer = make_shared<IndexBuffer>(_indices.data(), _indices.size());
 }
